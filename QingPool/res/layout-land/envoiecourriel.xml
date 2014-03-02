@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/background">
+    
+    <ImageView
+		        android:id="@+id/imageView1"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/titre"
+		        android:contentDescription="@string/app_name" 
+		        android:layout_marginBottom="7dp"
+		        android:layout_marginTop="10dp"/>
+    
+    <Button
+	        android:id="@+id/btnEnvoieCou"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/btnEnvoieCou"
+	        android:textSize="20sp"/>
+    
+    <Button
+            android:id="@+id/retourPagePrincipale"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btnPageAccueil"
+            android:layout_marginBottom="30dip"
+            android:textSize="20sp" /> 
+
+</LinearLayout>
