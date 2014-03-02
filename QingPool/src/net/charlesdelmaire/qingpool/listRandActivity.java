@@ -13,10 +13,12 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-public class listRandActivity extends ListActivity {
+public class listRandActivity extends ListActivity implements OnClickListener {
 	private final String TAG = this.getClass().getSimpleName();
 
 	// Version hébergée :
@@ -30,6 +32,9 @@ public class listRandActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listrand);
+
+		View btnClick = findViewById(R.id.btnRege);
+		btnClick.setOnClickListener(this);
 	}
 
 	@Override
@@ -96,6 +101,14 @@ public class listRandActivity extends ListActivity {
 						getString(R.string.comm_error), Toast.LENGTH_SHORT)
 						.show();
 			}
+		}
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		if (arg0.getId() == R.id.btnRege) {
+			new DownloadPersonListTask().execute((Void) null);
 		}
 	}
 
