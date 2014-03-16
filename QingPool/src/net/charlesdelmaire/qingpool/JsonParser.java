@@ -35,4 +35,26 @@ public class JsonParser {
 		return liste;
 	}
 
+	public static ArrayList<String> unePersonne(String p_body)
+			throws JSONException {
+		ArrayList<String> liste = null;
+		JSONObject jObj = new JSONObject(p_body);
+
+		if (jObj.getString(MSG_RESULT).equals(MSG_SUCCESS)) {
+			liste = new ArrayList<String>();
+			JSONArray tab = jObj.getJSONArray("lesJoueurs");
+			for (int i = 0; i < tab.length(); i++) {
+				JSONObject objPers = tab.getJSONObject(i);
+				liste.add(objPers.getString("nom") + "/"
+						+ objPers.getString("team") + "/"
+						+ objPers.getString("p"));
+			}
+		} else {
+			Log.w("parseListePersonne", "No success from web service : "
+					+ p_body);
+		}
+
+		return liste;
+	}
+
 }
