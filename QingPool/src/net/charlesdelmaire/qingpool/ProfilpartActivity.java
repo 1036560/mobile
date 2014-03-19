@@ -28,28 +28,32 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 public class ProfilpartActivity extends Activity implements OnClickListener {
 
-	private Button button1;
 	private ProgressDialog m_ProgressDialog;
 	List<Map<String, String>> partList = new ArrayList<Map<String, String>>();
 	SimpleAdapter simpleAdpt;
 	String lesJoueurs;
 	TextView textView;
+	TextView textView1;
+	TextView textViewEmpty;
 
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profilpart);
 		ListView lv = (ListView) findViewById(R.id.list);
-		button1 = (Button) findViewById(R.id.btnInviter);
-		button1.setOnClickListener(this);
+
 		textView = (TextView) findViewById(R.id.scorePart);
+		textView1 = (TextView) findViewById(R.id.nomPart);
+		textViewEmpty = (TextView) findViewById(R.id.empty);
+
+		Bundle b = getIntent().getExtras();
+		textView1.setText(textView1.getText() + " " + b.getString("nom"));
 		simpleAdpt = new SimpleAdapter(this, partList,
 				android.R.layout.simple_list_item_1,
 				new String[] { "nomJoueur" }, new int[] { android.R.id.text1 });
@@ -69,13 +73,6 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg0) {
-
-		if (arg0.getId() == R.id.btnInviter) {
-			// define a new Intent for the second Activity
-			Intent intent = new Intent(this, EnvoieCourrielActivity.class);
-			// start the second Activity
-			this.startActivity(intent);
-		}
 
 	}
 
@@ -194,6 +191,8 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 			}
 			textView.setText(textView.getText() + " " + Integer.toString(score));
 			simpleAdpt.notifyDataSetChanged();
+			textViewEmpty.setText("");
+
 		}
 
 		private HashMap<String, String> createJoueur(String key, String name) {

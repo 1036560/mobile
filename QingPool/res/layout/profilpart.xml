@@ -45,33 +45,23 @@
             android:layout_marginBottom="7dp"
 		    android:layout_marginTop="10dp"
 		    android:textSize="20sp" />
-   
- 
-   
-   <Button
-	        android:id="@+id/btnInviter"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/btnEnvoieCou"
-	        android:textColor="@color/black" 
-            android:textSize="20sp"/>
-
 	</LinearLayout>
 
 	<LinearLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
+	    android:background="#33000000"
 	    android:layout_below="@+id/infoJoueur"
 	    android:orientation="vertical" >
 
 	    <ListView
         android:id="@+id/list"
+        
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
 	    <TextView
-	        android:id="@android:id/empty"
+	        android:id="@+id/empty"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:text="@string/lbl_liste_vide" />

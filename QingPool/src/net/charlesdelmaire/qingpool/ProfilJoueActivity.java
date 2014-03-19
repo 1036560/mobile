@@ -19,12 +19,11 @@ public class ProfilJoueActivity extends Activity implements OnClickListener {
 		TextView textView = (TextView) findViewById(R.id.nomJoueur);
 		TextView textView1 = (TextView) findViewById(R.id.score);
 		TextView textView2 = (TextView) findViewById(R.id.equipe);
-
 		Bundle b = getIntent().getExtras();
 		textView.setText(textView.getText() + " " + b.getString("nom"));
-		textView1.setText(textView1.getText() + " " + b.getString("point"));
-		textView2.setText(textView2.getText() + " " + b.getString("equipe")
+		textView1.setText(textView1.getText() + " " + b.getString("point")
 				+ " Pts");
+		textView2.setText(textView2.getText() + " " + b.getString("equipe"));
 	}
 
 	@Override

@@ -19,6 +19,7 @@ import android.widget.SimpleAdapter;
 public class listPoolActivity extends Activity {
 	List<Map<String, String>> poolList = new ArrayList<Map<String, String>>();
 	SimpleAdapter simpleAdpt;
+	ListView lv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class listPoolActivity extends Activity {
 
 		initList();
 
-		ListView lv = (ListView) findViewById(R.id.listPool);
+		lv = (ListView) findViewById(R.id.listPool);
 
 		simpleAdpt = new SimpleAdapter(this, poolList,
 				android.R.layout.simple_list_item_1,
@@ -64,14 +65,22 @@ public class listPoolActivity extends Activity {
 		menu.setHeaderTitle("Les Options pour le pool: " + map.get("nomPool"));
 		menu.add(1, 1, 1, "Liste de participant");
 		menu.add(1, 2, 2, "Quitter un pool");
+
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
-		Intent intent = new Intent(this, listPartiActivity.class);
-		// start the second Activity
 
-		this.startActivity(intent);
+		int itemId = item.getItemId();
+		// return true;
+
+		if (itemId == 1) {
+			Intent intent = new Intent(this, listPartiActivity.class);
+			// start the second Activity
+
+			this.startActivity(intent);
+		} else if (itemId == 2) {
+
+		}
 		return true;
 	}
-
 }

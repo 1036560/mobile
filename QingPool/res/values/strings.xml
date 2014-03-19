@@ -55,7 +55,7 @@
     <string name="img_choix_description">Choix</string>
     <string name="title_activity_profil_joue_activity1"></string>
     <string name="lbl_liste_vide">Aucune personne à afficher</string>
-    <string name="pd_title">Récupération des personnes</string>
+    <string name="pd_title">Récupération des joueurs</string>
     <string name="pd_content">Veuillez patientez pendant que l\'on récupère la liste des personnes.</string>
     <string name="comm_error">Erreur de communication</string>
 </resources>
