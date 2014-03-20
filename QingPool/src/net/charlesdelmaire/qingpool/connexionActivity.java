@@ -20,7 +20,6 @@ public class connexionActivity extends Activity implements OnClickListener,
 		PlusClient.OnAccessRevokedListener {
 
 	private static final int DIALOG_GET_GOOGLE_PLAY_SERVICES = 1;
-
 	private static final int REQUEST_CODE_SIGN_IN = 1;
 	private static final int REQUEST_CODE_GET_GOOGLE_PLAY_SERVICES = 2;
 

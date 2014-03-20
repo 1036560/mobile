@@ -14,14 +14,14 @@ public class principaleActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pageprincipale);
 
-		View btnClick = findViewById(R.id.btnStartPool);
-		btnClick.setOnClickListener(this);
+		View btnStartPool = findViewById(R.id.btnStartPool);
+		btnStartPool.setOnClickListener(this);
 
-		View btnClick1 = findViewById(R.id.btnConnPool);
-		btnClick1.setOnClickListener(this);
+		View btnConnPool = findViewById(R.id.btnConnPool);
+		btnConnPool.setOnClickListener(this);
 
-		View btnClick2 = findViewById(R.id.btnViewPool);
-		btnClick2.setOnClickListener(this);
+		View btnViewPool = findViewById(R.id.btnViewPool);
+		btnViewPool.setOnClickListener(this);
 	}
 
 	@Override
@@ -34,24 +34,19 @@ public class principaleActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 
+		// Action bouton connexion à un pool
 		if (v.getId() == R.id.btnConnPool) {
-			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, connPoolActivity.class);
-			// start the second Activity
 			this.startActivity(intent);
 		}
-		// TODO Auto-generated method stub
+		// Action bouton demarrer un pool
 		if (v.getId() == R.id.btnStartPool) {
-			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, nouveauPoolActivity.class);
-			// start the second Activity
 			this.startActivity(intent);
 		}
-
+		// Action bouton voir les pool d'un participant
 		if (v.getId() == R.id.btnViewPool) {
-			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, listPoolActivity.class);
-			// start the second Activity
 			this.startActivity(intent);
 		}
 

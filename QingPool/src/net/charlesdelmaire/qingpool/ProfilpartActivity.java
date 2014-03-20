@@ -26,40 +26,40 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-public class ProfilpartActivity extends Activity implements OnClickListener {
+public class ProfilpartActivity extends Activity {
 
 	private ProgressDialog m_ProgressDialog;
 	List<Map<String, String>> partList = new ArrayList<Map<String, String>>();
 	SimpleAdapter simpleAdpt;
 	String lesJoueurs;
-	TextView textView;
-	TextView textView1;
-	TextView textViewEmpty;
+	TextView txtScorePart;
+	TextView txtNomPart;
+	TextView txtEmpty;
+	ListView listJoueur;
 
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profilpart);
-		ListView lv = (ListView) findViewById(R.id.list);
+		listJoueur = (ListView) findViewById(R.id.list);
 
-		textView = (TextView) findViewById(R.id.scorePart);
-		textView1 = (TextView) findViewById(R.id.nomPart);
-		textViewEmpty = (TextView) findViewById(R.id.empty);
+		txtScorePart = (TextView) findViewById(R.id.scorePart);
+		txtNomPart = (TextView) findViewById(R.id.nomPart);
+		txtEmpty = (TextView) findViewById(R.id.empty);
 
 		Bundle b = getIntent().getExtras();
-		textView1.setText(textView1.getText() + " " + b.getString("nom"));
+		txtNomPart.setText(txtNomPart.getText() + " " + b.getString("nom"));
 		simpleAdpt = new SimpleAdapter(this, partList,
 				android.R.layout.simple_list_item_1,
 				new String[] { "nomJoueur" }, new int[] { android.R.id.text1 });
-		lv.setAdapter(simpleAdpt);
+		listJoueur.setAdapter(simpleAdpt);
 
-		registerForContextMenu(lv);
+		registerForContextMenu(listJoueur);
 		// call AsynTask to perform network operation on separate thread
 		new HttpAsyncTask()
 				.execute("http://charlesdelmaire1992.appspot.com/joueur?nom=");
@@ -71,11 +71,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 		super.onStart();
 	}
 
-	@Override
-	public void onClick(View arg0) {
-
-	}
-
+	// Fonction appelé Async
 	public static String GET(String url) {
 		InputStream inputStream = null;
 		String result = "";
@@ -84,9 +80,11 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 			List<String> listJoueur = new ArrayList<String>();
 			ArrayList<String> liste = null;
 
+			// Liste des joueurs à aller chercher sur le web service
 			listJoueur.add("Sidney%20Crosby");
 			listJoueur.add("Claude%20Giroux");
 
+			// Passe les joueurs de la liste
 			for (Iterator<String> i = listJoueur.iterator(); i.hasNext();) {
 				String item = i.next();
 
@@ -133,6 +131,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 
 	}
 
+	// Verifie la connexion internet
 	public boolean isConnected() {
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -168,6 +167,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 		this.startActivity(intent);
 	}
 
+	// Gestion de appel au web service
 	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String... urls) {
@@ -175,7 +175,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 			return GET(urls[0]);
 		}
 
-		// onPostExecute displays the results of the AsyncTask.
+		// Gestion du resultat de appel au web service
 		@Override
 		protected void onPostExecute(String result) {
 			if (m_ProgressDialog != null) {
@@ -189,9 +189,10 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 				score += Integer.parseInt(str1[2]);
 				partList.add(createJoueur("nomJoueur", str1[0]));
 			}
-			textView.setText(textView.getText() + " " + Integer.toString(score));
+			txtScorePart.setText(txtScorePart.getText() + " "
+					+ Integer.toString(score));
 			simpleAdpt.notifyDataSetChanged();
-			textViewEmpty.setText("");
+			txtEmpty.setText("");
 
 		}
 
@@ -203,6 +204,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 
 		@Override
 		protected void onPreExecute() {
+			// Gestion du spinner
 			if (m_ProgressDialog == null) {
 				m_ProgressDialog = new ProgressDialog(ProfilpartActivity.this);
 				m_ProgressDialog.setTitle(R.string.pd_title);

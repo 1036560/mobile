@@ -14,8 +14,8 @@ public class accueilActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.accueil);
 
-		View btnClick = findViewById(R.id.btnConnexion);
-		btnClick.setOnClickListener(this);
+		View btnConnexion = findViewById(R.id.btnConnexion);
+		btnConnexion.setOnClickListener(this);
 	}
 
 	@Override
@@ -27,11 +27,10 @@ public class accueilActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg0) {
-		if (arg0.getId() == R.id.btnConnexion) {
-			// define a new Intent for the second Activity
-			Intent intent = new Intent(this, connexionActivity.class);
-			// start the second Activity
 
+		// Action bouton connexion
+		if (arg0.getId() == R.id.btnConnexion) {
+			Intent intent = new Intent(this, connexionActivity.class);
 			this.startActivity(intent);
 		}
 

@@ -15,43 +15,45 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 public class listPartiActivity extends Activity implements OnClickListener {
 	List<Map<String, String>> partList = new ArrayList<Map<String, String>>();
 	SimpleAdapter simpleAdpt;
-	private Button button1;
-	TextView textView;
+	private Button btnInviter;
+	ListView listParticipant;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listparti);
-		button1 = (Button) findViewById(R.id.btnInviter);
-		button1.setOnClickListener(this);
+		btnInviter = (Button) findViewById(R.id.btnInviter);
+		btnInviter.setOnClickListener(this);
 		initList();
-		textView = (TextView) findViewById(R.id.nomPart);
-		ListView lv = (ListView) findViewById(R.id.listParticipant);
+		listParticipant = (ListView) findViewById(R.id.listParticipant);
 
 		simpleAdpt = new SimpleAdapter(this, partList,
 				android.R.layout.simple_list_item_1,
 				new String[] { "nomPart" }, new int[] { android.R.id.text1 });
-		lv.setAdapter(simpleAdpt);
+		listParticipant.setAdapter(simpleAdpt);
 
-		lv.setOnItemClickListener(new OnItemClickListener() {
+		listParticipant.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+
+				// Permet de changer d'activity
 				Intent intent = new Intent(listPartiActivity.this,
 						ProfilpartActivity.class);
-				String message = partList.get((int) id).get("nomPart");
-				intent.putExtra("nom", message);
+
+				// Permet de passer un paramètre
+				intent.putExtra("nom", partList.get((int) id).get("nomPart"));
 				startActivity(intent);
 			}
 		});
 
 	}
 
+	// Ajouter les participants dans la liste
 	private void initList() {
 		partList.add(createPart("nomPart", "Charles Delmaire"));
 		partList.add(createPart("nomPart", "Charles Drolet"));
@@ -62,6 +64,7 @@ public class listPartiActivity extends Activity implements OnClickListener {
 		partList.add(createPart("nomPart", "Tommy Tremblay"));
 	}
 
+	// Gestion de la liste
 	private HashMap<String, String> createPart(String key, String name) {
 		HashMap<String, String> Pool = new HashMap<String, String>();
 		Pool.put(key, name);
@@ -70,10 +73,10 @@ public class listPartiActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg0) {
+
+		// Action Bouton inviter
 		if (arg0.getId() == R.id.btnInviter) {
-			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, EnvoieCourrielActivity.class);
-			// start the second Activity
 			this.startActivity(intent);
 		}
 

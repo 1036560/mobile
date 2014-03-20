@@ -21,7 +21,6 @@ import android.widget.Toast;
 public class listRandActivity extends ListActivity implements OnClickListener {
 	private final String TAG = this.getClass().getSimpleName();
 
-	// Version hébergée :
 	private final static String WEB_SERVICE_URL = "charlesdelmaire1992.appspot.com";
 
 	private HttpClient m_ClientHttp = new DefaultHttpClient();
@@ -40,7 +39,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		// Chargement asynchrone de la liste des personnes.
+		// Chargement asynchrone de la liste des joueurs random.
 		new DownloadPersonListTask().execute((Void) null);
 	}
 
