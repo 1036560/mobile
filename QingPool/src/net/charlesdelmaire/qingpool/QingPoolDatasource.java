@@ -146,10 +146,35 @@ public class QingPoolDatasource {
       return joueurs;
   }
   
-  public void deleteJoueur(Pool pool) {
-	  long id = pool.getIdPool();
-      System.out.print("Pool supprimé avec l'identifiant : " + id);
-      db.delete(UtilitaireBD.TABLE_POOL, UtilitaireBD.KEY_ID_POOL + " = " + id, null);
+  public List<JoueurPool> getTousJoueursPool(long id_pool) {
+	  List<JoueurPool> joueurs = new ArrayList<JoueurPool>();       
+      Cursor cursor = db.query(UtilitaireBD.TABLE_LISTE, colListeJoueur, UtilitaireBD.KEY_ID_POOL + " " + id_pool, null, null, null, null);
+      cursor.moveToFirst();
+      while(!cursor.isAfterLast()) {
+   	   JoueurPool unJoueur = cursorToJoueur(cursor);
+   	   joueurs.add(unJoueur);
+   	   cursor.moveToNext();
+      }
+      cursor.close();
+      return joueurs;
+  }
+  
+  public List<JoueurPool> getTousJoueursPart(long id_part) {
+	  List<JoueurPool> joueurs = new ArrayList<JoueurPool>();       
+      Cursor cursor = db.query(UtilitaireBD.TABLE_LISTE, colListeJoueur, UtilitaireBD.KEY_ID_POOL + " " + id_part, null, null, null, null);
+      cursor.moveToFirst();
+      while(!cursor.isAfterLast()) {
+   	   JoueurPool unJoueur = cursorToJoueur(cursor);
+   	   joueurs.add(unJoueur);
+   	   cursor.moveToNext();
+      }
+      cursor.close();
+      return joueurs;
+  }
+  
+  public void deleteJoueur(JoueurPool nomJoueur) {	  
+      System.out.print("Pool supprimé avec l'identifiant : " + nomJoueur);
+      db.delete(UtilitaireBD.TABLE_LISTE, UtilitaireBD.KEY_NOM_JOUEUR + " = " + nomJoueur, null);
   }
   
   private JoueurPool cursorToJoueur(Cursor cursor) {

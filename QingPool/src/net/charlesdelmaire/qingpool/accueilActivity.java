@@ -12,39 +12,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 
-public class accueilActivity extends Activity implements OnClickListener {
-
-	private UtilitaireBD bd;
-	
+public class accueilActivity extends Activity implements OnClickListener {	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.accueil);
 		
-		bd = new UtilitaireBD(this);
-		
-		
-		
-		Participant part1 = new Participant(1, "Chuck Testa");
-		Participant part2 = new Participant(2, "Marie Quatre-Poches");
-		Participant part3 = new Participant(3, "Joe Blo");
-		
-		
-		
-		/*Log.d("Part count", "Part count : " + bd.getPartCompte());
-		
-		Pool pool1 = new Pool(1, "Pool1Nom", part1.getIdPart());
-		Pool pool2 = new Pool(2, "Pool2Nom", part2.getIdPart());
-		Pool pool3 = new Pool(3, "Pool3Nom", part3.getIdPart());
-		
-		long pool1_id = bd.createPool(pool1);
-		long pool2_id = bd.createPool(pool2);
-		long pool3_id = bd.createPool(pool3);
-		
-		Log.e("Pool count", "Pool count: " + bd.getTousPool().size());*/
-		
-		bd.close();
-
 		View btnClick = findViewById(R.id.btnConnexion);
 		btnClick.setOnClickListener(this);
 	}
