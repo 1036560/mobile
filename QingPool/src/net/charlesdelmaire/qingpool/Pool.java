@@ -1,20 +1,20 @@
 package net.charlesdelmaire.qingpool;
 
 public class Pool{
-	long idPool;
+	int idPool;
 	String nomPool;
-	long idPart;
+	int idPart;
 	
 	
 	public Pool(){}
 	
-	public Pool(long idPool, String nomPool, long idPart){
+	public Pool(int idPool, String nomPool, int idPart){
 		this.idPool = idPool;
 		this.nomPool = nomPool;
 		this.idPart = idPart;		
 	}
 	
-	public void setIdPool(long idPool) {
+	public void setIdPool(int idPool) {
 		this.idPool = idPool;
 	}
 	
@@ -22,11 +22,11 @@ public class Pool{
 		this.nomPool = nomPool;
 	}
 	
-	public void setIdPart(long idPart){
+	public void setIdPart(int idPart){
 		this.idPart = idPart;
 	}
 	
-	public long getIdPool(){
+	public int getIdPool(){
 		return this.idPool;
 	}
 	
@@ -34,7 +34,7 @@ public class Pool{
 		return this.nomPool;
 	}
 	
-	public long getIdPart(){
+	public int getIdPart(){
 		return this.idPart;
 	}
 }

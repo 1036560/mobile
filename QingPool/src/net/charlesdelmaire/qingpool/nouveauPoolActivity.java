@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.database.sqlite.*;
 
 public class nouveauPoolActivity extends Activity implements OnClickListener {
 	private QingPoolDatasource bd;
@@ -35,7 +34,7 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 	public void onClick(View arg0) {
 		if (arg0.getId() == R.id.btnCreerPool) {
 			Pool unPool = new Pool();
-			long pool_id = bd.getPoolCompte() + 1;
+			int pool_id = bd.getPoolCompte() + 1;
 			CharSequence nomPool = getText(R.id.editText1);
 			unPool.idPool = pool_id;			
 			unPool.nomPool = nomPool.toString();

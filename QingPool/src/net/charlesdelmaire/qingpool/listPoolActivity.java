@@ -13,11 +13,14 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 public class listPoolActivity extends Activity {
 	private QingPoolDatasource bd;
+	private List<Pool> lstPool;
+	private ArrayAdapter<Pool> adpt;
 	List<Map<String, String>> poolList = new ArrayList<Map<String, String>>();
 	SimpleAdapter simpleAdpt;
 	ListView lv;
@@ -26,8 +29,10 @@ public class listPoolActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listpool);
-		bd = new QingPoolDatasource(this);
-		bd.open();
+		this.bd = new QingPoolDatasource(this);
+		this.bd.open();
+		
+		
 		initList();
 
 		lv = (ListView) findViewById(R.id.listPool);
@@ -42,10 +47,14 @@ public class listPoolActivity extends Activity {
 	}
 
 	private void initList() {
-		List<Pool> lstPool = bd.getTousPool();
 		
-		for(int i = 0; i < lstPool.size(); i++)		
-		poolList.add(createPool("nomPool", lstPool[i].getNomPool()));
+		
+		if(lstPool.size() > 0)
+		{
+			for(int i = 1; i <= lstPool.size(); i++)	{	
+				poolList.add(createPool("nomPool", lstPool.get(i).getNomPool()));
+			}
+		}
 		
 		
 		/*poolList.add(createPool("nomPool", "Le Pool d'école"));
@@ -89,6 +98,20 @@ public class listPoolActivity extends Activity {
 
 		}
 		return true;
+	}
+	
+	
+	
+	@Override
+	public void onStart(){
+		bd.open();
+		super.onStart();
+	}
+	
+	@Override
+	public void onStop(){
+		bd.close();
+		super.onStop();
 	}
 }
 

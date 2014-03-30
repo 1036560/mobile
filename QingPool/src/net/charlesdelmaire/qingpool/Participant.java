@@ -1,19 +1,19 @@
 package net.charlesdelmaire.qingpool;
 
 public class Participant{
-	private long idPart;
+	private int idPart;
 	private String nomPart;
 	
 	
 	public Participant(){}
 	
-	public Participant(long idPart, String nomPart){
+	public Participant(int idPart, String nomPart){
 		this.idPart = idPart;
 		this.nomPart = nomPart;
 		
 	}
 	
-	public void setId(long idPart) {
+	public void setId(int idPart) {
 		this.idPart = idPart;
 	}
 	
@@ -21,7 +21,7 @@ public class Participant{
 		this.nomPart = nomPart;
 	}
 	
-	public long getIdPart(){
+	public int getIdPart(){
 		return this.idPart;
 	}
 	

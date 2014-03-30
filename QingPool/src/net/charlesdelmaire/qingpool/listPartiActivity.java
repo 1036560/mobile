@@ -78,6 +78,8 @@ public class listPartiActivity extends Activity implements OnClickListener {
 		}
 
 	}
+	
+	
 
 }
 
