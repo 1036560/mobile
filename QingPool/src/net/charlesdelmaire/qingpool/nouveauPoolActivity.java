@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.database.sqlite.*;
 
 public class nouveauPoolActivity extends Activity implements OnClickListener {
 	private QingPoolDatasource bd;
@@ -14,11 +15,14 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nouveaupool);
+		
+		bd = new QingPoolDatasource(this);
+		bd.open();
+		
 		View btnClick = findViewById(R.id.btnCreerPool);
 		btnClick.setOnClickListener(this);
 
-		bd = new QingPoolDatasource(this);
-		bd.open();
+		
 	}
 
 	@Override
@@ -28,18 +32,19 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 		return true;
 	}
 
-	@Override
 	public void onClick(View arg0) {
 		if (arg0.getId() == R.id.btnCreerPool) {
-			Pool unPool = null;
+			Pool unPool = new Pool();
+			long pool_id = bd.getPoolCompte() + 1;
 			CharSequence nomPool = getText(R.id.editText1);
+			unPool.idPool = pool_id;			
 			unPool.nomPool = nomPool.toString();
 			bd.createPool(unPool);
 			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, EnvoieCourrielActivity.class);
-			// start the second Activity
-			
+			// start the second Activity			
 			this.startActivity(intent);
+			bd.close();
 		}
 
 	}

@@ -23,7 +23,7 @@ public class QingPoolDatasource {
 	}
 	
 	public void open() throws SQLException{
-		db = utildb.getWritableDatabase();
+		db = this.utildb.getWritableDatabase();
 	}
 	
 	public void close(){
@@ -82,8 +82,8 @@ public class QingPoolDatasource {
 
   public Pool createPool(Pool pool) {
 	  ContentValues values = new ContentValues();
-      values.put(UtilitaireBD.KEY_ID_PART, pool.getIdPart());
-      values.put(UtilitaireBD.KEY_NOM_PART, pool.getNomPool());
+      values.put(UtilitaireBD.KEY_ID_POOL, pool.getIdPool());
+      values.put(UtilitaireBD.KEY_NOM_POOL, pool.getNomPool());
       long insertID = db.insert(UtilitaireBD.TABLE_POOL, null, values);       
       Cursor cursor = db.query(UtilitaireBD.TABLE_POOL, colPool, UtilitaireBD.KEY_ID_POOL + " = " + insertID, null, null, null, null);
       cursor.moveToFirst();

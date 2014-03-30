@@ -1,25 +1,16 @@
 package net.charlesdelmaire.qingpool;
 
 import net.charlesdelmaire.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-
 
 public class UtilitaireBD extends SQLiteOpenHelper {    
     // Version
     private static final int DATABASE_VERSION = 1;
  
     // Nom
-    private static final String DATABASE_NAME = "qingPool.db";
+    private static final String DATABASE_NAME = "qingPool";
  
     // Tables
     public static final String TABLE_PART = "participant";
@@ -42,22 +33,40 @@ public class UtilitaireBD extends SQLiteOpenHelper {
     // Création des tables
     // PARTICIPANT
     private static final String CREATE_TABLE_PART = "CREATE TABLE "
-            + TABLE_PART + "(" + KEY_ID_PART + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NOM_PART
-            + " TEXT NOT NULL" + ");";
+            + TABLE_PART 
+            + "(" 
+            + KEY_ID_PART 
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+    		+ KEY_NOM_PART
+            + " TEXT NOT NULL" 
+    		+ ")";
  
-    // POOL
-    private static final String CREATE_TABLE_POOL = "CREATE TABLE " + TABLE_POOL
-            + "(" + KEY_ID_POOL + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NOM_POOL + " TEXT," 
-    		+ KEY_ID_PART + " INTEGER FOREIGN KEY" + ");";
+ // POOL
+ 	private static final String CREATE_TABLE_POOL = "CREATE TABLE "
+ 			+ TABLE_POOL 
+ 			+ "(" 
+ 			+ KEY_ID_POOL
+ 			+ " INTEGER PRIMARY KEY AUTOINCREMENT, " 
+ 			+ KEY_NOM_POOL 
+ 			+ " TEXT, "
+ 			+ KEY_ID_PART 
+ 			+ " INTEGER" 
+ 			+ ")";
  
     // LISTEJOUEURPOOL
     private static final String CREATE_TABLE_LISTE = "CREATE TABLE "
-            + TABLE_LISTE + "(" + KEY_NOM_JOUEUR + " TEXT PRIMARY KEY NOT NULL,"
-            + KEY_ID_POOL + " INTEGER," + KEY_ID_PART + " INTEGER,"
-            + ");";
+            + TABLE_LISTE 
+            + "(" 
+            + KEY_NOM_JOUEUR 
+            + " TEXT PRIMARY KEY NOT NULL, "
+            + KEY_ID_POOL 
+            + " INTEGER, " 
+            + KEY_ID_PART 
+            + " INTEGER"
+            + ")";
  
     public UtilitaireBD(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);  
+        super(context, DATABASE_NAME + ".sqlite", null, DATABASE_VERSION);  
     }
  
     @Override
