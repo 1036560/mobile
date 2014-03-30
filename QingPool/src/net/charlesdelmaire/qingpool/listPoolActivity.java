@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 public class listPoolActivity extends Activity {
+	private QingPoolDatasource bd;
 	List<Map<String, String>> poolList = new ArrayList<Map<String, String>>();
 	SimpleAdapter simpleAdpt;
 	ListView lv;
@@ -25,7 +26,8 @@ public class listPoolActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listpool);
-
+		bd = new QingPoolDatasource(this);
+		bd.open();
 		initList();
 
 		lv = (ListView) findViewById(R.id.listPool);
@@ -40,13 +42,18 @@ public class listPoolActivity extends Activity {
 	}
 
 	private void initList() {
-		poolList.add(createPool("nomPool", "Pool - Famille"));
-		poolList.add(createPool("nomPool", "Le Pool d'école"));
+		List<Pool> lstPool = bd.getTousPool();
+		
+		for(int i = 0; i < lstPool.size(); i++)		
+		poolList.add(createPool("nomPool", lstPool[i].getNomPool()));
+		
+		
+		/*poolList.add(createPool("nomPool", "Le Pool d'école"));
 		poolList.add(createPool("nomPool", "Pool Cégep"));
 		poolList.add(createPool("nomPool", "Les meilleurs du pool"));
 		poolList.add(createPool("nomPool", "Pool 2014"));
 		poolList.add(createPool("nomPool", "Pool étudiant"));
-		poolList.add(createPool("nomPool", "Les Pools"));
+		poolList.add(createPool("nomPool", "Les Pools"));*/
 	}
 
 	private HashMap<String, String> createPool(String key, String name) {
