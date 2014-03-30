@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 public class nouveauPoolActivity extends Activity implements OnClickListener {
-
+	private QingPoolDatasource bd;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -16,6 +17,8 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 		View btnClick = findViewById(R.id.btnCreerPool);
 		btnClick.setOnClickListener(this);
 
+		bd = new QingPoolDatasource(this);
+		bd.open();
 	}
 
 	@Override
@@ -28,10 +31,14 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 		if (arg0.getId() == R.id.btnCreerPool) {
+			Pool unPool = null;
+			CharSequence nomPool = getText(R.id.editText1);
+			unPool.nomPool = nomPool.toString();
+			bd.createPool(unPool);
 			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, EnvoieCourrielActivity.class);
 			// start the second Activity
-
+			
 			this.startActivity(intent);
 		}
 

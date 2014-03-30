@@ -105,6 +105,14 @@ public class QingPoolDatasource {
       return pools;
   }
   
+  public long getPoolCompte() {
+      String uneReq = "SELECT  * FROM " + UtilitaireBD.TABLE_POOL;       
+      Cursor cursor = db.rawQuery(uneReq, null);
+      long count = cursor.getCount();
+      cursor.close();       
+      return count;
+  }
+  
   public void deletePool(Pool pool) {
 	  long id = pool.getIdPool();
       System.out.print("Pool supprimé avec l'identifiant : " + id);
