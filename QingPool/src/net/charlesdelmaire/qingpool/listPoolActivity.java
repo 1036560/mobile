@@ -31,8 +31,8 @@ public class listPoolActivity extends Activity {
 		setContentView(R.layout.listpool);
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
-		
-		
+		lstPool = bd.getTousPool();
+
 		initList();
 
 		lv = (ListView) findViewById(R.id.listPool);
@@ -47,22 +47,19 @@ public class listPoolActivity extends Activity {
 	}
 
 	private void initList() {
-		
-		
-		if(lstPool.size() > 0)
-		{
-			for(int i = 1; i <= lstPool.size(); i++)	{	
-				poolList.add(createPool("nomPool", lstPool.get(i).getNomPool()));
-			}
+
+		for (int i = 0; i < lstPool.size(); i++) {
+			poolList.add(createPool("nomPool", lstPool.get(i).getNomPool()));
 		}
-		
-		
-		/*poolList.add(createPool("nomPool", "Le Pool d'école"));
-		poolList.add(createPool("nomPool", "Pool Cégep"));
-		poolList.add(createPool("nomPool", "Les meilleurs du pool"));
-		poolList.add(createPool("nomPool", "Pool 2014"));
-		poolList.add(createPool("nomPool", "Pool étudiant"));
-		poolList.add(createPool("nomPool", "Les Pools"));*/
+
+		/*
+		 * poolList.add(createPool("nomPool", "Le Pool d'école"));
+		 * poolList.add(createPool("nomPool", "Pool Cégep"));
+		 * poolList.add(createPool("nomPool", "Les meilleurs du pool"));
+		 * poolList.add(createPool("nomPool", "Pool 2014"));
+		 * poolList.add(createPool("nomPool", "Pool étudiant"));
+		 * poolList.add(createPool("nomPool", "Les Pools"));
+		 */
 	}
 
 	private HashMap<String, String> createPool(String key, String name) {
@@ -99,19 +96,16 @@ public class listPoolActivity extends Activity {
 		}
 		return true;
 	}
-	
-	
-	
+
 	@Override
-	public void onStart(){
+	public void onStart() {
 		bd.open();
 		super.onStart();
 	}
-	
+
 	@Override
-	public void onStop(){
+	public void onStop() {
 		bd.close();
 		super.onStop();
 	}
 }
-
