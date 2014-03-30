@@ -15,8 +15,9 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nouveaupool);
 		
-		bd = new QingPoolDatasource(this);
-		bd.open();
+		this.bd = new QingPoolDatasource(this);
+		this.bd.open();
+		
 		
 		View btnClick = findViewById(R.id.btnCreerPool);
 		btnClick.setOnClickListener(this);
@@ -34,7 +35,7 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 	public void onClick(View arg0) {
 		if (arg0.getId() == R.id.btnCreerPool) {
 			Pool unPool = new Pool();
-			int pool_id = bd.getPoolCompte() + 1;
+			int pool_id = bd.getPoolCompte();
 			CharSequence nomPool = getText(R.id.editText1);
 			unPool.idPool = pool_id;			
 			unPool.nomPool = nomPool.toString();
@@ -43,7 +44,7 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent(this, EnvoieCourrielActivity.class);
 			// start the second Activity			
 			this.startActivity(intent);
-			bd.close();
+			
 		}
 
 	}

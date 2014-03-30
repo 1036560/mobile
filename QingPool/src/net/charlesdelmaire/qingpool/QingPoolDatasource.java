@@ -307,7 +307,7 @@ public class QingPoolDatasource {
 	    
 	    // Création des tables
 	    // PARTICIPANT
-	    private static final String CREATE_TABLE_PART = "CREATE TABLE "
+	    /*private static final String CREATE_TABLE_PART = "CREATE TABLE "
 	            + TABLE_PART 
 	            + "(" 
 	            + COL_ID_PART 
@@ -338,7 +338,7 @@ public class QingPoolDatasource {
 	            + " INTEGER, " 
 	            + COL_ID_PART_JOUEUR 
 	            + " INTEGER"
-	            + ")";
+	            + ")";*/
 	 
 	    public QingPoolDbHelper(Context context) {
 	        super(context, "qingPool.sqlite", null, DATABASE_VERSION);  
@@ -347,9 +347,36 @@ public class QingPoolDatasource {
 	    @Override
 	    public void onCreate(SQLiteDatabase db) {   	
 	        // creating required tables
-	        db.execSQL(CREATE_TABLE_PART);
-	        db.execSQL(CREATE_TABLE_POOL);
-	        db.execSQL(CREATE_TABLE_LISTE);        
+	        db.execSQL("create table " 
+	        		+ TABLE_POOL
+	        		+ "(" 
+	        		+ COL_ID_POOL 
+	        		+ " integer primary key autoincrement, "
+	        		+ COL_NOM_POOL 
+	        		+ " text, " 
+	        		+ COL_ID_PART_POOL 
+	        		+ " integer)"
+	        		);
+	        
+	        db.execSQL("create table " 
+	        		+ TABLE_PART
+	        		+ "(" 
+	        		+ COL_ID_PART 
+	        		+ " integer primary key autoincrement, "
+	        		+ COL_NOM_PART 
+	        		+ " text)"
+	        		);
+	        
+	        db.execSQL("create table " 
+	        		+ TABLE_LISTE
+	        		+ "(" 
+	        		+ COL_NOM_JOUEUR 
+	        		+ " text primary key, "
+	        		+ COL_ID_POOL_JOUEUR 
+	        		+ " integer, " 
+	        		+ COL_ID_PART_JOUEUR 
+	        		+ " integer)"
+	        		);        
 	    }
 	 
 	    @Override
