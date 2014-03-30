@@ -160,12 +160,13 @@ public class connexionActivity extends Activity implements OnClickListener,
 		mSignInStatus.setText(getString(R.string.signed_in_status,
 				currentPersonName));
 		updateButtons(true /* isSignedIn */);
-		
+		/*==========================================================*/
 		Participant unPart = new Participant();
 		int compte = bd.getPartCompte();
 		unPart.setId(compte + 1);
 		unPart.setNomPart(currentPersonName);
 		bd.createPart(unPart);
+		/*==========================================================*/
 	}
 
 	@Override
