@@ -1,3 +1,92 @@
+<<<<<<< HEAD
+package net.charlesdelmaire.qingpool;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+
+public class listPoolActivity extends Activity {
+
+	List<Map<String, String>> poolList = new ArrayList<Map<String, String>>();
+	SimpleAdapter simpleAdpt;
+	ListView listPool;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.listpool);
+
+		initList();
+
+		listPool = (ListView) findViewById(R.id.listPool);
+		simpleAdpt = new SimpleAdapter(this, poolList,
+				android.R.layout.simple_list_item_1,
+				new String[] { "nomPool" }, new int[] { android.R.id.text1 });
+		listPool.setAdapter(simpleAdpt);
+		registerForContextMenu(listPool);
+
+	}
+
+	// Ajouter la liste des pools d'un participant
+	private void initList() {
+		poolList.add(createPool("nomPool", "Pool - Famille"));
+		poolList.add(createPool("nomPool", "Le Pool d'école"));
+		poolList.add(createPool("nomPool", "Pool Cégep"));
+		poolList.add(createPool("nomPool", "Les meilleurs du pool"));
+		poolList.add(createPool("nomPool", "Pool 2014"));
+		poolList.add(createPool("nomPool", "Pool étudiant"));
+		poolList.add(createPool("nomPool", "Les Pools"));
+	}
+
+	// gestion de la liste de pool
+	private HashMap<String, String> createPool(String key, String name) {
+		HashMap<String, String> Pool = new HashMap<String, String>();
+		Pool.put(key, name);
+		return Pool;
+	}
+
+	// gestion du menu contextuel
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		AdapterContextMenuInfo aInfo = (AdapterContextMenuInfo) menuInfo;
+
+		// We know that each row in the adapter is a Map
+		HashMap map = (HashMap) simpleAdpt.getItem(aInfo.position);
+		menu.setHeaderTitle("Les Options pour le pool: " + map.get("nomPool"));
+		menu.add(1, 1, 1, "Liste de participant");
+		menu.add(1, 2, 2, "Quitter un pool");
+
+	}
+
+	// action des bouton dans le menu contextuel
+	public boolean onContextItemSelected(MenuItem item) {
+
+		int itemId = item.getItemId();
+		// return true;
+
+		if (itemId == 1) {
+			Intent intent = new Intent(this, listPartiActivity.class);
+			this.startActivity(intent);
+		} else if (itemId == 2) {
+
+		}
+		return true;
+	}
+}
+=======
 package net.charlesdelmaire.qingpool;
 
 import java.util.ArrayList;
@@ -84,3 +173,4 @@ public class listPoolActivity extends Activity {
 		return true;
 	}
 }
+>>>>>>> eef06ed0b41344d3a45a0cb953d52e792e4e6217
