@@ -18,6 +18,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 public class listPartiActivity extends Activity implements OnClickListener {
+	private QingPoolDatasource bd;
+	private List<Participant> lstPart;
 	List<Map<String, String>> partList = new ArrayList<Map<String, String>>();
 	SimpleAdapter simpleAdpt;
 	private Button button1;
@@ -29,6 +31,11 @@ public class listPartiActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.listparti);
 		button1 = (Button) findViewById(R.id.btnInviter);
 		button1.setOnClickListener(this);
+		
+		this.bd = new QingPoolDatasource(this);
+		this.bd.open();		
+		lstPart = bd.getTousPart();
+		
 		initList();
 		textView = (TextView) findViewById(R.id.nomPart);
 		ListView lv = (ListView) findViewById(R.id.listParticipant);
@@ -53,13 +60,18 @@ public class listPartiActivity extends Activity implements OnClickListener {
 	}
 
 	private void initList() {
+		
+		for (int i = 0; i < lstPart.size(); i++) {
+			partList.add(createPart("nomPart", lstPart.get(i).getNomPart()));
+		}
+		/*
 		partList.add(createPart("nomPart", "Charles Delmaire"));
 		partList.add(createPart("nomPart", "Charles Drolet"));
 		partList.add(createPart("nomPart", "Olivier Labonté"));
 		partList.add(createPart("nomPart", "Jonathan Anctil"));
 		partList.add(createPart("nomPart", "Michael Leclerc"));
 		partList.add(createPart("nomPart", "Marie Couture"));
-		partList.add(createPart("nomPart", "Tommy Tremblay"));
+		partList.add(createPart("nomPart", "Tommy Tremblay"));*/
 	}
 
 	private HashMap<String, String> createPart(String key, String name) {

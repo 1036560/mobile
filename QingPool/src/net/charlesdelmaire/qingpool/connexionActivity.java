@@ -19,6 +19,7 @@ public class connexionActivity extends Activity implements OnClickListener,
 		PlusClient.ConnectionCallbacks, PlusClient.OnConnectionFailedListener,
 		PlusClient.OnAccessRevokedListener {
 
+	private QingPoolDatasource bd;
 	private static final int DIALOG_GET_GOOGLE_PLAY_SERVICES = 1;
 
 	private static final int REQUEST_CODE_SIGN_IN = 1;
@@ -38,6 +39,8 @@ public class connexionActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.connexion);
 
+		this.bd = new QingPoolDatasource(this);
+		this.bd.open();
 		mPlusClient = new PlusClient.Builder(this, this, this).setActions(
 				MomentUtil.ACTIONS).build();
 
@@ -55,12 +58,14 @@ public class connexionActivity extends Activity implements OnClickListener,
 	@Override
 	public void onStart() {
 		super.onStart();
+		bd.open();
 		mPlusClient.connect();
 	}
 
 	@Override
 	public void onStop() {
 		mPlusClient.disconnect();
+		bd.close();
 		super.onStop();
 	}
 
@@ -155,6 +160,12 @@ public class connexionActivity extends Activity implements OnClickListener,
 		mSignInStatus.setText(getString(R.string.signed_in_status,
 				currentPersonName));
 		updateButtons(true /* isSignedIn */);
+		
+		Participant unPart = new Participant();
+		int compte = bd.getPartCompte();
+		unPart.setId(compte + 1);
+		unPart.setNomPart(currentPersonName);
+		bd.createPart(unPart);
 	}
 
 	@Override
