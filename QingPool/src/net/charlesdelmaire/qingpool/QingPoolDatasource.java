@@ -72,7 +72,7 @@ public class QingPoolDatasource {
 		utildb.close();
 	}
 
-	// ------------------------ Mï¿½thodes de la table PARTICIPANT
+	// ------------------------ Méthodes de la table PARTICIPANT
 	// ----------------//
 
 	public int createPart(Participant part) {
@@ -241,6 +241,19 @@ public class QingPoolDatasource {
 				null);
 	}
 
+	public void createJoueur(JoueurPool unJou) {
+		ContentValues values = joueurToContentValues(unJou);
+		db.insert(TABLE_LISTE, null, values);
+		
+	}
+		
+	private ContentValues joueurToContentValues(JoueurPool unJou) {
+		ContentValues values = new ContentValues();
+		values.put(COL_NOM_JOUEUR, unJou.getNomJoueur());
+		values.put(COL_ID_POOL_JOUEUR, unJou.getIdPool());
+		values.put(COL_ID_PART_JOUEUR, unJou.getIdPart());
+		return values;
+	}
 	private JoueurPool cursorToJoueur(Cursor cursor) {
 		JoueurPool newJoueur = new JoueurPool();
 		newJoueur.setNomJoueur(cursor.getString(IDX_NOM_JOUEUR));

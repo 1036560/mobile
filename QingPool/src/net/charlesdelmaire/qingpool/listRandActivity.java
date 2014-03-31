@@ -127,10 +127,15 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 		if (arg0.getId() == R.id.btnAccepter) {
 
 			/* ========================================================== */
-			JoueurPool joueurPool = new JoueurPool();
-			joueurPool.setIdPart(b.getInt("id"));
-			joueurPool.setIdPool(b.getInt("idPool"));
-			joueurPool.setNomJoueur("test");
+			for(int i = 0; i < m_Personnes.size(); i++){
+				JoueurPool unJou = new JoueurPool();
+				unJou.setNomJoueur(m_Personnes.get(1));
+				int a = b.getInt("id");
+				int c = b.getInt("idPart");
+				unJou.setIdPool(a);
+				unJou.setIdPart(c);
+				bd.createJoueur(unJou);
+			}
 
 			/* ========================================================== */
 
