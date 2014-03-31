@@ -24,6 +24,7 @@ public class listPoolActivity extends Activity {
 	List<Map<String, String>> poolList = new ArrayList<Map<String, String>>();
 	SimpleAdapter simpleAdpt;
 	ListView lv;
+	Bundle b;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,9 @@ public class listPoolActivity extends Activity {
 		setContentView(R.layout.listpool);
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
-		lstPool = bd.getTousPool();
+		b = getIntent().getExtras();
+
+		lstPool = bd.getTousPool(b.getInt("id"));
 
 		initList();
 

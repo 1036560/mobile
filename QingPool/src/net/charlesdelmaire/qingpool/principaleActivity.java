@@ -59,6 +59,7 @@ public class principaleActivity extends Activity implements OnClickListener {
 			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, listPoolActivity.class);
 			// start the second Activity
+			intent.putExtras(b);
 			this.startActivity(intent);
 		}
 

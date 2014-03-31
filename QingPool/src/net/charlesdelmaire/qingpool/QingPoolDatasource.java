@@ -72,7 +72,7 @@ public class QingPoolDatasource {
 		utildb.close();
 	}
 
-	// ------------------------ Méthodes de la table PARTICIPANT
+	// ------------------------ Mï¿½thodes de la table PARTICIPANT
 	// ----------------//
 
 	public int createPart(Participant part) {
@@ -174,13 +174,17 @@ public class QingPoolDatasource {
 		return values;
 	}
 
-	public List<Pool> getTousPool() {
+	public List<Pool> getTousPool(int idPart) {
 		List<Pool> pools = new ArrayList<Pool>();
-		Cursor cursor = db
-				.query(TABLE_POOL, null, null, null, null, null, null);
+
+		String uneReq = "SELECT * FROM " + TABLE_POOL;
+
+		Cursor cursor = db.rawQuery(uneReq, null);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			Pool unPool = cursorToPool(cursor);
+
+			// if (unPool.getIdPart() == idPart)
 			pools.add(unPool);
 			cursor.moveToNext();
 		}
@@ -219,11 +223,12 @@ public class QingPoolDatasource {
 
 		Cursor cursor = db.rawQuery(uneReq, null);
 		cursor.moveToFirst();
-		while (cursor.isLast()) {
+		while (!cursor.isAfterLast()) {
 			unNom = cursor.getString(IDX_NOM_PART);
 			if (unNom.equals(nomPart)) {
 				return cursor.getInt(IDX_ID_PART);
 			}
+			cursor.moveToNext();
 		}
 		return -1;
 	}
@@ -244,9 +249,9 @@ public class QingPoolDatasource {
 	public void createJoueur(JoueurPool unJou) {
 		ContentValues values = joueurToContentValues(unJou);
 		db.insert(TABLE_LISTE, null, values);
-		
+
 	}
-		
+
 	private ContentValues joueurToContentValues(JoueurPool unJou) {
 		ContentValues values = new ContentValues();
 		values.put(COL_NOM_JOUEUR, unJou.getNomJoueur());
@@ -254,6 +259,7 @@ public class QingPoolDatasource {
 		values.put(COL_ID_PART_JOUEUR, unJou.getIdPart());
 		return values;
 	}
+
 	private JoueurPool cursorToJoueur(Cursor cursor) {
 		JoueurPool newJoueur = new JoueurPool();
 		newJoueur.setNomJoueur(cursor.getString(IDX_NOM_JOUEUR));
