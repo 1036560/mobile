@@ -1,23 +1,18 @@
 package net.charlesdelmaire.qingpool;
 
-import net.charlesdelmaire.*;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-
-public class accueilActivity extends Activity implements OnClickListener {	
+public class accueilActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.accueil);
-		
+
 		View btnClick = findViewById(R.id.btnConnexion);
 		btnClick.setOnClickListener(this);
 	}
@@ -42,4 +37,3 @@ public class accueilActivity extends Activity implements OnClickListener {
 	}
 
 }
-

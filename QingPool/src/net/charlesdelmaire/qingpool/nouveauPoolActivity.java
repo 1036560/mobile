@@ -11,11 +11,13 @@ import android.widget.EditText;
 public class nouveauPoolActivity extends Activity implements OnClickListener {
 	private QingPoolDatasource bd;
 	EditText nomPoolEdit;
+	Bundle b;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nouveaupool);
+		b = getIntent().getExtras();
 
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
@@ -55,10 +57,14 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 			String nomPool = nomPoolEdit.getText().toString();
 			unPool.idPool = pool_id;
 			unPool.nomPool = nomPool.toString();
+			unPool.idPart = b.getInt("id");
 			bd.createPool(unPool);
+			b.putInt("idPool", pool_id);
+
 			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, EnvoieCourrielActivity.class);
 			// start the second Activity
+			intent.putExtras(b);
 			this.startActivity(intent);
 
 		}

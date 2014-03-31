@@ -213,6 +213,21 @@ public class QingPoolDatasource {
 		db.delete(TABLE_POOL, COL_ID_POOL + " = " + id, null);
 	}
 
+	public int verifPart(String nomPart) {
+		String uneReq = "SELECT  * FROM " + TABLE_PART;
+		String unNom;
+
+		Cursor cursor = db.rawQuery(uneReq, null);
+		cursor.moveToFirst();
+		while (cursor.isLast()) {
+			unNom = cursor.getString(IDX_NOM_PART);
+			if (unNom.equals(nomPart)) {
+				return cursor.getInt(IDX_ID_PART);
+			}
+		}
+		return -1;
+	}
+
 	private Pool cursorToPool(Cursor cursor) {
 		Pool newPool = new Pool();
 		newPool.setIdPool(cursor.getInt(IDX_ID_POOL));
@@ -245,6 +260,14 @@ public class QingPoolDatasource {
 			db.execSQL("CREATE TABLE " + TABLE_POOL + "(" + COL_ID_POOL
 					+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NOM_POOL
 					+ " TEXT, " + COL_ID_PART_POOL + " INTEGER" + ")");
+
+			db.execSQL("create table " + TABLE_PART + "(" + COL_ID_PART
+					+ " integer primary key autoincrement, " + COL_NOM_PART
+					+ " text)");
+
+			db.execSQL("create table " + TABLE_LISTE + "(" + COL_NOM_JOUEUR
+					+ " text primary key, " + COL_ID_POOL_JOUEUR + " integer, "
+					+ COL_ID_PART_JOUEUR + " integer)");
 		}
 
 		@Override

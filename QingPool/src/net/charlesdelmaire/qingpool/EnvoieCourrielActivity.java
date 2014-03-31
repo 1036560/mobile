@@ -9,11 +9,21 @@ import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 public class EnvoieCourrielActivity extends Activity implements OnClickListener {
+	private Bundle b;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.envoiecourriel);
+
+		b = getIntent().getExtras();
+		// int value = b.getInt("id");
+		// Toast.makeText(getApplicationContext(), Integer.toString(value),
+		// Toast.LENGTH_SHORT).show();
+
+		// value = b.getInt("idPool");
+		// Toast.makeText(getApplicationContext(), Integer.toString(value),
+		// Toast.LENGTH_SHORT).show();
 
 		View btnClick = findViewById(R.id.btnEnvoieCou);
 		btnClick.setOnClickListener(this);
@@ -35,7 +45,7 @@ public class EnvoieCourrielActivity extends Activity implements OnClickListener 
 			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, principaleActivity.class);
 			// start the second Activity
-
+			intent.putExtras(b);
 			this.startActivity(intent);
 		}
 

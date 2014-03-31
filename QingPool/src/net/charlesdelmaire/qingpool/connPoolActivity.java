@@ -8,12 +8,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 public class connPoolActivity extends Activity implements OnClickListener {
+	private Bundle b;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.connpool);
-
+		b = getIntent().getExtras();
 		View btnClick1 = findViewById(R.id.btnLaConn);
 		btnClick1.setOnClickListener(this);
 
@@ -35,6 +36,7 @@ public class connPoolActivity extends Activity implements OnClickListener {
 			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, listRandActivity.class);
 			// start the second Activity
+			intent.putExtras(b);
 			this.startActivity(intent);
 		}
 	}

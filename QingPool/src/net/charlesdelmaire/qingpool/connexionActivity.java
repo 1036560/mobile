@@ -31,6 +31,7 @@ public class connexionActivity extends Activity implements OnClickListener,
 	private View mSignOutButton;
 	private View btnPageAccueil;
 	private View btnPagePrinc;
+	private int idduPart;
 
 	private ConnectionResult mConnectionResult;
 
@@ -100,10 +101,15 @@ public class connexionActivity extends Activity implements OnClickListener,
 			break;
 		case R.id.retourPagePrincipale:
 			intent = new Intent(this, principaleActivity.class);
+			Bundle b = new Bundle();
+			b.putInt("id", idduPart);
+			intent.putExtras(b);
 			this.startActivity(intent);
 			break;
 		case R.id.btnPageAccueil:
+
 			intent = new Intent(this, accueilActivity.class);
+
 			this.startActivity(intent);
 			break;
 		}
@@ -160,13 +166,18 @@ public class connexionActivity extends Activity implements OnClickListener,
 		mSignInStatus.setText(getString(R.string.signed_in_status,
 				currentPersonName));
 		updateButtons(true /* isSignedIn */);
-		/*==========================================================*/
-		Participant unPart = new Participant();
-		int compte = bd.getPartCompte();
-		unPart.setId(compte + 1);
-		unPart.setNomPart(currentPersonName);
-		bd.createPart(unPart);
-		/*==========================================================*/
+		/* ========================================================== */
+		if (bd.verifPart(currentPersonName) == -1) {
+			Participant unPart = new Participant();
+			int compte = bd.getPartCompte();
+			unPart.setId(compte);
+			unPart.setNomPart(currentPersonName);
+			idduPart = bd.createPart(unPart);
+		} else {
+			idduPart = bd.verifPart(currentPersonName);
+		}
+
+		/* ========================================================== */
 	}
 
 	@Override
@@ -206,4 +217,3 @@ public class connexionActivity extends Activity implements OnClickListener,
 		}
 	}
 }
-

@@ -23,7 +23,8 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 
 	// Version hébergée :
 	private final static String WEB_SERVICE_URL = "charlesdelmaire1992.appspot.com";
-
+	private Bundle b;
+	private QingPoolDatasource bd;
 	private HttpClient m_ClientHttp = new DefaultHttpClient();
 	private ProgressDialog m_ProgressDialog;
 	ArrayList<String> m_Personnes = new ArrayList<String>();
@@ -32,14 +33,27 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listrand);
+		b = getIntent().getExtras();
+		this.bd = new QingPoolDatasource(this);
+		this.bd.open();
 
 		View btnClick = findViewById(R.id.btnRege);
 		btnClick.setOnClickListener(this);
+		View btnClick1 = findViewById(R.id.btnAccepter);
+		btnClick1.setOnClickListener(this);
+
+	}
+
+	@Override
+	public void onStop() {
+		bd.close();
+		super.onStop();
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
+		bd.open();
 		// Chargement asynchrone de la liste des personnes.
 		new DownloadPersonListTask().execute((Void) null);
 	}
@@ -110,7 +124,23 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 		if (arg0.getId() == R.id.btnRege) {
 			new DownloadPersonListTask().execute((Void) null);
 		}
+		if (arg0.getId() == R.id.btnAccepter) {
+
+			/* ========================================================== */
+			JoueurPool joueurPool = new JoueurPool();
+			joueurPool.setIdPart(b.getInt("id"));
+			joueurPool.setIdPool(b.getInt("idPool"));
+			joueurPool.setNomJoueur("test");
+
+			/* ========================================================== */
+
+			int value = b.getInt("id");
+			Toast.makeText(getApplicationContext(), Integer.toString(value),
+					Toast.LENGTH_SHORT).show();
+
+			value = b.getInt("idPool");
+			Toast.makeText(getApplicationContext(), Integer.toString(value),
+					Toast.LENGTH_SHORT).show();
+		}
 	}
-
 }
-

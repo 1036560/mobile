@@ -9,10 +9,15 @@ import android.view.View.OnClickListener;
 
 public class principaleActivity extends Activity implements OnClickListener {
 
+	private int idPart;
+	Bundle b;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pageprincipale);
+
+		b = getIntent().getExtras();
 
 		View btnClick = findViewById(R.id.btnStartPool);
 		btnClick.setOnClickListener(this);
@@ -38,6 +43,7 @@ public class principaleActivity extends Activity implements OnClickListener {
 			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, connPoolActivity.class);
 			// start the second Activity
+			intent.putExtras(b);
 			this.startActivity(intent);
 		}
 		// TODO Auto-generated method stub
@@ -45,6 +51,7 @@ public class principaleActivity extends Activity implements OnClickListener {
 			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, nouveauPoolActivity.class);
 			// start the second Activity
+			intent.putExtras(b);
 			this.startActivity(intent);
 		}
 
@@ -58,4 +65,3 @@ public class principaleActivity extends Activity implements OnClickListener {
 	}
 
 }
-
