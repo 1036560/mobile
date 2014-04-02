@@ -41,18 +41,24 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 	TextView textView;
 	TextView textView1;
 	TextView textViewEmpty;
+	Bundle b;
+	private QingPoolDatasource bd;
+	private List<JoueurPool> listJoueurs;
+	List<String> listJoueur = new ArrayList<String>();
 
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profilpart);
 		ListView lv = (ListView) findViewById(R.id.list);
-
+		this.bd = new QingPoolDatasource(this);
+		this.bd.open();
 		textView = (TextView) findViewById(R.id.scorePart);
 		textView1 = (TextView) findViewById(R.id.nomPart);
 		textViewEmpty = (TextView) findViewById(R.id.empty);
 
-		Bundle b = getIntent().getExtras();
+		b = getIntent().getExtras();
+
 		textView1.setText(textView1.getText() + " " + b.getString("nom"));
 		simpleAdpt = new SimpleAdapter(this, partList,
 				android.R.layout.simple_list_item_1,
@@ -61,14 +67,26 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 
 		registerForContextMenu(lv);
 		// call AsynTask to perform network operation on separate thread
-		new HttpAsyncTask()
-				.execute("http://charlesdelmaire1992.appspot.com/joueur?nom=");
 
 	}
 
 	@Override
-	protected void onStart() {
+	public void onStart() {
+		bd.open();
 		super.onStart();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		new HttpAsyncTask()
+				.execute("http://charlesdelmaire1992.appspot.com/joueur?nom=");
+	}
+
+	@Override
+	public void onStop() {
+		bd.close();
+		super.onStop();
 	}
 
 	@Override
@@ -76,16 +94,17 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 
 	}
 
-	public static String GET(String url) {
+	public String GET(String url) {
 		InputStream inputStream = null;
 		String result = "";
 		String result2 = "";
 		try {
-			List<String> listJoueur = new ArrayList<String>();
+
 			ArrayList<String> liste = null;
 
-			listJoueur.add("Sidney%20Crosby");
-			listJoueur.add("Claude%20Giroux");
+			// for (int i = 0; i < listJoueurs.size(); i++)
+			// listJoueur.add("Sidney%20Crosby");
+			// listJoueur.add("Claude%20Giroux");
 
 			for (Iterator<String> i = listJoueur.iterator(); i.hasNext();) {
 				String item = i.next();
@@ -211,9 +230,17 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 				m_ProgressDialog.setCancelable(false);
 				m_ProgressDialog.setIndeterminate(true);
 			}
+			listJoueurs = bd.getTousJoueurs(b.getInt("idPartSelect"),
+					b.getInt("idPoolSelect"));
+
+			for (int i = 0; i < listJoueurs.size(); i++) {
+				listJoueur
+						.add(listJoueurs.get(i).nomJoueur.replace(" ", "%20"));
+			}
+
 			m_ProgressDialog.show();
 		}
+
 	}
 
 }
-

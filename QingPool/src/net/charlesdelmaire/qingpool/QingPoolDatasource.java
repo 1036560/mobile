@@ -109,14 +109,25 @@ public class QingPoolDatasource {
 		return part;
 	}
 
-	public List<Participant> getTousPart() {
+	public List<Participant> getTousPart(int idPool) {
 		List<Participant> parts = new ArrayList<Participant>();
-		Cursor cursor = db
-				.query(TABLE_PART, null, null, null, null, null, null);
+		String uneReq = "SELECT * FROM " + TABLE_LISTE + " WHERE "
+				+ COL_ID_POOL_JOUEUR + "=" + Integer.toString(idPool);
+
+		Cursor cursor = db.rawQuery(uneReq, null);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
-			Participant unPart = cursorToPart(cursor);
-			parts.add(unPart);
+			JoueurPool unJoueur = cursorToJoueur(cursor);
+			Participant unPart = getParticipant(unJoueur.getIdPart());
+			int siDejaPresent = 0;
+			for (int i = 0; i < parts.size(); i++) {
+				if (unPart.getIdPart() == parts.get(i).getIdPart()) {
+					siDejaPresent = 1;
+				}
+			}
+
+			if (siDejaPresent == 0)
+				parts.add(unPart);
 			cursor.moveToNext();
 		}
 		cursor.close();
@@ -171,21 +182,30 @@ public class QingPoolDatasource {
 		ContentValues values = new ContentValues();
 		values.put(COL_ID_POOL, pool.getIdPool());
 		values.put(COL_NOM_POOL, pool.getNomPool());
+		values.put(COL_ID_PART_POOL, pool.getIdPart());
 		return values;
 	}
 
 	public List<Pool> getTousPool(int idPart) {
 		List<Pool> pools = new ArrayList<Pool>();
 
-		String uneReq = "SELECT * FROM " + TABLE_POOL;
+		String uneReq = "SELECT * FROM " + TABLE_LISTE + " WHERE "
+				+ COL_ID_PART_JOUEUR + "=" + Integer.toString(idPart);
 
 		Cursor cursor = db.rawQuery(uneReq, null);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
-			Pool unPool = cursorToPool(cursor);
+			JoueurPool unJoueur = cursorToJoueur(cursor);
+			Pool unPool = getPool(unJoueur.getIdPool());
+			int siDejaPresent = 0;
+			for (int i = 0; i < pools.size(); i++) {
+				if (unPool.getIdPool() == pools.get(i).getIdPool()) {
+					siDejaPresent = 1;
+				}
+			}
 
-			// if (unPool.getIdPart() == idPart)
-			pools.add(unPool);
+			if (siDejaPresent == 0)
+				pools.add(unPool);
 			cursor.moveToNext();
 		}
 		cursor.close();
@@ -201,6 +221,24 @@ public class QingPoolDatasource {
 			pool = cursorToPool(cursor);
 		}
 		return pool;
+	}
+
+	public List<JoueurPool> getTousJoueurs(int idPart, int idPool) {
+		List<JoueurPool> joueurs = new ArrayList<JoueurPool>();
+
+		String uneReq = "SELECT * FROM " + TABLE_LISTE + " WHERE "
+				+ COL_ID_PART_JOUEUR + "=" + Integer.toString(idPart) + " and "
+				+ COL_ID_POOL_JOUEUR + "=" + Integer.toString(idPool);
+
+		Cursor cursor = db.rawQuery(uneReq, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			JoueurPool unJoueur = cursorToJoueur(cursor);
+			joueurs.add(unJoueur);
+			cursor.moveToNext();
+		}
+		cursor.close();
+		return joueurs;
 	}
 
 	public int getPoolCompte() {
@@ -233,10 +271,32 @@ public class QingPoolDatasource {
 		return -1;
 	}
 
+	public int verifPool(String nomPool) {
+		// String uneReq = "SELECT * FROM " + TABLE_POOL + " WHERE "
+		// + COL_NOM_POOL + "=" + nomPool;
+		String uneReq = "SELECT * FROM " + TABLE_POOL;
+		Cursor cursor = db.rawQuery(uneReq, null);
+		String nomUnPool;
+
+		if (cursor.getCount() != 0) {
+			cursor.moveToFirst();
+			while (!cursor.isAfterLast()) {
+				nomUnPool = cursor.getString(IDX_NOM_PART);
+				if (nomUnPool.equals(nomPool)) {
+					return cursor.getInt(IDX_ID_POOL);
+				}
+				cursor.moveToNext();
+
+			}
+		}
+		return -1;
+	}
+
 	private Pool cursorToPool(Cursor cursor) {
 		Pool newPool = new Pool();
 		newPool.setIdPool(cursor.getInt(IDX_ID_POOL));
 		newPool.setNomPool(cursor.getString(IDX_NOM_POOL));
+		newPool.setIdPart(cursor.getInt(IDX_ID_PART_POOL));
 		return newPool;
 	}
 
@@ -264,6 +324,7 @@ public class QingPoolDatasource {
 		JoueurPool newJoueur = new JoueurPool();
 		newJoueur.setNomJoueur(cursor.getString(IDX_NOM_JOUEUR));
 		newJoueur.setIdPool(cursor.getInt(IDX_ID_POOL_JOUEUR));
+		newJoueur.setIdPart(cursor.getInt(IDX_ID_PART_JOUEUR));
 		return newJoueur;
 	}
 

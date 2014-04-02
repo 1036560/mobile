@@ -131,22 +131,18 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 				JoueurPool unJou = new JoueurPool();
 				unJou.setNomJoueur(m_Personnes.get(i).split(" ")[0] + " "
 						+ m_Personnes.get(i).split(" ")[1]);
-				int a = b.getInt("id");
-				int c = b.getInt("idPart");
-				unJou.setIdPool(a);
-				unJou.setIdPart(c);
+				int idPool = b.getInt("idPoolselect");
+				int idPart = b.getInt("idPart");
+				unJou.setIdPool(idPool);
+				unJou.setIdPart(idPart);
 				bd.createJoueur(unJou);
 			}
 
 			/* ========================================================== */
 
-			int value = b.getInt("id");
-			Toast.makeText(getApplicationContext(), Integer.toString(value),
-					Toast.LENGTH_SHORT).show();
-
-			value = b.getInt("idPool");
-			Toast.makeText(getApplicationContext(), Integer.toString(value),
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(),
+					Integer.toString(b.getInt("idPool")), Toast.LENGTH_SHORT)
+					.show();
 		}
 	}
 }

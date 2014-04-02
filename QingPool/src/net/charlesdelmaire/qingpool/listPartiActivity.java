@@ -24,6 +24,7 @@ public class listPartiActivity extends Activity implements OnClickListener {
 	SimpleAdapter simpleAdpt;
 	private Button button1;
 	TextView textView;
+	Bundle b;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +32,12 @@ public class listPartiActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.listparti);
 		button1 = (Button) findViewById(R.id.btnInviter);
 		button1.setOnClickListener(this);
-		
+		b = getIntent().getExtras();
 		this.bd = new QingPoolDatasource(this);
-		this.bd.open();		
-		lstPart = bd.getTousPart();
-		
+		this.bd.open();
+
+		lstPart = bd.getTousPart(b.getInt("idPoolSelect"));
+
 		initList();
 		textView = (TextView) findViewById(R.id.nomPart);
 		ListView lv = (ListView) findViewById(R.id.listParticipant);
@@ -51,8 +53,17 @@ public class listPartiActivity extends Activity implements OnClickListener {
 					int position, long id) {
 				Intent intent = new Intent(listPartiActivity.this,
 						ProfilpartActivity.class);
-				String message = partList.get((int) id).get("nomPart");
-				intent.putExtra("nom", message);
+
+				String nomPart = partList.get((int) id).get("nomPart");
+				int idPart = -1;
+
+				for (int i = 0; i < lstPart.size(); i++) {
+					if (nomPart.equals(lstPart.get(i).getNomPart()))
+						idPart = lstPart.get(i).getIdPart();
+				}
+
+				intent.putExtra("idPartSelect", idPart);
+				intent.putExtras(b);
 				startActivity(intent);
 			}
 		});
@@ -60,18 +71,19 @@ public class listPartiActivity extends Activity implements OnClickListener {
 	}
 
 	private void initList() {
-		
+
 		for (int i = 0; i < lstPart.size(); i++) {
 			partList.add(createPart("nomPart", lstPart.get(i).getNomPart()));
 		}
 		/*
-		partList.add(createPart("nomPart", "Charles Delmaire"));
-		partList.add(createPart("nomPart", "Charles Drolet"));
-		partList.add(createPart("nomPart", "Olivier Labonté"));
-		partList.add(createPart("nomPart", "Jonathan Anctil"));
-		partList.add(createPart("nomPart", "Michael Leclerc"));
-		partList.add(createPart("nomPart", "Marie Couture"));
-		partList.add(createPart("nomPart", "Tommy Tremblay"));*/
+		 * partList.add(createPart("nomPart", "Charles Delmaire"));
+		 * partList.add(createPart("nomPart", "Charles Drolet"));
+		 * partList.add(createPart("nomPart", "Olivier Labonté"));
+		 * partList.add(createPart("nomPart", "Jonathan Anctil"));
+		 * partList.add(createPart("nomPart", "Michael Leclerc"));
+		 * partList.add(createPart("nomPart", "Marie Couture"));
+		 * partList.add(createPart("nomPart", "Tommy Tremblay"));
+		 */
 	}
 
 	private HashMap<String, String> createPart(String key, String name) {
@@ -85,13 +97,11 @@ public class listPartiActivity extends Activity implements OnClickListener {
 		if (arg0.getId() == R.id.btnInviter) {
 			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, EnvoieCourrielActivity.class);
+
 			// start the second Activity
 			this.startActivity(intent);
 		}
 
 	}
-	
-	
 
 }
-

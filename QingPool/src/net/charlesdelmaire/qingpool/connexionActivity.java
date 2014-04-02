@@ -102,7 +102,7 @@ public class connexionActivity extends Activity implements OnClickListener,
 		case R.id.retourPagePrincipale:
 			intent = new Intent(this, principaleActivity.class);
 			Bundle b = new Bundle();
-			b.putInt("id", idduPart);
+			b.putInt("idPart", idduPart);
 			intent.putExtras(b);
 			this.startActivity(intent);
 			break;

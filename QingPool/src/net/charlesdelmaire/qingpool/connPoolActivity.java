@@ -6,16 +6,24 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class connPoolActivity extends Activity implements OnClickListener {
 	private Bundle b;
+	private EditText txtNomPool;
+	private QingPoolDatasource bd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		this.bd = new QingPoolDatasource(this);
+		this.bd.open();
 		setContentView(R.layout.connpool);
 		b = getIntent().getExtras();
 		View btnClick1 = findViewById(R.id.btnLaConn);
+		txtNomPool = (EditText) findViewById(R.id.editText1);
 		btnClick1.setOnClickListener(this);
 
 	}
@@ -33,11 +41,33 @@ public class connPoolActivity extends Activity implements OnClickListener {
 		}
 
 		if (arg0.getId() == R.id.btnLaConn) {
-			// define a new Intent for the second Activity
-			Intent intent = new Intent(this, listRandActivity.class);
-			// start the second Activity
-			intent.putExtras(b);
-			this.startActivity(intent);
+
+			int idPoolSelect = bd.verifPool(txtNomPool.getText().toString());
+
+			if (idPoolSelect != -1) {
+				// define a new Intent for the second Activity
+				Intent intent = new Intent(this, listRandActivity.class);
+				// start the second Activity
+				b.putInt("idPoolselect", idPoolSelect);
+				intent.putExtras(b);
+				this.startActivity(intent);
+			} else {
+				Toast.makeText(getApplicationContext(),
+						"Désolé aucune partie à ce nom", Toast.LENGTH_LONG)
+						.show();
+			}
 		}
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		bd.open();
+	}
+
+	@Override
+	public void onStop() {
+		bd.close();
+		super.onStop();
 	}
 }

@@ -57,9 +57,7 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 			String nomPool = nomPoolEdit.getText().toString();
 			unPool.idPool = pool_id;
 			unPool.nomPool = nomPool.toString();
-			unPool.idPart = b.getInt("id");
 			bd.createPool(unPool);
-			b.putInt("idPool", pool_id);
 
 			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, EnvoieCourrielActivity.class);

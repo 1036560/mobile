@@ -12,6 +12,7 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -34,7 +35,7 @@ public class listPoolActivity extends Activity {
 		this.bd.open();
 		b = getIntent().getExtras();
 
-		lstPool = bd.getTousPool(b.getInt("id"));
+		lstPool = bd.getTousPool(b.getInt("idPart"));
 
 		initList();
 
@@ -85,14 +86,20 @@ public class listPoolActivity extends Activity {
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
-
 		int itemId = item.getItemId();
-		// return true;
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
+				.getMenuInfo();
 
+		String nomPool = lv.getItemAtPosition(info.position).toString()
+				.split("=")[1];
+		nomPool = nomPool.substring(0,
+				(nomPool.length() >= 1) ? nomPool.length() - 1 : 0);
+
+		b.putInt("idPoolSelect", bd.verifPool(nomPool));
 		if (itemId == 1) {
 			Intent intent = new Intent(this, listPartiActivity.class);
 			// start the second Activity
-
+			intent.putExtras(b);
 			this.startActivity(intent);
 		} else if (itemId == 2) {
 
