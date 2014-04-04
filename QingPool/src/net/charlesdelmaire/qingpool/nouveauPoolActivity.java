@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class nouveauPoolActivity extends Activity implements OnClickListener {
 	private QingPoolDatasource bd;
@@ -55,16 +56,24 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 			Pool unPool = new Pool();
 			int pool_id = bd.getPoolCompte();
 			String nomPool = nomPoolEdit.getText().toString();
-			unPool.idPool = pool_id;
-			unPool.nomPool = nomPool.toString();
-			bd.createPool(unPool);
 
-			// define a new Intent for the second Activity
-			Intent intent = new Intent(this, EnvoieCourrielActivity.class);
-			// start the second Activity
-			intent.putExtras(b);
-			this.startActivity(intent);
+			int idPool = bd.verifPool(nomPool);
 
+			if (idPool == -1) {
+				unPool.setIdPool(pool_id);
+				unPool.setNomPool(nomPool);
+				bd.createPool(unPool);
+				// define a new Intent for the second Activity
+				Intent intent = new Intent(this, EnvoieCourrielActivity.class);
+				// start the second Activity
+				intent.putExtras(b);
+				this.startActivity(intent);
+			} else {
+				Toast.makeText(
+						getApplicationContext(),
+						"Désolé ce pool éxiste déjà! Veuillez prendre un notre nom! ",
+						Toast.LENGTH_SHORT).show();
+			}
 		}
 
 	}

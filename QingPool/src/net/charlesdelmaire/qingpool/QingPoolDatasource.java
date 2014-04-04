@@ -33,6 +33,7 @@ public class QingPoolDatasource {
 	public static final String COL_ID_PART_POOL = "idPart";
 
 	// LISTEJOUEURPOOL
+	public static final String COL_ID_JOUEUR = "idJoueur";
 	public static final String COL_NOM_JOUEUR = "nomJoueur";
 	public static final String COL_ID_POOL_JOUEUR = "idPool";
 	public static final String COL_ID_PART_JOUEUR = "idPart";
@@ -47,9 +48,10 @@ public class QingPoolDatasource {
 	public static final int IDX_ID_PART_POOL = 2;
 
 	// INDICES DES COLONNES TABLE LISTEJOUEURPOOL
-	public static final int IDX_NOM_JOUEUR = 0;
-	public static final int IDX_ID_POOL_JOUEUR = 1;
-	public static final int IDX_ID_PART_JOUEUR = 2;
+	public static final int IDX_ID_JOUEUR = 0;
+	public static final int IDX_NOM_JOUEUR = 1;
+	public static final int IDX_ID_POOL_JOUEUR = 2;
+	public static final int IDX_ID_PART_JOUEUR = 3;
 	private SQLiteDatabase db;
 	private QingPoolDbHelper utildb;
 
@@ -140,6 +142,11 @@ public class QingPoolDatasource {
 		int count = cursor.getCount();
 		cursor.close();
 		return count;
+	}
+
+	public void deletePartPool(int idPool, int idPart) {
+		db.delete(TABLE_LISTE, COL_ID_POOL_JOUEUR + " = " + idPool + " and "
+				+ COL_ID_PART_JOUEUR + " = " + idPart, null);
 	}
 
 	public void deletePart(Participant part) {
@@ -345,9 +352,10 @@ public class QingPoolDatasource {
 					+ " integer primary key autoincrement, " + COL_NOM_PART
 					+ " text)");
 
-			db.execSQL("create table " + TABLE_LISTE + "(" + COL_NOM_JOUEUR
-					+ " text primary key, " + COL_ID_POOL_JOUEUR + " integer, "
-					+ COL_ID_PART_JOUEUR + " integer)");
+			db.execSQL("create table " + TABLE_LISTE + "(" + COL_ID_JOUEUR
+					+ "integer primary key," + COL_NOM_JOUEUR + " text, "
+					+ COL_ID_POOL_JOUEUR + " integer, " + COL_ID_PART_JOUEUR
+					+ " integer)");
 		}
 
 		@Override

@@ -1,5 +1,8 @@
 package net.charlesdelmaire.qingpool;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,18 +46,26 @@ public class connPoolActivity extends Activity implements OnClickListener {
 		if (arg0.getId() == R.id.btnLaConn) {
 
 			int idPoolSelect = bd.verifPool(txtNomPool.getText().toString());
+			List<JoueurPool> joueurs = new ArrayList<JoueurPool>();
+			joueurs = bd.getTousJoueurs(b.getInt("idPart"), idPoolSelect);
 
-			if (idPoolSelect != -1) {
-				// define a new Intent for the second Activity
-				Intent intent = new Intent(this, listRandActivity.class);
-				// start the second Activity
-				b.putInt("idPoolselect", idPoolSelect);
-				intent.putExtras(b);
-				this.startActivity(intent);
+			if (joueurs.size() == 0) {
+				if (idPoolSelect != -1) {
+					// define a new Intent for the second Activity
+					Intent intent = new Intent(this, listRandActivity.class);
+					// start the second Activity
+					b.putInt("idPoolselect", idPoolSelect);
+					intent.putExtras(b);
+					this.startActivity(intent);
+				} else {
+					Toast.makeText(getApplicationContext(),
+							"Désolé aucune partie à ce nom", Toast.LENGTH_LONG)
+							.show();
+				}
 			} else {
 				Toast.makeText(getApplicationContext(),
-						"Désolé aucune partie à ce nom", Toast.LENGTH_LONG)
-						.show();
+						"Désolé vous êtes déjà inscrit dans cette partie",
+						Toast.LENGTH_LONG).show();
 			}
 		}
 	}

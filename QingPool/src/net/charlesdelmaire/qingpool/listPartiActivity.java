@@ -62,6 +62,7 @@ public class listPartiActivity extends Activity implements OnClickListener {
 						idPart = lstPart.get(i).getIdPart();
 				}
 
+				intent.putExtra("nomPart", nomPart);
 				intent.putExtra("idPartSelect", idPart);
 				intent.putExtras(b);
 				startActivity(intent);

@@ -94,14 +94,20 @@ public class listPoolActivity extends Activity {
 				.split("=")[1];
 		nomPool = nomPool.substring(0,
 				(nomPool.length() >= 1) ? nomPool.length() - 1 : 0);
-
-		b.putInt("idPoolSelect", bd.verifPool(nomPool));
+		int idPoolSelect = bd.verifPool(nomPool);
+		b.putInt("idPoolSelect", idPoolSelect);
 		if (itemId == 1) {
 			Intent intent = new Intent(this, listPartiActivity.class);
 			// start the second Activity
 			intent.putExtras(b);
 			this.startActivity(intent);
+
 		} else if (itemId == 2) {
+			bd.deletePartPool(idPoolSelect, b.getInt("idPart"));
+			poolList.clear();
+			simpleAdpt.notifyDataSetChanged();
+			lstPool = bd.getTousPool(b.getInt("idPart"));
+			initList();
 
 		}
 		return true;

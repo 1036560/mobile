@@ -10,6 +10,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -120,6 +121,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg0) {
+		Intent intent;
 		// TODO Auto-generated method stub
 		if (arg0.getId() == R.id.btnRege) {
 			new DownloadPersonListTask().execute((Void) null);
@@ -138,11 +140,12 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 				bd.createJoueur(unJou);
 			}
 
-			/* ========================================================== */
-
 			Toast.makeText(getApplicationContext(),
-					Integer.toString(b.getInt("idPool")), Toast.LENGTH_SHORT)
+					"Les joueurs ont bien été ajouté!", Toast.LENGTH_SHORT)
 					.show();
+			intent = new Intent(this, principaleActivity.class);
+			this.startActivity(intent);
+			/* ========================================================== */
 		}
 	}
 }

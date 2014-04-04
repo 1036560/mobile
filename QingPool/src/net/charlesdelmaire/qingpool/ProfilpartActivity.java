@@ -59,7 +59,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 
 		b = getIntent().getExtras();
 
-		textView1.setText(textView1.getText() + " " + b.getString("nom"));
+		textView1.setText(textView1.getText() + " " + b.getString("nomPart"));
 		simpleAdpt = new SimpleAdapter(this, partList,
 				android.R.layout.simple_list_item_1,
 				new String[] { "nomJoueur" }, new int[] { android.R.id.text1 });
