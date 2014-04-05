@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -34,6 +36,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listrand);
+
 		b = getIntent().getExtras();
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
@@ -43,6 +46,45 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 		View btnClick1 = findViewById(R.id.btnAccepter);
 		btnClick1.setOnClickListener(this);
 
+		if (savedInstanceState != null) {
+			m_Personnes = savedInstanceState.getStringArrayList("listJoueur");
+			listRandActivity.this.setListAdapter(new ArrayAdapter<String>(
+					listRandActivity.this, android.R.layout.simple_list_item_1,
+					m_Personnes));
+		} else {
+
+			new DownloadPersonListTask().execute((Void) null);
+		}
+
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent = null;
+		switch (item.getItemId()) {
+		case R.id.idRetour:
+			intent = new Intent(this, principaleActivity.class);
+			break;
+		case R.id.gestionCompte:
+			intent = new Intent(this, connexionActivity.class);
+			break;
+		}
+		intent.putExtras(b);
+		this.startActivity(intent);
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putStringArrayList("listJoueur", m_Personnes);
 	}
 
 	@Override
@@ -54,9 +96,6 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		bd.open();
-		// Chargement asynchrone de la liste des personnes.
-		new DownloadPersonListTask().execute((Void) null);
 	}
 
 	private class DownloadPersonListTask extends
@@ -143,9 +182,13 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			Toast.makeText(getApplicationContext(),
 					"Les joueurs ont bien été ajouté!", Toast.LENGTH_SHORT)
 					.show();
+			b.remove("listJoueur");
+
 			intent = new Intent(this, principaleActivity.class);
+			intent.putExtras(b);
 			this.startActivity(intent);
 			/* ========================================================== */
 		}
 	}
+
 }

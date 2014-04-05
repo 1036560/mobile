@@ -49,7 +49,7 @@
 	        android:layout_marginLeft="10dp"/>
 	    
 	     <EditText
-	        android:id="@+id/editText2"
+	        android:id="@+id/txtMotPasse"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"         
 	        android:inputType="textPassword"
@@ -69,7 +69,7 @@
 	        android:layout_marginLeft="10dp" />
 	
 	   <EditText
-	        android:id="@+id/EditText02"
+	        android:id="@+id/txtMotPasse2"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"        
 	        android:inputType="textPassword"
@@ -89,7 +89,7 @@
 	        android:layout_marginLeft="10dp"/>
 	
 	    <EditText
-	        android:id="@+id/editText3"
+	        android:id="@+id/txtNbPart"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"    	        
 	        android:hint="@string/lblNbPartMax1"

@@ -8,6 +8,8 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -69,6 +71,29 @@ public class listPartiActivity extends Activity implements OnClickListener {
 			}
 		});
 
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent = null;
+		switch (item.getItemId()) {
+		case R.id.idRetour:
+			intent = new Intent(this, principaleActivity.class);
+			break;
+		case R.id.gestionCompte:
+			intent = new Intent(this, connexionActivity.class);
+			break;
+		}
+		intent.putExtras(b);
+		this.startActivity(intent);
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void initList() {

@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">Qing Pool</string>
-    <string name="action_settings">Configurations</string>
+    <string name="retourAccueil">Retour à l\'accueil</string>
+    <string name="gestionCompte">Gestion du compte</string>
     <string name="btnConnexion">Connexion avec Gmail</string>
     <string name="redirectionPagePrincipale">Gestion des pools</string>
     <string name="btnConnexionReset">Réinitialisation</string>

@@ -25,6 +25,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -66,8 +68,52 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 		lv.setAdapter(simpleAdpt);
 
 		registerForContextMenu(lv);
-		// call AsynTask to perform network operation on separate thread
+		if (savedInstanceState != null) {
+			lesJoueurs = savedInstanceState.getString("listJoueur");
+			String str[] = lesJoueurs.split(";");
+			int score = 0;
+			for (int i = 0; i < str.length; i++) {
+				String str1[] = str[i].split("/");
+				score += Integer.parseInt(str1[2]);
+				partList.add(createJoueur("nomJoueur", str1[0]));
+			}
+			textView.setText(textView.getText() + " " + Integer.toString(score));
+			simpleAdpt.notifyDataSetChanged();
+		} else {
 
+			new HttpAsyncTask()
+					.execute("http://charlesdelmaire1992.appspot.com/joueur?nom=");
+		}
+
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent = null;
+		switch (item.getItemId()) {
+		case R.id.idRetour:
+			intent = new Intent(this, principaleActivity.class);
+			break;
+		case R.id.gestionCompte:
+			intent = new Intent(this, connexionActivity.class);
+			break;
+		}
+		intent.putExtras(b);
+		this.startActivity(intent);
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString("listJoueur", lesJoueurs);
 	}
 
 	@Override
@@ -79,8 +125,6 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
-		new HttpAsyncTask()
-				.execute("http://charlesdelmaire1992.appspot.com/joueur?nom=");
 	}
 
 	@Override
@@ -101,10 +145,6 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 		try {
 
 			ArrayList<String> liste = null;
-
-			// for (int i = 0; i < listJoueurs.size(); i++)
-			// listJoueur.add("Sidney%20Crosby");
-			// listJoueur.add("Claude%20Giroux");
 
 			for (Iterator<String> i = listJoueur.iterator(); i.hasNext();) {
 				String item = i.next();
@@ -185,6 +225,12 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 		intent.putExtras(b);
 		// start the second Activity
 		this.startActivity(intent);
+	}
+
+	private HashMap<String, String> createJoueur(String key, String name) {
+		HashMap<String, String> Pool = new HashMap<String, String>();
+		Pool.put(key, name);
+		return Pool;
 	}
 
 	private class HttpAsyncTask extends AsyncTask<String, Void, String> {

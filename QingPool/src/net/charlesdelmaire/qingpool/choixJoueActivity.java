@@ -7,16 +7,15 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class choixJoueActivity extends Activity 
-implements OnClickListener{
+public class choixJoueActivity extends Activity implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.choixjoue);
-		
+
 		View btnClick = findViewById(R.id.btnPasserChoix);
-	    btnClick.setOnClickListener(this);
+		btnClick.setOnClickListener(this);
 	}
 
 	@Override
@@ -25,14 +24,15 @@ implements OnClickListener{
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+
 	@Override
 	public void onClick(View arg0) {
-		if(arg0.getId() == R.id.btnPasserChoix){
-			//define a new Intent for the second Activity
-			Intent intent = new Intent(this,choixJoueActivity.class);
-			//start the second Activity
+		if (arg0.getId() == R.id.btnPasserChoix) {
+			// define a new Intent for the second Activity
+			Intent intent = new Intent(this, choixJoueActivity.class);
+			// start the second Activity
 			this.startActivity(intent);
 		}
-		
+
 	}
 }

@@ -31,6 +31,8 @@ public class QingPoolDatasource {
 	public static final String COL_ID_POOL = "idPool";
 	public static final String COL_NOM_POOL = "nomPool";
 	public static final String COL_ID_PART_POOL = "idPart";
+	public static final String COL_MDP_POOL = "motDePasse";
+	public static final String COL_NBPART_POOL = "nbMaxPart";
 
 	// LISTEJOUEURPOOL
 	public static final String COL_ID_JOUEUR = "idJoueur";
@@ -46,6 +48,8 @@ public class QingPoolDatasource {
 	public static final int IDX_ID_POOL = 0;
 	public static final int IDX_NOM_POOL = 1;
 	public static final int IDX_ID_PART_POOL = 2;
+	public static final int IDX_MDP_POOL = 3;
+	public static final int IDX_NBPART_POOL = 4;
 
 	// INDICES DES COLONNES TABLE LISTEJOUEURPOOL
 	public static final int IDX_ID_JOUEUR = 0;
@@ -144,6 +148,16 @@ public class QingPoolDatasource {
 		return count;
 	}
 
+	public int getJoueurCompte(int idPool) {
+		String uneReq = "SELECT  * FROM " + TABLE_LISTE + " WHERE "
+				+ COL_ID_POOL + " = " + idPool + " GROUP BY "
+				+ COL_ID_PART_POOL;
+		Cursor cursor = db.rawQuery(uneReq, null);
+		int count = cursor.getCount();
+		cursor.close();
+		return count;
+	}
+
 	public void deletePartPool(int idPool, int idPart) {
 		db.delete(TABLE_LISTE, COL_ID_POOL_JOUEUR + " = " + idPool + " and "
 				+ COL_ID_PART_JOUEUR + " = " + idPart, null);
@@ -190,6 +204,8 @@ public class QingPoolDatasource {
 		values.put(COL_ID_POOL, pool.getIdPool());
 		values.put(COL_NOM_POOL, pool.getNomPool());
 		values.put(COL_ID_PART_POOL, pool.getIdPart());
+		values.put(COL_MDP_POOL, pool.getMotDePasse());
+		values.put(COL_NBPART_POOL, pool.getNbMaxPart());
 		return values;
 	}
 
@@ -304,6 +320,8 @@ public class QingPoolDatasource {
 		newPool.setIdPool(cursor.getInt(IDX_ID_POOL));
 		newPool.setNomPool(cursor.getString(IDX_NOM_POOL));
 		newPool.setIdPart(cursor.getInt(IDX_ID_PART_POOL));
+		newPool.setMotDePasse(cursor.getString(IDX_MDP_POOL));
+		newPool.setNbMaxPart(cursor.getInt(IDX_NBPART_POOL));
 		return newPool;
 	}
 
@@ -346,7 +364,9 @@ public class QingPoolDatasource {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL("CREATE TABLE " + TABLE_POOL + "(" + COL_ID_POOL
 					+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NOM_POOL
-					+ " TEXT, " + COL_ID_PART_POOL + " INTEGER" + ")");
+					+ " TEXT, " + COL_ID_PART_POOL + " INTEGER, "
+					+ COL_MDP_POOL + " TEXT, " + COL_NBPART_POOL + " INTEGER"
+					+ ")");
 
 			db.execSQL("create table " + TABLE_PART + "(" + COL_ID_PART
 					+ " integer primary key autoincrement, " + COL_NOM_PART

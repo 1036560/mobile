@@ -30,4 +30,5 @@ public class ProfilJoueActivity extends Activity implements OnClickListener {
 		this.finish();
 
 	}
+
 }
