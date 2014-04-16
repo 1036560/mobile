@@ -47,9 +47,7 @@
     <string name="sil">Silhouette</string>
     <string name="nomPart">Nom: </string>
     <string name="scorePart">Score: </string>
-    <string name="hello_world">Hello World!</string>
-    <string name="title_activity_profilpart">Profilpart</string>
-    <string name="title_activity_evoie_courriel">EvoieCourrielActivity</string>
+    <string name="hello_world">Hello World!</string>    
     <string name="equipe">Équipe: </string>
     <string name="fermer">Fermer</string>
     <string name="selection">Sélectionner un joueur</string>
@@ -57,6 +55,21 @@
     <string name="title_activity_profil_joue_activity1"></string>
     <string name="lbl_liste_vide">Aucune personne à afficher</string>
     <string name="pd_title">Récupération des joueurs</string>
-    <string name="pd_content">Veuillez patientez pendant que l\'on récupère la liste des personnes.</string>
+    <string name="pd_content">Veuillez patienter pendant que la récupération de la liste</string>
     <string name="comm_error">Erreur de communication</string>
+    
+    <string name="titre_accueil">Accueil</string>
+    <string name="titre_choix">Choix des joueurs</string>
+    <string name="titre_connexion">Connexion</string>
+    <string name="titre_conn_pool">Connexion au pool</string>
+    <string name="titre_courriel">Envoie de courriel</string>
+    <string name="titre_liste_part">Liste des participants</string>
+    <string name="titre_liste_pool">Liste des pools</string>
+    <string name="titre_liste_joue">Liste des joueurs</string>
+    <string name="titre_liste_alea">Liste aléatoire</string>
+    <string name="titre_nouveau_pool">Nouveau pool</string>
+    <string name="titre_principale">Page principale</string>
+    <string name="titre_profil_joue">Profil du joueur</string>
+    <string name="titre_profil_part">Profil du participant</string>
+    <string name="titre_res_fin">Résultats finaux</string>
 </resources>

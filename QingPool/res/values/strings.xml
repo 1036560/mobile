@@ -59,4 +59,19 @@
     <string name="pd_title">Players retreival</string>
     <string name="pd_content">Please wait while we upload the participants list</string>
     <string name="comm_error">Connection error</string>
+    
+    <string name="titre_accueil">Greetings!</string>
+    <string name="titre_choix">Player\'s choice</string>
+    <string name="titre_connexion">Connection</string>
+    <string name="titre_conn_pool">Pool connection</string>
+    <string name="titre_courriel">Email</string>
+    <string name="titre_liste_part">Poolers</string>
+    <string name="titre_liste_pool">Pools</string>
+    <string name="titre_liste_joue">Players</string>
+    <string name="titre_liste_alea">Random list</string>
+    <string name="titre_nouveau_pool">New pool</string>
+    <string name="titre_principale">Main page</string>
+    <string name="titre_profil_joue">Player\'s profile</string>
+    <string name="titre_profil_part">Pooler\'s profile</string>
+    <string name="titre_res_fin">Final results</string>
 </resources>

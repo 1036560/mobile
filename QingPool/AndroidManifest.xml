@@ -33,55 +33,55 @@
         </activity>
         <activity
             android:name="net.charlesdelmaire.qingpool.connexionActivity"
-            android:label="Connexion" >
+            android:label="@string/titre_connexion" >
         </activity>
         <activity
             android:name="net.charlesdelmaire.qingpool.principaleActivity"
-            android:label="Page principale" >
+            android:label="@string/titre_principale" >
         </activity>
         <activity
             android:name="net.charlesdelmaire.qingpool.nouveauPoolActivity"
-            android:label="Création d&apos;un pool" >
+            android:label="@string/titre_nouveau_pool" >
         </activity>
         <activity
             android:name="net.charlesdelmaire.qingpool.connPoolActivity"
-            android:label="Connexion à un pool" >
+            android:label="@string/titre_conn_pool" >
         </activity>
         <activity
             android:name="net.charlesdelmaire.qingpool.listJoueActivity"
-            android:label="Liste des joueurs d&apos;un participant" >
+            android:label="@string/titre_liste_joue" >
         </activity>
         <activity
             android:name="net.charlesdelmaire.qingpool.listPartiActivity"
-            android:label="Liste des participants" >
+            android:label="@string/titre_liste_part" >
         </activity>
         <activity
             android:name="net.charlesdelmaire.qingpool.listPoolActivity"
-            android:label="Liste des pools d&apos;un participant" >
+            android:label="@string/titre_liste_pool" >
         </activity>
         <activity
             android:name="net.charlesdelmaire.qingpool.listRandActivity"
-            android:label="Liste de joueur aléatoire" >
+            android:label="@string/titre_liste_alea" >
         </activity>
         <activity
             android:name="net.charlesdelmaire.qingpool.rsltFinalActivity"
-            android:label="Résultats finaux d&apos;un pool" >
+            android:label="@string/titre_res_fin" >
         </activity>
         <activity
             android:name="net.charlesdelmaire.qingpool.choixJoueActivity"
-            android:label="Choix des joueurs" >
+            android:label="@string/titre_choix" >
         </activity>
         <activity
             android:name="net.charlesdelmaire.qingpool.ProfilpartActivity"
-            android:label="Profil du participant" >
+            android:label="@string/titre_profil_part" >
         </activity>
         <activity
             android:name="net.charlesdelmaire.qingpool.EnvoieCourrielActivity"
-            android:label="Invitations" >
+            android:label="@string/titre_courriel" >
         </activity>
         <activity
             android:name="net.charlesdelmaire.qingpool.ProfilJoueActivity"
-            android:label="Profil d'un joueur" >
+            android:label="@string/titre_profil_joue" >
         </activity>
     </application>
 
