@@ -2,6 +2,7 @@ package net.charlesdelmaire.qingpool;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -20,6 +21,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 
 public class listRandActivity extends ListActivity implements OnClickListener {
 	private final String TAG = this.getClass().getSimpleName();
@@ -56,6 +62,14 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			new DownloadPersonListTask().execute((Void) null);
 		}
 
+		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
+				"UA-50075921-1");
+
+		HashMap<String, String> hitParameters = new HashMap<String, String>();
+		hitParameters.put(Fields.HIT_TYPE, "appview");
+		hitParameters.put(Fields.SCREEN_NAME, "Liste Random");
+
+		tracker.send(hitParameters);
 	}
 
 	@Override
@@ -89,13 +103,15 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 
 	@Override
 	public void onStop() {
-		bd.close();
 		super.onStop();
+		bd.close();
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);
 	}
 
 	private class DownloadPersonListTask extends

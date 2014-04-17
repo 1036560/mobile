@@ -19,6 +19,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
+
 public class listPoolActivity extends Activity {
 	private QingPoolDatasource bd;
 	private List<Pool> lstPool;
@@ -47,6 +52,15 @@ public class listPoolActivity extends Activity {
 		lv.setAdapter(simpleAdpt);
 
 		registerForContextMenu(lv);
+
+		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
+				"UA-50075921-1");
+
+		HashMap<String, String> hitParameters = new HashMap<String, String>();
+		hitParameters.put(Fields.HIT_TYPE, "appview");
+		hitParameters.put(Fields.SCREEN_NAME, "Liste Pool");
+
+		tracker.send(hitParameters);
 
 	}
 
@@ -138,13 +152,15 @@ public class listPoolActivity extends Activity {
 
 	@Override
 	public void onStart() {
-		bd.open();
 		super.onStart();
+		bd.open();
+		EasyTracker.getInstance(this).activityStart(this);
 	}
 
 	@Override
 	public void onStop() {
-		bd.close();
 		super.onStop();
+		bd.close();
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 }

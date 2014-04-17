@@ -1,6 +1,7 @@
 package net.charlesdelmaire.qingpool;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
@@ -12,6 +13,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 
 public class connPoolActivity extends Activity implements OnClickListener {
 	private Bundle b;
@@ -31,6 +37,15 @@ public class connPoolActivity extends Activity implements OnClickListener {
 		txtNomPool = (EditText) findViewById(R.id.editText1);
 		txtMotDePasse = (EditText) findViewById(R.id.txtMotDePasse);
 		btnClick1.setOnClickListener(this);
+
+		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
+				"UA-50075921-1");
+
+		HashMap<String, String> hitParameters = new HashMap<String, String>();
+		hitParameters.put(Fields.HIT_TYPE, "appview");
+		hitParameters.put(Fields.SCREEN_NAME, "Connexion Pool");
+
+		tracker.send(hitParameters);
 
 	}
 
@@ -115,11 +130,13 @@ public class connPoolActivity extends Activity implements OnClickListener {
 	public void onStart() {
 		super.onStart();
 		bd.open();
+		EasyTracker.getInstance(this).activityStart(this);
 	}
 
 	@Override
 	public void onStop() {
-		bd.close();
 		super.onStop();
+		bd.close();
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 }

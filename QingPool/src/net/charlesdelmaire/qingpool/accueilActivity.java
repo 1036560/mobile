@@ -27,7 +27,7 @@ public class accueilActivity extends Activity implements OnClickListener {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, "Home Screen");
+		hitParameters.put(Fields.SCREEN_NAME, "Accueil");
 
 		tracker.send(hitParameters);
 	}
@@ -47,14 +47,12 @@ public class accueilActivity extends Activity implements OnClickListener {
 	@Override
 	public void onStart() {
 		super.onStart();
-		// The rest of your onStart() code.
-		EasyTracker.getInstance(this).activityStart(this); // Add this method.
+		EasyTracker.getInstance(this).activityStart(this);
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		// The rest of your onStop() code.
-		EasyTracker.getInstance(this).activityStop(this); // Add this method.
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 }

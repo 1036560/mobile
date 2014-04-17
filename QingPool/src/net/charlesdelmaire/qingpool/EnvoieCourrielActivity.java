@@ -1,5 +1,7 @@
 package net.charlesdelmaire.qingpool;
 
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
+
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 
 public class EnvoieCourrielActivity extends Activity implements OnClickListener {
 	private Bundle b;
@@ -18,19 +25,21 @@ public class EnvoieCourrielActivity extends Activity implements OnClickListener 
 		setContentView(R.layout.envoiecourriel);
 
 		b = getIntent().getExtras();
-		// int value = b.getInt("id");
-		// Toast.makeText(getApplicationContext(), Integer.toString(value),
-		// Toast.LENGTH_SHORT).show();
-
-		// value = b.getInt("idPool");
-		// Toast.makeText(getApplicationContext(), Integer.toString(value),
-		// Toast.LENGTH_SHORT).show();
 
 		View btnClick = findViewById(R.id.btnEnvoieCou);
 		btnClick.setOnClickListener(this);
 
 		View btnClick1 = findViewById(R.id.retourPagePrincipale);
 		btnClick1.setOnClickListener(this);
+
+		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
+				"UA-50075921-1");
+
+		HashMap<String, String> hitParameters = new HashMap<String, String>();
+		hitParameters.put(Fields.HIT_TYPE, "appview");
+		hitParameters.put(Fields.SCREEN_NAME, "Connexion Pool");
+
+		tracker.send(hitParameters);
 	}
 
 	@Override
@@ -83,5 +92,17 @@ public class EnvoieCourrielActivity extends Activity implements OnClickListener 
 						Toast.LENGTH_SHORT).show();
 			}
 		}
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 }

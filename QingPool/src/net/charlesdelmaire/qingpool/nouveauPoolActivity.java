@@ -1,5 +1,7 @@
 package net.charlesdelmaire.qingpool;
 
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +11,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 
 public class nouveauPoolActivity extends Activity implements OnClickListener {
 	private QingPoolDatasource bd;
@@ -33,6 +40,15 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 		motPasse2 = (EditText) findViewById(R.id.txtMotPasse2);
 		txtNbPart = (EditText) findViewById(R.id.txtNbPart);
 		btnClick.setOnClickListener(this);
+
+		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
+				"UA-50075921-1");
+
+		HashMap<String, String> hitParameters = new HashMap<String, String>();
+		hitParameters.put(Fields.HIT_TYPE, "appview");
+		hitParameters.put(Fields.SCREEN_NAME, "Nouveau Pool");
+
+		tracker.send(hitParameters);
 
 	}
 
@@ -64,14 +80,16 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 	 */
 	@Override
 	protected void onStart() {
-		this.bd.open();
 		super.onStart();
+		this.bd.open();
+		EasyTracker.getInstance(this).activityStart(this);
 	}
 
 	@Override
 	protected void onStop() {
-		this.bd.close();
 		super.onStop();
+		this.bd.close();
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 
 	public void onClick(View arg0) {

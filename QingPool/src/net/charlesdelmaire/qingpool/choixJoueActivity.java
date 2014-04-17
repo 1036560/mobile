@@ -1,11 +1,18 @@
 package net.charlesdelmaire.qingpool;
 
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 
 public class choixJoueActivity extends Activity implements OnClickListener {
 
@@ -16,6 +23,15 @@ public class choixJoueActivity extends Activity implements OnClickListener {
 
 		View btnClick = findViewById(R.id.btnPasserChoix);
 		btnClick.setOnClickListener(this);
+
+		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
+				"UA-50075921-1");
+
+		HashMap<String, String> hitParameters = new HashMap<String, String>();
+		hitParameters.put(Fields.HIT_TYPE, "appview");
+		hitParameters.put(Fields.SCREEN_NAME, "Choix Joueur");
+
+		tracker.send(hitParameters);
 	}
 
 	@Override
@@ -34,5 +50,17 @@ public class choixJoueActivity extends Activity implements OnClickListener {
 			this.startActivity(intent);
 		}
 
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 }

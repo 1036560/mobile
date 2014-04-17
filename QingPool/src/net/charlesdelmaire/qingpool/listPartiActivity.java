@@ -19,6 +19,11 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
+
 public class listPartiActivity extends Activity implements OnClickListener {
 	private QingPoolDatasource bd;
 	private List<Participant> lstPart;
@@ -70,6 +75,15 @@ public class listPartiActivity extends Activity implements OnClickListener {
 				startActivity(intent);
 			}
 		});
+
+		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
+				"UA-50075921-1");
+
+		HashMap<String, String> hitParameters = new HashMap<String, String>();
+		hitParameters.put(Fields.HIT_TYPE, "appview");
+		hitParameters.put(Fields.SCREEN_NAME, "Liste Participant");
+
+		tracker.send(hitParameters);
 
 	}
 
@@ -128,6 +142,18 @@ public class listPartiActivity extends Activity implements OnClickListener {
 			this.startActivity(intent);
 		}
 
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 
 }
