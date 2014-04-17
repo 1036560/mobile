@@ -101,6 +101,7 @@ public class connPoolActivity extends Activity implements OnClickListener {
 							b.putInt("idPoolselect", idPoolSelect);
 							intent.putExtras(b);
 							this.startActivity(intent);
+							this.finish();
 
 						} else {
 							Toast.makeText(getApplicationContext(),

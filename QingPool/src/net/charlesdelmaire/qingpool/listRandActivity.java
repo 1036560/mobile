@@ -203,6 +203,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			intent = new Intent(this, principaleActivity.class);
 			intent.putExtras(b);
 			this.startActivity(intent);
+			this.finish();
 			/* ========================================================== */
 		}
 	}

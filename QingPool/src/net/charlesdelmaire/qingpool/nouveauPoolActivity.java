@@ -114,13 +114,13 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 						unPool.setNomPool(nomPool);
 						unPool.setMotDePasse(mdp);
 						unPool.setNbMaxPart(nbPart);
-						bd.createPool(unPool);
+						b.putInt("idPoolselect", bd.createPool(unPool));
 						// define a new Intent for the second Activity
-						Intent intent = new Intent(this,
-								EnvoieCourrielActivity.class);
+						Intent intent = new Intent(this, listRandActivity.class);
 						// start the second Activity
 						intent.putExtras(b);
 						this.startActivity(intent);
+						this.finish();
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
