@@ -26,6 +26,8 @@ public class QingPoolDatasource {
 	// PARTICIPANT
 	public static final String COL_ID_PART = "idPart";
 	public static final String COL_NOM_PART = "nomParticipant";
+	public static final String COL_IMG_PART = "imgPart";
+	public static final String COL_LANG_PART = "lang";
 
 	// POOL
 	public static final String COL_ID_POOL = "idPool";
@@ -43,6 +45,8 @@ public class QingPoolDatasource {
 	// INDICES DES COLONNES TABLE PART
 	public static final int IDX_ID_PART = 0;
 	public static final int IDX_NOM_PART = 1;
+	public static final int IDX_IMG_PART = 2;
+	public static final int IDX_LANG_PART = 3;
 
 	// INDICES DES COLONNES TABLE POOL
 	public static final int IDX_ID_POOL = 0;
@@ -101,6 +105,8 @@ public class QingPoolDatasource {
 		ContentValues values = new ContentValues();
 		values.put(COL_ID_PART, part.getIdPart());
 		values.put(COL_NOM_PART, part.getNomPart());
+		values.put(COL_IMG_PART, part.getImgPart());
+		values.put(COL_LANG_PART, part.getLang());
 		return values;
 	}
 
@@ -171,13 +177,9 @@ public class QingPoolDatasource {
 		Participant newPart = new Participant();
 		newPart.setId(cursor.getInt(0));
 		newPart.setNomPart(cursor.getString(1));
+		newPart.setImgPart(cursor.getString(2));
+		newPart.setLang(cursor.getString(3));
 		return newPart;
-	}
-
-	private void update(Participant part) {
-		ContentValues values = partToContentValues(part);
-		db.update(TABLE_PART, values, COL_ID_PART + "=" + part.getIdPart(),
-				null);
 	}
 
 	// ------------------------ M�thodes de la table POOL ----------------//
@@ -370,7 +372,8 @@ public class QingPoolDatasource {
 
 			db.execSQL("create table " + TABLE_PART + "(" + COL_ID_PART
 					+ " integer primary key autoincrement, " + COL_NOM_PART
-					+ " text)");
+					+ " text," + COL_IMG_PART + " text," + COL_LANG_PART
+					+ " text" + ")");
 
 			db.execSQL("create table " + TABLE_LISTE + "(" + COL_ID_JOUEUR
 					+ "integer primary key," + COL_NOM_JOUEUR + " text, "

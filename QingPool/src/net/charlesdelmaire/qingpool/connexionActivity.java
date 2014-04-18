@@ -180,15 +180,22 @@ public class connexionActivity extends Activity implements OnClickListener,
 		String currentPersonName = mPlusClient.getCurrentPerson() != null ? mPlusClient
 				.getCurrentPerson().getDisplayName()
 				: getString(R.string.unknown_person);
+
+		String currentPersonIMG = mPlusClient.getCurrentPerson().getImage()
+				.getUrl().toString();
+		String currentPersonLang = mPlusClient.getCurrentPerson().getLanguage();
 		mSignInStatus.setText(getString(R.string.signed_in_status,
 				currentPersonName));
 		updateButtons(true /* isSignedIn */);
+
 		/* ========================================================== */
 		if (bd.verifPart(currentPersonName) == -1) {
 			Participant unPart = new Participant();
 			int compte = bd.getPartCompte();
 			unPart.setId(compte);
 			unPart.setNomPart(currentPersonName);
+			unPart.setImgPart(currentPersonIMG);
+			unPart.setLang(currentPersonLang);
 			idduPart = bd.createPart(unPart);
 		} else {
 			idduPart = bd.verifPart(currentPersonName);
@@ -233,4 +240,5 @@ public class connexionActivity extends Activity implements OnClickListener,
 			mSignOutButton.setEnabled(false);
 		}
 	}
+
 }

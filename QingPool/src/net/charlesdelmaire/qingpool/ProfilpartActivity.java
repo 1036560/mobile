@@ -18,6 +18,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -30,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -45,13 +48,16 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 	List<Map<String, String>> partList = new ArrayList<Map<String, String>>();
 	SimpleAdapter simpleAdpt;
 	String lesJoueurs;
+	TextView agePart;
 	TextView textView;
 	TextView textView1;
 	TextView textViewEmpty;
+	ImageView bmImage;
 	Bundle b;
 	private QingPoolDatasource bd;
 	private List<JoueurPool> listJoueurs;
 	List<String> listJoueur = new ArrayList<String>();
+	Participant participantSelect = null;
 
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -63,7 +69,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 		textView = (TextView) findViewById(R.id.scorePart);
 		textView1 = (TextView) findViewById(R.id.nomPart);
 		textViewEmpty = (TextView) findViewById(R.id.empty);
-
+		agePart = (TextView) findViewById(R.id.agePart);
 		b = getIntent().getExtras();
 
 		textView1.setText(textView1.getText() + " " + b.getString("nomPart"));
@@ -86,10 +92,17 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 			simpleAdpt.notifyDataSetChanged();
 		} else {
 
+			participantSelect = bd.getParticipant(b.getInt("idPartSelect"));
 			new HttpAsyncTask()
 					.execute("http://charlesdelmaire1992.appspot.com/joueur?nom=");
-		}
 
+		}
+		new DownloadImageTask((ImageView) findViewById(R.id.imagePart))
+				.execute(participantSelect.getImgPart().substring(0,
+						participantSelect.getImgPart().length() - 2)
+						+ "300");
+
+		agePart.setText(agePart.getText() + participantSelect.getLang());
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
 
@@ -305,4 +318,29 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 
 	}
 
+	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+		ImageView bmImage;
+
+		public DownloadImageTask(ImageView bmImage) {
+			this.bmImage = bmImage;
+
+		}
+
+		protected Bitmap doInBackground(String... urls) {
+			String urldisplay = urls[0];
+			Bitmap mIcon11 = null;
+			try {
+				InputStream in = new java.net.URL(urldisplay).openStream();
+				mIcon11 = BitmapFactory.decodeStream(in);
+			} catch (Exception e) {
+				Log.e("Error", e.getMessage());
+				e.printStackTrace();
+			}
+			return mIcon11;
+		}
+
+		protected void onPostExecute(Bitmap result) {
+			bmImage.setImageBitmap(result);
+		}
+	}
 }

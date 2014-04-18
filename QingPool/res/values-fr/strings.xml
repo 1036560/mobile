@@ -46,6 +46,7 @@
     <string name="unknown_person">Inconnu</string>
     <string name="sil">Silhouette</string>
     <string name="nomPart">Nom: </string>
+    <string name="agePart">Lang: </string>
     <string name="scorePart">Score: </string>
     <string name="hello_world">Hello World!</string>    
     <string name="equipe">Équipe: </string>
