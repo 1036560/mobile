@@ -102,7 +102,8 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 						participantSelect.getImgPart().length() - 2)
 						+ "300");
 
-		agePart.setText(agePart.getText() + participantSelect.getLang());
+		agePart.setText(agePart.getText()
+				+ participantSelect.getLang().toUpperCase());
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
 
