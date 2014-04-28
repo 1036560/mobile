@@ -19,10 +19,11 @@
 		        android:layout_marginTop="10dp"/>
    
    <ImageView
-		        android:id="@+id/imageView2"
+		        android:id="@+id/imgJoueur"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:src="@drawable/hockey_joueur"
+		        android:layout_marginLeft="7dp"
 		        android:contentDescription="@string/sil" 
 		        android:layout_marginBottom="7dp"
 		        android:layout_marginTop="10dp"/>

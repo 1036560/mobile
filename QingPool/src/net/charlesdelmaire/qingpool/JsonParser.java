@@ -47,7 +47,8 @@ public class JsonParser {
 				JSONObject objPers = tab.getJSONObject(i);
 				liste.add(objPers.getString("nom") + "/"
 						+ objPers.getString("team") + "/"
-						+ objPers.getString("p"));
+						+ objPers.getString("p") + "/"
+						+ objPers.getString("idJoueur"));
 			}
 		} else {
 			Log.w("parseListePersonne", "No success from web service : "

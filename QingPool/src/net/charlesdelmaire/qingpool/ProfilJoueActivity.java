@@ -1,11 +1,17 @@
 package net.charlesdelmaire.qingpool;
 
+import java.io.InputStream;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.analytics.tracking.android.EasyTracker;
@@ -30,7 +36,6 @@ public class ProfilJoueActivity extends Activity implements OnClickListener {
 		textView1.setText(textView1.getText() + " " + b.getString("point")
 				+ " Pts");
 		textView2.setText(textView2.getText() + " " + b.getString("equipe"));
-
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
 
@@ -39,6 +44,10 @@ public class ProfilJoueActivity extends Activity implements OnClickListener {
 		hitParameters.put(Fields.SCREEN_NAME, "Profil Joueur");
 
 		tracker.send(hitParameters);
+
+		new DownloadImageTask((ImageView) findViewById(R.id.imgJoueur))
+				.execute("http://3.cdn.nhle.com/photos/mugs/"
+						+ b.getString("idJoueur") + ".jpg");
 	}
 
 	@Override
@@ -56,6 +65,32 @@ public class ProfilJoueActivity extends Activity implements OnClickListener {
 	protected void onStop() {
 		super.onStop();
 		EasyTracker.getInstance(this).activityStop(this);
+	}
+
+	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+		ImageView bmImage;
+
+		public DownloadImageTask(ImageView bmImage) {
+			this.bmImage = bmImage;
+
+		}
+
+		protected Bitmap doInBackground(String... urls) {
+			String urldisplay = urls[0];
+			Bitmap mIcon11 = null;
+			try {
+				InputStream in = new java.net.URL(urldisplay).openStream();
+				mIcon11 = BitmapFactory.decodeStream(in);
+			} catch (Exception e) {
+				Log.e("Error", e.getMessage());
+				e.printStackTrace();
+			}
+			return mIcon11;
+		}
+
+		protected void onPostExecute(Bitmap result) {
+			bmImage.setImageBitmap(result);
+		}
 	}
 
 }

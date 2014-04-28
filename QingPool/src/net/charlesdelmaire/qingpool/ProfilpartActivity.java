@@ -198,7 +198,6 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 				// result += result2;
 				liste = JsonParser.unePersonne(result2);
 				result += liste.get(0) + ";";
-
 			}
 
 		} catch (Exception e) {
@@ -249,6 +248,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 				b.putString("nom", str1[0]);
 				b.putString("equipe", str1[1]);
 				b.putString("point", str1[2]);
+				b.putString("idJoueur", str1[3]);
 			}
 		}
 
@@ -266,7 +266,6 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String... urls) {
-
 			return GET(urls[0]);
 		}
 
@@ -277,6 +276,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 				m_ProgressDialog.dismiss();
 			}
 			lesJoueurs = result;
+
 			String str[] = result.split(";");
 			int score = 0;
 			for (int i = 0; i < str.length; i++) {

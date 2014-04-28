@@ -5,13 +5,16 @@ public class JoueurPool {
 	String nomJoueur;
 	int idPool;
 	int idPart;
+	String idJoueur1;
 
 	public JoueurPool() {
 	}
 
-	public JoueurPool(String nomJoueur, int idPool, int idPart, int idJoueur) {
+	public JoueurPool(String nomJoueur, String idJoueur1, int idPool,
+			int idPart, int idJoueur) {
 		this.idJoueur = idJoueur;
 		this.nomJoueur = nomJoueur;
+		this.idJoueur1 = idJoueur1;
 		this.idPool = idPool;
 		this.idPart = idPart;
 	}
@@ -32,6 +35,10 @@ public class JoueurPool {
 		this.idPart = idPart;
 	}
 
+	public void setIdJoueur1(String idJoueur1) {
+		this.idJoueur1 = idJoueur1;
+	}
+
 	public String getNomJoueur() {
 		return this.nomJoueur;
 	}
@@ -46,5 +53,9 @@ public class JoueurPool {
 
 	public int getIdPart() {
 		return this.idPart;
+	}
+
+	public String getIdJoueur1() {
+		return idJoueur1;
 	}
 }
