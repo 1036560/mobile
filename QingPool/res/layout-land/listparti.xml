@@ -28,6 +28,14 @@
 	        android:text="@string/btnEnvoieCou"
 	        android:textColor="@color/black" 
             android:textSize="20sp"/>
+       <Button
+	        android:id="@+id/btnRsltFinal"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="@string/btnRsltFinal"
+	        android:textColor="@color/black" 
+            android:textSize="20sp"/>
     </LinearLayout>
 
 </LinearLayout>

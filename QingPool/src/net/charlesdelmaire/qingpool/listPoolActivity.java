@@ -58,7 +58,8 @@ public class listPoolActivity extends Activity {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_liste_pool));
+		hitParameters.put(Fields.SCREEN_NAME,
+				getString(R.string.screen_liste_pool));
 
 		tracker.send(hitParameters);
 
@@ -77,16 +78,19 @@ public class listPoolActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.idRetour:
 			intent = new Intent(this, principaleActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 			break;
 		case R.id.gestionCompte:
 			intent = new Intent(this, connexionActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 			break;
 		case R.id.aide:
 			intent = new Intent(this, connexionActivity.class);
 			break;
 		}
-		intent.putExtras(b);
-		this.startActivity(intent);
+
 		return super.onOptionsItemSelected(item);
 	}
 

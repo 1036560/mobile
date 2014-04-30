@@ -30,6 +30,7 @@ public class listPartiActivity extends Activity implements OnClickListener {
 	List<Map<String, String>> partList = new ArrayList<Map<String, String>>();
 	SimpleAdapter simpleAdpt;
 	private Button button1;
+	private Button btnRsltFinal;
 	TextView textView;
 	Bundle b;
 
@@ -39,6 +40,8 @@ public class listPartiActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.listparti);
 		button1 = (Button) findViewById(R.id.btnInviter);
 		button1.setOnClickListener(this);
+		btnRsltFinal = (Button) findViewById(R.id.btnRsltFinal);
+		btnRsltFinal.setOnClickListener(this);
 		b = getIntent().getExtras();
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
@@ -144,6 +147,12 @@ public class listPartiActivity extends Activity implements OnClickListener {
 		if (arg0.getId() == R.id.btnInviter) {
 			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, EnvoieCourrielActivity.class);
+
+			// start the second Activity
+			this.startActivity(intent);
+		} else if (arg0.getId() == R.id.btnRsltFinal) {
+			// define a new Intent for the second Activity
+			Intent intent = new Intent(this, rsltFinaActivity.class);
 
 			// start the second Activity
 			this.startActivity(intent);

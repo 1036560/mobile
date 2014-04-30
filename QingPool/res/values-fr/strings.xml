@@ -31,6 +31,7 @@
     <string name="btnEnvoieCou">Inviter d\'autres participants</string>
     <string name="btnRetPart">Retourner au participant</string>
     <string name="ok">OK</string>
+    <string name="btnRsltFinal">Resultat final</string>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
@@ -94,6 +95,7 @@
     <string name="screen_principale">Page principale</string>
     <string name="screen_profil_joue">Profil du joueur</string>
     <string name="screen_profil_part">Profil du participant</string>
+    <string name="screen_rslt_pool">Resultat Final</string>
     
     <string name="toast_mauvais_mdp">Mot de passe incorrect.</string>
     <string name="toast_nbr_max_atteint">Nombre maximum de poolers atteint.</string>
