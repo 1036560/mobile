@@ -37,7 +37,8 @@ public class EnvoieCourrielActivity extends Activity implements OnClickListener 
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_conn_pool));
+		hitParameters.put(Fields.SCREEN_NAME,
+				getString(R.string.screen_conn_pool));
 
 		tracker.send(hitParameters);
 	}
@@ -55,16 +56,19 @@ public class EnvoieCourrielActivity extends Activity implements OnClickListener 
 		switch (item.getItemId()) {
 		case R.id.idRetour:
 			intent = new Intent(this, principaleActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 			break;
 		case R.id.gestionCompte:
 			intent = new Intent(this, connexionActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 			break;
 		case R.id.aide:
 			intent = new Intent(this, connexionActivity.class);
 			break;
 		}
-		intent.putExtras(b);
-		this.startActivity(intent);
+
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -81,14 +85,15 @@ public class EnvoieCourrielActivity extends Activity implements OnClickListener 
 		if (v.getId() == R.id.btnEnvoieCou) {
 			Intent i = new Intent(Intent.ACTION_SEND);
 			i.setType("message/rfc822");
-			i.putExtra(Intent.EXTRA_EMAIL,
+			i.putExtra(
+					Intent.EXTRA_EMAIL,
 					new String[] { getString(R.string.courriel_contacts_invite) });
 			i.putExtra(Intent.EXTRA_SUBJECT,
 					getString(R.string.courriel_rejoindre));
-			i.putExtra(Intent.EXTRA_TEXT,
-					getString(R.string.courriel_cree));
+			i.putExtra(Intent.EXTRA_TEXT, getString(R.string.courriel_cree));
 			try {
-				startActivity(Intent.createChooser(i, getString(R.string.courriel_envoie)));
+				startActivity(Intent.createChooser(i,
+						getString(R.string.courriel_envoie)));
 			} catch (android.content.ActivityNotFoundException ex) {
 				Toast.makeText(this,
 						getString(R.string.toast_courriel_inexistant),

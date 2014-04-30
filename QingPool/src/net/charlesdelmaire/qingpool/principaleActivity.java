@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Fields;
@@ -44,7 +43,8 @@ public class principaleActivity extends Activity implements OnClickListener {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_principale));
+		hitParameters.put(Fields.SCREEN_NAME,
+				getString(R.string.screen_principale));
 
 		tracker.send(hitParameters);
 	}
@@ -62,30 +62,30 @@ public class principaleActivity extends Activity implements OnClickListener {
 		switch (item.getItemId()) {
 		case R.id.idRetour:
 			intent = new Intent(this, principaleActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 			break;
 		case R.id.gestionCompte:
 			intent = new Intent(this, connexionActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 			break;
 		case R.id.aide:
-			/*AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle("Title");
 			alertDialog.setMessage("Message");
 			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-			   public void onClick(DialogInterface dialog, int which) {
-			      dialog.dismiss();
-			   }
-			});
-			// Set the Icon for the Dialog
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			}); // Set the Icon for the Dialog
 			alertDialog.setIcon(R.drawable.ic_launcher);
-			alertDialog.show();*/
-			Toast.makeText(getApplicationContext(),
-					getString(R.string.toast_mauvais_mdp), Toast.LENGTH_LONG)
-					.show();      
-		   
+			alertDialog.show();
+
 			break;
 		}
-		intent.putExtras(b);
-		this.startActivity(intent);
+
 		return super.onOptionsItemSelected(item);
 	}
 

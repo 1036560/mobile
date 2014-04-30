@@ -67,7 +67,8 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_liste_alea));
+		hitParameters.put(Fields.SCREEN_NAME,
+				getString(R.string.screen_liste_alea));
 
 		tracker.send(hitParameters);
 	}
@@ -85,16 +86,19 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 		switch (item.getItemId()) {
 		case R.id.idRetour:
 			intent = new Intent(this, principaleActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 			break;
 		case R.id.gestionCompte:
 			intent = new Intent(this, connexionActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 			break;
 		case R.id.aide:
 			intent = new Intent(this, connexionActivity.class);
 			break;
 		}
-		intent.putExtras(b);
-		this.startActivity(intent);
+
 		return super.onOptionsItemSelected(item);
 	}
 

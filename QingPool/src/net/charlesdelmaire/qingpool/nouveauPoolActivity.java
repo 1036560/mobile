@@ -46,7 +46,8 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_nouveau_pool));
+		hitParameters.put(Fields.SCREEN_NAME,
+				getString(R.string.screen_nouveau_pool));
 
 		tracker.send(hitParameters);
 
@@ -65,9 +66,13 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 		switch (item.getItemId()) {
 		case R.id.idRetour:
 			intent = new Intent(this, principaleActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 			break;
 		case R.id.gestionCompte:
 			intent = new Intent(this, connexionActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 			break;
 		case R.id.aide:
 			intent = new Intent(this, connexionActivity.class);
@@ -125,14 +130,12 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 						this.startActivity(intent);
 						this.finish();
 					} else {
-						Toast.makeText(
-								getApplicationContext(),
+						Toast.makeText(getApplicationContext(),
 								getString(R.string.toast_pool_minimum),
 								Toast.LENGTH_SHORT).show();
 					}
 				} else {
-					Toast.makeText(
-							getApplicationContext(),
+					Toast.makeText(getApplicationContext(),
 							getString(R.string.toast_pool_meme_nom),
 							Toast.LENGTH_SHORT).show();
 				}

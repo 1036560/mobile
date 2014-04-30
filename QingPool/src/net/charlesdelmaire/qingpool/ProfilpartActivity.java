@@ -48,7 +48,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 	List<Map<String, String>> partList = new ArrayList<Map<String, String>>();
 	SimpleAdapter simpleAdpt;
 	String lesJoueurs;
-	//TextView agePart;
+	// TextView agePart;
 	TextView textView;
 	TextView textView1;
 	TextView textViewEmpty;
@@ -69,7 +69,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 		textView = (TextView) findViewById(R.id.scorePart);
 		textView1 = (TextView) findViewById(R.id.nomPart);
 		textViewEmpty = (TextView) findViewById(R.id.empty);
-		//agePart = (TextView) findViewById(R.id.agePart);
+		// agePart = (TextView) findViewById(R.id.agePart);
 		b = getIntent().getExtras();
 
 		textView1.setText(textView1.getText() + " " + b.getString("nomPart"));
@@ -102,8 +102,8 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 						participantSelect.getImgPart().length() - 2)
 						+ "300");
 
-		//agePart.setText(agePart.getText()
-				//+ participantSelect.getLang().toUpperCase());
+		// agePart.setText(agePart.getText()
+		// + participantSelect.getLang().toUpperCase());
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
 
@@ -128,16 +128,19 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 		switch (item.getItemId()) {
 		case R.id.idRetour:
 			intent = new Intent(this, principaleActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 			break;
 		case R.id.gestionCompte:
 			intent = new Intent(this, connexionActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 			break;
 		case R.id.aide:
 			intent = new Intent(this, connexionActivity.class);
 			break;
 		}
-		intent.putExtras(b);
-		this.startActivity(intent);
+
 		return super.onOptionsItemSelected(item);
 	}
 
