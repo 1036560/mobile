@@ -43,7 +43,7 @@ public class connPoolActivity extends Activity implements OnClickListener {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, "Connexion Pool");
+		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_conn_pool));
 
 		tracker.send(hitParameters);
 
@@ -64,6 +64,9 @@ public class connPoolActivity extends Activity implements OnClickListener {
 			intent = new Intent(this, principaleActivity.class);
 			break;
 		case R.id.gestionCompte:
+			intent = new Intent(this, connexionActivity.class);
+			break;
+		case R.id.aide:
 			intent = new Intent(this, connexionActivity.class);
 			break;
 		}
@@ -105,22 +108,22 @@ public class connPoolActivity extends Activity implements OnClickListener {
 
 						} else {
 							Toast.makeText(getApplicationContext(),
-									"Mauvais mot de passe", Toast.LENGTH_LONG)
+									getString(R.string.toast_mauvais_mdp), Toast.LENGTH_LONG)
 									.show();
 						}
 					} else {
 						Toast.makeText(getApplicationContext(),
-								"La limite de joueur a été atteint",
+								getString(R.string.toast_nbr_max_atteint),
 								Toast.LENGTH_LONG).show();
 					}
 				} else {
 					Toast.makeText(getApplicationContext(),
-							"Désolé aucune partie à ce nom", Toast.LENGTH_LONG)
+							getString(R.string.toast_pool_non), Toast.LENGTH_LONG)
 							.show();
 				}
 			} else {
 				Toast.makeText(getApplicationContext(),
-						"Désolé vous êtes déjà inscrit dans cette partie",
+						getString(R.string.toast_pool_deja),
 						Toast.LENGTH_LONG).show();
 			}
 

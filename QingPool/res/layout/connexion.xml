@@ -24,8 +24,16 @@
             android:id="@+id/sign_in_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dip" 
-            android:textSize="20sp" />
+            android:layout_marginBottom="30dip"
+            android:text="@string/btnSignIn" 
+            android:textColor="#000000"
+			android:textSize="20sp"			
+			android:shadowColor="#FFFFFF"
+			android:shadowDx="0"
+			android:shadowDy="0"
+			android:shadowRadius="25" />
+        
+        	<!-- android:background="@drawable/button_shape" -->
 
         <Button
             android:id="@+id/sign_out_button"
@@ -34,7 +42,13 @@
             android:layout_marginBottom="30dip"
             android:enabled="false"
             android:text="@string/sign_out_button_name" 
-            android:textSize="20sp" />
+            android:textColor="#000000"
+			android:textSize="20sp"		
+			android:background="@drawable/button_shape"
+			android:shadowColor="#FFFFFF"
+			android:shadowDx="0"
+			android:shadowDy="0"
+			android:shadowRadius="25" />
 
         <Button
             android:id="@+id/retourPagePrincipale"
@@ -43,7 +57,13 @@
             android:text="@string/redirectionPagePrincipale"
             android:layout_marginBottom="30dip"
             android:visibility="gone"
-            android:textSize="20sp" />
+            android:textColor="#000000"
+			android:textSize="20sp"		
+			android:background="@drawable/button_shape"
+			android:shadowColor="#FFFFFF"
+			android:shadowDx="0"
+			android:shadowDy="0"
+			android:shadowRadius="25" />
 
         <Button
             android:id="@+id/btnPageAccueil"
@@ -51,7 +71,13 @@
             android:layout_height="wrap_content"
             android:text="@string/btnPageAccueil"
             android:layout_marginBottom="30dip"
-            android:textSize="20sp" />
+            android:textColor="#000000"
+			android:textSize="20sp"		
+			android:background="@drawable/button_shape"
+			android:shadowColor="#FFFFFF"
+			android:shadowDx="0"
+			android:shadowDy="0"
+			android:shadowRadius="25" />
 
         <TextView
             android:id="@+id/sign_in_status"

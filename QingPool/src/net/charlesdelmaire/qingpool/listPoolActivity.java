@@ -58,7 +58,7 @@ public class listPoolActivity extends Activity {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, "Liste Pool");
+		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_liste_pool));
 
 		tracker.send(hitParameters);
 
@@ -79,6 +79,9 @@ public class listPoolActivity extends Activity {
 			intent = new Intent(this, principaleActivity.class);
 			break;
 		case R.id.gestionCompte:
+			intent = new Intent(this, connexionActivity.class);
+			break;
+		case R.id.aide:
 			intent = new Intent(this, connexionActivity.class);
 			break;
 		}
@@ -116,9 +119,9 @@ public class listPoolActivity extends Activity {
 
 		// We know that each row in the adapter is a Map
 		HashMap map = (HashMap) simpleAdpt.getItem(aInfo.position);
-		menu.setHeaderTitle("Les Options pour le pool: " + map.get("nomPool"));
-		menu.add(1, 1, 1, "Liste de participant");
-		menu.add(1, 2, 2, "Quitter un pool");
+		menu.setHeaderTitle(getString(R.string.popup_nom) + map.get("nomPool"));
+		menu.add(1, 1, 1, getString(R.string.popup_liste));
+		menu.add(1, 2, 2, getString(R.string.popup_quitter));
 
 	}
 

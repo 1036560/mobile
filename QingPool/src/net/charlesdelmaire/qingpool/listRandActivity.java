@@ -67,7 +67,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, "Liste Random");
+		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_liste_alea));
 
 		tracker.send(hitParameters);
 	}
@@ -87,6 +87,9 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			intent = new Intent(this, principaleActivity.class);
 			break;
 		case R.id.gestionCompte:
+			intent = new Intent(this, connexionActivity.class);
+			break;
+		case R.id.aide:
 			intent = new Intent(this, connexionActivity.class);
 			break;
 		}
@@ -196,7 +199,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			}
 
 			Toast.makeText(getApplicationContext(),
-					"Les joueurs ont bien été ajouté!", Toast.LENGTH_SHORT)
+					getString(R.string.toast_joueur_ajoute), Toast.LENGTH_SHORT)
 					.show();
 			b.remove("listJoueur");
 

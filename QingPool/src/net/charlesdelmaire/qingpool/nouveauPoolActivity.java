@@ -46,7 +46,7 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, "Nouveau Pool");
+		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_nouveau_pool));
 
 		tracker.send(hitParameters);
 
@@ -67,6 +67,9 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 			intent = new Intent(this, principaleActivity.class);
 			break;
 		case R.id.gestionCompte:
+			intent = new Intent(this, connexionActivity.class);
+			break;
+		case R.id.aide:
 			intent = new Intent(this, connexionActivity.class);
 			break;
 		}
@@ -124,18 +127,18 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
-								"Vous devez mettre un nombre de participant minimum",
+								getString(R.string.toast_pool_minimum),
 								Toast.LENGTH_SHORT).show();
 					}
 				} else {
 					Toast.makeText(
 							getApplicationContext(),
-							"Désolé ce pool éxiste déjà! Veuillez prendre un notre nom! ",
+							getString(R.string.toast_pool_meme_nom),
 							Toast.LENGTH_SHORT).show();
 				}
 			} else {
 				Toast.makeText(getApplicationContext(),
-						"Les mots de passe sont différent!", Toast.LENGTH_SHORT)
+						getString(R.string.toast_pool_mdp), Toast.LENGTH_SHORT)
 						.show();
 			}
 		}

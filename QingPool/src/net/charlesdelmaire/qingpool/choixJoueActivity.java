@@ -29,7 +29,7 @@ public class choixJoueActivity extends Activity implements OnClickListener {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, "Choix Joueur");
+		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_choix_joue));
 
 		tracker.send(hitParameters);
 	}

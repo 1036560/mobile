@@ -37,7 +37,7 @@ public class EnvoieCourrielActivity extends Activity implements OnClickListener 
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, "Connexion Pool");
+		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_conn_pool));
 
 		tracker.send(hitParameters);
 	}
@@ -57,6 +57,9 @@ public class EnvoieCourrielActivity extends Activity implements OnClickListener 
 			intent = new Intent(this, principaleActivity.class);
 			break;
 		case R.id.gestionCompte:
+			intent = new Intent(this, connexionActivity.class);
+			break;
+		case R.id.aide:
 			intent = new Intent(this, connexionActivity.class);
 			break;
 		}
@@ -79,16 +82,16 @@ public class EnvoieCourrielActivity extends Activity implements OnClickListener 
 			Intent i = new Intent(Intent.ACTION_SEND);
 			i.setType("message/rfc822");
 			i.putExtra(Intent.EXTRA_EMAIL,
-					new String[] { "Contacts@Invit�s.com" });
+					new String[] { getString(R.string.courriel_contacts_invite) });
 			i.putExtra(Intent.EXTRA_SUBJECT,
-					"Venez nous rejoindre sur Qing Pool");
+					getString(R.string.courriel_rejoindre));
 			i.putExtra(Intent.EXTRA_TEXT,
-					"Nous avons un Pool de cr�er et nous aimerions vous avoir avec nous!");
+					getString(R.string.courriel_cree));
 			try {
-				startActivity(Intent.createChooser(i, "Send mail..."));
+				startActivity(Intent.createChooser(i, getString(R.string.courriel_envoie)));
 			} catch (android.content.ActivityNotFoundException ex) {
 				Toast.makeText(this,
-						"Vous n'avez pas de client courriel d'install�.",
+						getString(R.string.toast_courriel_inexistant),
 						Toast.LENGTH_SHORT).show();
 			}
 		}

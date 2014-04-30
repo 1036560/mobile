@@ -81,7 +81,7 @@ public class listPartiActivity extends Activity implements OnClickListener {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, "Liste Participant");
+		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_liste_part));
 
 		tracker.send(hitParameters);
 
@@ -102,6 +102,9 @@ public class listPartiActivity extends Activity implements OnClickListener {
 			intent = new Intent(this, principaleActivity.class);
 			break;
 		case R.id.gestionCompte:
+			intent = new Intent(this, connexionActivity.class);
+			break;
+		case R.id.aide:
 			intent = new Intent(this, connexionActivity.class);
 			break;
 		}

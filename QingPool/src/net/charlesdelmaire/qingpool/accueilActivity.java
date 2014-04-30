@@ -27,7 +27,7 @@ public class accueilActivity extends Activity implements OnClickListener {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, "Accueil");
+		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_accueil));
 
 		tracker.send(hitParameters);
 	}
