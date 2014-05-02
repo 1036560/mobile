@@ -73,14 +73,14 @@ public class principaleActivity extends Activity implements OnClickListener {
 		case R.id.aide:
 
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-			alertDialog.setTitle("Title");
-			alertDialog.setMessage("Message");
-			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			alertDialog.setTitle(getString(R.string.menu_aide));
+			alertDialog.setMessage(getString(R.string.aide_principale));
+			alertDialog.setButton(getString(R.string.fermer), new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
 				}
 			}); // Set the Icon for the Dialog
-			alertDialog.setIcon(R.drawable.ic_launcher);
+			alertDialog.setIcon(R.drawable.aide);
 			alertDialog.show();
 
 			break;

@@ -10,7 +10,7 @@ import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.Tracker;
 
-public class rsltFinaActivity extends Activity {
+public class rsltFinalActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

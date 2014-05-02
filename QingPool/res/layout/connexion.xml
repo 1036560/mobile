@@ -22,9 +22,10 @@
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
-            android:layout_width="match_parent"
+            android:layout_width="300sp"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dip"
+            android:layout_marginBottom="30dip"            
             android:text="@string/btnSignIn" 
             android:textColor="#000000"
 			android:textSize="20sp"			
@@ -37,9 +38,10 @@
 
         <Button
             android:id="@+id/sign_out_button"
-            android:layout_width="match_parent"
+            android:layout_width="300sp"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dip"
+            android:layout_marginBottom="30dip"            
             android:enabled="false"
             android:text="@string/sign_out_button_name" 
             android:textColor="#000000"
@@ -52,10 +54,11 @@
 
         <Button
             android:id="@+id/retourPagePrincipale"
-            android:layout_width="match_parent"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
             android:text="@string/redirectionPagePrincipale"
             android:layout_marginBottom="30dip"
+            android:layout_gravity="center"
             android:visibility="gone"
             android:textColor="#000000"
 			android:textSize="20sp"		
@@ -67,10 +70,11 @@
 
         <Button
             android:id="@+id/btnPageAccueil"
-            android:layout_width="match_parent"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
             android:text="@string/btnPageAccueil"
             android:layout_marginBottom="30dip"
+            android:layout_gravity="center"
             android:textColor="#000000"
 			android:textSize="20sp"		
 			android:background="@drawable/button_shape"

@@ -3,6 +3,8 @@ package net.charlesdelmaire.qingpool;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -75,7 +77,18 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 			this.startActivity(intent);
 			break;
 		case R.id.aide:
-			intent = new Intent(this, connexionActivity.class);
+
+			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+			alertDialog.setTitle(getString(R.string.menu_aide));
+			alertDialog.setMessage(getString(R.string.aide_nouv_pool));
+			alertDialog.setButton(getString(R.string.fermer), new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			}); // Set the Icon for the Dialog
+			alertDialog.setIcon(R.drawable.aide);
+			alertDialog.show();
+
 			break;
 		}
 		intent.putExtras(b);

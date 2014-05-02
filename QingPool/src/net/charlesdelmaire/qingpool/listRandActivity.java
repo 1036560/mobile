@@ -9,8 +9,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -95,7 +97,18 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			this.startActivity(intent);
 			break;
 		case R.id.aide:
-			intent = new Intent(this, connexionActivity.class);
+
+			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+			alertDialog.setTitle(getString(R.string.menu_aide));
+			alertDialog.setMessage(getString(R.string.aide_list_rand));
+			alertDialog.setButton(getString(R.string.fermer), new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			}); // Set the Icon for the Dialog
+			alertDialog.setIcon(R.drawable.aide);
+			alertDialog.show();
+
 			break;
 		}
 

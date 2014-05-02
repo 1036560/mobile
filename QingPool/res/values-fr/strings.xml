@@ -31,7 +31,7 @@
     <string name="btnEnvoieCou">Inviter d\'autres participants</string>
     <string name="btnRetPart">Retourner au participant</string>
     <string name="ok">OK</string>
-    <string name="btnRsltFinal">Resultat final</string>
+    <string name="btnRsltFinal">Résultats finaux</string>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
@@ -95,7 +95,7 @@
     <string name="screen_principale">Page principale</string>
     <string name="screen_profil_joue">Profil du joueur</string>
     <string name="screen_profil_part">Profil du participant</string>
-    <string name="screen_rslt_pool">Resultat Final</string>
+    <string name="screen_rslt_pool">Résultats finaux</string>
     
     <string name="toast_mauvais_mdp">Mot de passe incorrect.</string>
     <string name="toast_nbr_max_atteint">Nombre maximum de poolers atteint.</string>
@@ -112,4 +112,30 @@
     <string name="popup_quitter">Quitter le pool</string>
     
     <string name="menu_aide">Aide</string>
+    
+    <!-- Texte des menus d'aide -->
+    <string name="aide_conn_pool">
+        La page de connexion à un pool vous permet de 
+        vous connecter à un pool déjà existant. Pour ce 
+        faire, il s\'agit simplement d\'inscrire le nom du 
+        pool en question et d\'entrer le mot de passe 
+        condordant. Une fois les informations saisies, 
+        appuyer sur le bouton Connexion pour lancer la 
+        connexion.
+        
+        Le bouton Réinitialisaton efface les champs 
+        d\'entrée.</string>    
+    
+    <string name="aide_envoie_courriel">
+        
+    </string>
+    
+    <string name="aide_list_part"></string>
+    <string name="aide_list_pool"></string>
+    <string name="aide_list_rand"></string>
+    <string name="aide_nouv_pool"></string>
+    <string name="aide_principale"></string>
+    <string name="aide_prof_part"></string>
+    
+    
 </resources>

@@ -31,7 +31,7 @@
     <string name="btnEnvoieCou">Invite your friends</string>
     <string name="btnRetPart">Back to participant</string>
     <string name="ok">OK</string>
-    <string name="btnRsltFinal">Resultat final</string>
+    <string name="btnRsltFinal">Final results</string>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
@@ -114,4 +114,26 @@
     <string name="popup_quitter">Leave the pool</string>
     
     <string name="menu_aide">Help</string>
+    
+    <!-- Texte des menus d'aide -->
+    <string name="aide_conn_pool">
+        The pool connection page allows you to 
+        connect to an existing pool. To proceed,
+        simply enter the name and password of the
+        pool in the text fields. Once the 
+        credentials have been entered, press the 
+        Connect button to connect.
+        
+        The Reset button resets the fields to blank.</string>
+    
+    
+    
+    
+    <string name="aide_envoie_courriel"></string>
+    <string name="aide_list_part"></string>
+    <string name="aide_list_pool"></string>
+    <string name="aide_list_rand"></string>
+    <string name="aide_nouv_pool"></string>
+    <string name="aide_principale"></string>
+    <string name="aide_prof_part"></string>
 </resources>

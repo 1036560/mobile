@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +20,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Fields;
@@ -113,7 +116,18 @@ public class listPartiActivity extends Activity implements OnClickListener {
 			this.startActivity(intent);
 			break;
 		case R.id.aide:
-			intent = new Intent(this, connexionActivity.class);
+
+			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+			alertDialog.setTitle(getString(R.string.menu_aide));
+			alertDialog.setMessage(getString(R.string.aide_list_part));
+			alertDialog.setButton(getString(R.string.fermer), new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			}); // Set the Icon for the Dialog
+			alertDialog.setIcon(R.drawable.aide);
+			alertDialog.show();
+
 			break;
 		}
 
@@ -124,16 +138,7 @@ public class listPartiActivity extends Activity implements OnClickListener {
 
 		for (int i = 0; i < lstPart.size(); i++) {
 			partList.add(createPart("nomPart", lstPart.get(i).getNomPart()));
-		}
-		/*
-		 * partList.add(createPart("nomPart", "Charles Delmaire"));
-		 * partList.add(createPart("nomPart", "Charles Drolet"));
-		 * partList.add(createPart("nomPart", "Olivier Labonté"));
-		 * partList.add(createPart("nomPart", "Jonathan Anctil"));
-		 * partList.add(createPart("nomPart", "Michael Leclerc"));
-		 * partList.add(createPart("nomPart", "Marie Couture"));
-		 * partList.add(createPart("nomPart", "Tommy Tremblay"));
-		 */
+		}		
 	}
 
 	private HashMap<String, String> createPart(String key, String name) {
@@ -145,14 +150,28 @@ public class listPartiActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 		if (arg0.getId() == R.id.btnInviter) {
+			
+				Intent i = new Intent(Intent.ACTION_SEND);
+				i.setType("message/rfc822");
+				i.putExtra(
+						Intent.EXTRA_EMAIL,
+						new String[] { getString(R.string.courriel_contacts_invite) });
+				i.putExtra(Intent.EXTRA_SUBJECT,
+						getString(R.string.courriel_rejoindre));
+				i.putExtra(Intent.EXTRA_TEXT, getString(R.string.courriel_cree));
+				try {
+					startActivity(Intent.createChooser(i,
+							getString(R.string.courriel_envoie)));
+				} catch (android.content.ActivityNotFoundException ex) {
+					Toast.makeText(this,
+							getString(R.string.toast_courriel_inexistant),
+							Toast.LENGTH_SHORT).show();
+				}
+			
+		} 
+		if (arg0.getId() == R.id.btnRsltFinal) {
 			// define a new Intent for the second Activity
-			Intent intent = new Intent(this, EnvoieCourrielActivity.class);
-
-			// start the second Activity
-			this.startActivity(intent);
-		} else if (arg0.getId() == R.id.btnRsltFinal) {
-			// define a new Intent for the second Activity
-			Intent intent = new Intent(this, rsltFinaActivity.class);
+			Intent intent = new Intent(this, rsltFinalActivity.class);
 
 			// start the second Activity
 			this.startActivity(intent);

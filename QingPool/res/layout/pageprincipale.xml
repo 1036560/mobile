@@ -20,7 +20,8 @@
 		      
 	    <Button
 	        android:id="@+id/btnStartPool"
-	        android:layout_width="match_parent"
+	        android:layout_width="300sp"
+            android:layout_gravity="center"
 	        android:layout_height="wrap_content"        
 	        android:text="@string/btnStartPool"
 	        android:layout_marginTop="40dip"
@@ -35,7 +36,8 @@
 	
 	    <Button
 	        android:id="@+id/btnViewPool"
-	        android:layout_width="match_parent"
+	        android:layout_width="300sp"
+            android:layout_gravity="center"
 	        android:layout_height="wrap_content"         
 	        android:text="@string/btnViewPool"
 	        android:layout_marginTop="40dip"
@@ -50,7 +52,8 @@
 	
 	    <Button
 	        android:id="@+id/btnConnPool"
-	        android:layout_width="match_parent"
+	        android:layout_width="300sp"
+            android:layout_gravity="center"
 	        android:layout_height="wrap_content"         
 	        android:text="@string/btnConnPool"
 	        android:layout_marginTop="40dip"
