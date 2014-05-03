@@ -112,7 +112,7 @@
     <string name="popup_quitter">Quitter le pool</string>
     
     <string name="menu_aide">Aide</string>
-    
+    <string name="menu_deconnexion">Deconnexion</string>
     <!-- Texte des menus d'aide -->
     <string name="aide_conn_pool">
         La page de connexion à un pool vous permet de 

@@ -5,16 +5,15 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/retourAccueil"/>
-    <item
-        android:id="@+id/gestionCompte"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/gestionCompte"/>
     
     <item
         android:id="@+id/aide"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/menu_aide"/>
-
+	<item
+        android:id="@+id/deconnexion"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_deconnexion"/>
 </menu>

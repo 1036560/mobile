@@ -65,24 +65,26 @@ public class principaleActivity extends Activity implements OnClickListener {
 			intent.putExtras(b);
 			this.startActivity(intent);
 			break;
-		case R.id.gestionCompte:
-			intent = new Intent(this, connexionActivity.class);
-			intent.putExtras(b);
-			this.startActivity(intent);
-			break;
 		case R.id.aide:
 
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.menu_aide));
 			alertDialog.setMessage(getString(R.string.aide_principale));
-			alertDialog.setButton(getString(R.string.fermer), new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
-			}); // Set the Icon for the Dialog
+			alertDialog.setButton(getString(R.string.fermer),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+					}); // Set the Icon for the Dialog
 			alertDialog.setIcon(R.drawable.aide);
 			alertDialog.show();
 
+			break;
+		case R.id.deconnexion:
+			intent = new Intent(this, connexionActivity.class);
+			b.putInt("deconnexion", 1);
+			intent.putExtras(b);
+			this.startActivity(intent);
 			break;
 		}
 

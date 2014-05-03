@@ -110,8 +110,9 @@ public class listPartiActivity extends Activity implements OnClickListener {
 			intent.putExtras(b);
 			this.startActivity(intent);
 			break;
-		case R.id.gestionCompte:
+		case R.id.deconnexion:
 			intent = new Intent(this, connexionActivity.class);
+			b.putInt("deconnexion", 1);
 			intent.putExtras(b);
 			this.startActivity(intent);
 			break;
@@ -120,11 +121,12 @@ public class listPartiActivity extends Activity implements OnClickListener {
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.menu_aide));
 			alertDialog.setMessage(getString(R.string.aide_list_part));
-			alertDialog.setButton(getString(R.string.fermer), new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
-			}); // Set the Icon for the Dialog
+			alertDialog.setButton(getString(R.string.fermer),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+					}); // Set the Icon for the Dialog
 			alertDialog.setIcon(R.drawable.aide);
 			alertDialog.show();
 
@@ -138,7 +140,7 @@ public class listPartiActivity extends Activity implements OnClickListener {
 
 		for (int i = 0; i < lstPart.size(); i++) {
 			partList.add(createPart("nomPart", lstPart.get(i).getNomPart()));
-		}		
+		}
 	}
 
 	private HashMap<String, String> createPart(String key, String name) {
@@ -150,25 +152,25 @@ public class listPartiActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 		if (arg0.getId() == R.id.btnInviter) {
-			
-				Intent i = new Intent(Intent.ACTION_SEND);
-				i.setType("message/rfc822");
-				i.putExtra(
-						Intent.EXTRA_EMAIL,
-						new String[] { getString(R.string.courriel_contacts_invite) });
-				i.putExtra(Intent.EXTRA_SUBJECT,
-						getString(R.string.courriel_rejoindre));
-				i.putExtra(Intent.EXTRA_TEXT, getString(R.string.courriel_cree));
-				try {
-					startActivity(Intent.createChooser(i,
-							getString(R.string.courriel_envoie)));
-				} catch (android.content.ActivityNotFoundException ex) {
-					Toast.makeText(this,
-							getString(R.string.toast_courriel_inexistant),
-							Toast.LENGTH_SHORT).show();
-				}
-			
-		} 
+
+			Intent i = new Intent(Intent.ACTION_SEND);
+			i.setType("message/rfc822");
+			i.putExtra(
+					Intent.EXTRA_EMAIL,
+					new String[] { getString(R.string.courriel_contacts_invite) });
+			i.putExtra(Intent.EXTRA_SUBJECT,
+					getString(R.string.courriel_rejoindre));
+			i.putExtra(Intent.EXTRA_TEXT, getString(R.string.courriel_cree));
+			try {
+				startActivity(Intent.createChooser(i,
+						getString(R.string.courriel_envoie)));
+			} catch (android.content.ActivityNotFoundException ex) {
+				Toast.makeText(this,
+						getString(R.string.toast_courriel_inexistant),
+						Toast.LENGTH_SHORT).show();
+			}
+
+		}
 		if (arg0.getId() == R.id.btnRsltFinal) {
 			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, rsltFinalActivity.class);

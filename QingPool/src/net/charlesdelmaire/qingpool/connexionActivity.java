@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Fields;
@@ -38,7 +39,7 @@ public class connexionActivity extends Activity implements OnClickListener,
 	private View btnPageAccueil;
 	private View btnPagePrinc;
 	private int idduPart;
-
+	Bundle b;
 	private ConnectionResult mConnectionResult;
 
 	@Override
@@ -54,8 +55,6 @@ public class connexionActivity extends Activity implements OnClickListener,
 		mSignInStatus = (TextView) findViewById(R.id.sign_in_status);
 		mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
 		mSignInButton.setOnClickListener(this);
-		mSignOutButton = findViewById(R.id.sign_out_button);
-		mSignOutButton.setOnClickListener(this);
 		btnPageAccueil = findViewById(R.id.btnPageAccueil);
 		btnPageAccueil.setOnClickListener(this);
 		btnPagePrinc = findViewById(R.id.retourPagePrincipale);
@@ -66,9 +65,17 @@ public class connexionActivity extends Activity implements OnClickListener,
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_connexion));
+		hitParameters.put(Fields.SCREEN_NAME,
+				getString(R.string.screen_connexion));
 
 		tracker.send(hitParameters);
+
+		b = getIntent().getExtras();
+
+		Toast.makeText(getApplicationContext(),
+				Integer.toString(b.getInt("deconnexion")), Toast.LENGTH_SHORT)
+				.show();
+
 	}
 
 	@Override
@@ -76,6 +83,7 @@ public class connexionActivity extends Activity implements OnClickListener,
 		super.onStart();
 		bd.open();
 		mPlusClient.connect();
+
 		EasyTracker.getInstance(this).activityStart(this);
 	}
 
@@ -106,13 +114,6 @@ public class connexionActivity extends Activity implements OnClickListener,
 						REQUEST_CODE_SIGN_IN);
 			} catch (IntentSender.SendIntentException e) {
 				// Fetch a new result to start.
-				mPlusClient.connect();
-			}
-			break;
-		case R.id.sign_out_button:
-			if (mPlusClient.isConnected()) {
-				mPlusClient.clearDefaultAccount();
-				mPlusClient.disconnect();
 				mPlusClient.connect();
 			}
 			break;
@@ -202,6 +203,7 @@ public class connexionActivity extends Activity implements OnClickListener,
 		}
 
 		/* ========================================================== */
+
 	}
 
 	@Override
@@ -218,11 +220,27 @@ public class connexionActivity extends Activity implements OnClickListener,
 	}
 
 	private void updateButtons(boolean isSignedIn) {
-		if (isSignedIn) {
+		if (b.getInt("deconnexion") == 1) {
+			if (mPlusClient.isConnected()) {
+				mPlusClient.clearDefaultAccount();
+				mPlusClient.disconnect();
+				mPlusClient.connect();
+				b.putInt("deconnexion", 0);
+			}
+		} else if (isSignedIn) {
 			mSignInButton.setVisibility(View.INVISIBLE);
-			btnPagePrinc.setVisibility(View.VISIBLE);
-			mSignOutButton.setEnabled(true);
-		} else {
+			btnPagePrinc.setVisibility(View.INVISIBLE);
+			btnPageAccueil.setVisibility(View.INVISIBLE);
+			mSignInStatus.setVisibility(View.INVISIBLE);
+			Intent intent;
+			intent = new Intent(this, principaleActivity.class);
+			b.putInt("idPart", idduPart);
+			b.putInt("deconnexion", 0);
+			intent.putExtras(b);
+			this.startActivity(intent);
+		}
+
+		if (!isSignedIn) {
 			if (mConnectionResult == null) {
 				// Disable the sign-in button until onConnectionFailed is called
 				// with result.
@@ -236,9 +254,6 @@ public class connexionActivity extends Activity implements OnClickListener,
 				btnPagePrinc.setVisibility(View.INVISIBLE);
 				mSignInStatus.setText(getString(R.string.signed_out_status));
 			}
-
-			mSignOutButton.setEnabled(false);
 		}
 	}
-
 }

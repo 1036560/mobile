@@ -114,6 +114,7 @@
     <string name="popup_quitter">Leave the pool</string>
     
     <string name="menu_aide">Help</string>
+    <string name="menu_deconnexion">Logout</string>
     
     <!-- Texte des menus d'aide -->
     <string name="aide_conn_pool">
