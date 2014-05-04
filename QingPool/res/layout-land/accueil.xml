@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:theme="@style/MyTheme"
@@ -35,7 +36,6 @@
 		android:shadowDx="0"
 		android:shadowDy="0"
 		android:shadowRadius="25" />
-
 </RelativeLayout>
 
 

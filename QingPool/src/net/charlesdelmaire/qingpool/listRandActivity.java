@@ -16,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,6 +54,8 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 		btnClick.setOnClickListener(this);
 		View btnClick1 = findViewById(R.id.btnAccepter);
 		btnClick1.setOnClickListener(this);
+		View logoClick = findViewById(R.id.imageView1);
+		logoClick.setOnClickListener(this);
 
 		if (savedInstanceState != null) {
 			m_Personnes = savedInstanceState.getStringArrayList("listJoueur");
@@ -101,7 +104,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.menu_aide));
-			alertDialog.setMessage(getString(R.string.aide_list_rand));
+			alertDialog.setMessage(Html.fromHtml(getString(R.string.aide_list_rand)));
 			alertDialog.setButton(getString(R.string.fermer),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
@@ -198,7 +201,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg0) {
-		Intent intent;
+		Intent intent = null;
 		// TODO Auto-generated method stub
 		if (arg0.getId() == R.id.btnRege) {
 			new DownloadPersonListTask().execute((Void) null);
@@ -227,6 +230,11 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			this.startActivity(intent);
 			this.finish();
 			/* ========================================================== */
+		}
+		if (arg0.getId() == R.id.imageView1) {
+			intent = new Intent(this, principaleActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 		}
 	}
 

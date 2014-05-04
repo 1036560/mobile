@@ -81,6 +81,5 @@
 		android:shadowColor="#FFFFFF"
 		android:shadowDx="0"
 		android:shadowDy="0"
-		android:shadowRadius="25" />
- 
+		android:shadowRadius="25" /> 
 </RelativeLayout>

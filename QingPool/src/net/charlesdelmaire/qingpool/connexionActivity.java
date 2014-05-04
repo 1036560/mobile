@@ -34,7 +34,7 @@ public class connexionActivity extends Activity implements OnClickListener,
 
 	private TextView mSignInStatus;
 	private PlusClient mPlusClient;
-	private SignInButton mSignInButton;
+	private View mSignInButton;
 	private View mSignOutButton;
 	private View btnPageAccueil;
 	private View btnPagePrinc;
@@ -53,7 +53,8 @@ public class connexionActivity extends Activity implements OnClickListener,
 				MomentUtil.ACTIONS).build();
 
 		mSignInStatus = (TextView) findViewById(R.id.sign_in_status);
-		mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
+		mSignInButton = findViewById(R.id.sign_in_button);
+		mSignInButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_shape));
 		mSignInButton.setOnClickListener(this);
 		btnPageAccueil = findViewById(R.id.btnPageAccueil);
 		btnPageAccueil.setOnClickListener(this);
@@ -72,14 +73,12 @@ public class connexionActivity extends Activity implements OnClickListener,
 
 		b = getIntent().getExtras();
 
-		Toast.makeText(getApplicationContext(),
-				Integer.toString(b.getInt("deconnexion")), Toast.LENGTH_SHORT)
-				.show();
+		
 
 	}
 
 	@Override
-	public void onStart() {
+	public void onStart()  {
 		super.onStart();
 		bd.open();
 		mPlusClient.connect();

@@ -10,8 +10,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +28,7 @@ import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.Tracker;
 
-public class listPoolActivity extends Activity {
+public class listPoolActivity extends Activity implements OnClickListener{
 	private QingPoolDatasource bd;
 	private List<Pool> lstPool;
 	private ArrayAdapter<Pool> adpt;
@@ -54,6 +56,9 @@ public class listPoolActivity extends Activity {
 		lv.setAdapter(simpleAdpt);
 
 		registerForContextMenu(lv);
+		
+		View logoClick = findViewById(R.id.imageView1);
+		logoClick.setOnClickListener(this);
 
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
@@ -92,7 +97,7 @@ public class listPoolActivity extends Activity {
 		case R.id.aide:
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.menu_aide));
-			alertDialog.setMessage(getString(R.string.aide_list_pool));
+			alertDialog.setMessage(Html.fromHtml(getString(R.string.aide_list_pool)));
 			alertDialog.setButton(getString(R.string.fermer),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
@@ -159,6 +164,16 @@ public class listPoolActivity extends Activity {
 
 		}
 		return true;
+	}
+	
+	@Override
+	public void onClick(View arg0) {
+		if (arg0.getId() == R.id.imageView1) {
+			Intent intent = null;
+			intent = new Intent(this, principaleActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
+		}
 	}
 
 	@Override

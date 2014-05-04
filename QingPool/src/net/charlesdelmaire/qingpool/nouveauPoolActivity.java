@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,6 +42,8 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 		motPasse1 = (EditText) findViewById(R.id.txtMotPasse);
 		motPasse2 = (EditText) findViewById(R.id.txtMotPasse2);
 		txtNbPart = (EditText) findViewById(R.id.txtNbPart);
+		View logoClick = findViewById(R.id.imageView1);
+		logoClick.setOnClickListener(this);
 		btnClick.setOnClickListener(this);
 
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
@@ -78,10 +81,9 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 			this.startActivity(intent);
 			break;
 		case R.id.aide:
-
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.menu_aide));
-			alertDialog.setMessage(getString(R.string.aide_nouv_pool));
+			alertDialog.setMessage(Html.fromHtml(getString(R.string.aide_nouv_pool)));
 			alertDialog.setButton(getString(R.string.fermer),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
@@ -90,7 +92,6 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 					}); // Set the Icon for the Dialog
 			alertDialog.setIcon(R.drawable.aide);
 			alertDialog.show();
-
 			break;
 		}
 		intent.putExtras(b);
@@ -98,9 +99,7 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * Ouverture de la connexion à la BD au démarrage de l'activité.
-	 */
+	
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -146,7 +145,7 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 						this.finish();
 					} else {
 						Toast.makeText(getApplicationContext(),
-								getString(R.string.toast_pool_minimum),
+								getString(R.string.toast_pool_maximum),
 								Toast.LENGTH_SHORT).show();
 					}
 				} else {
@@ -159,6 +158,12 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 						getString(R.string.toast_pool_mdp), Toast.LENGTH_SHORT)
 						.show();
 			}
+		}
+		if (arg0.getId() == R.id.imageView1) {
+			Intent intent = null;
+			intent = new Intent(this, principaleActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 		}
 
 	}

@@ -2,85 +2,80 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background">
-
-	
+    android:background="@drawable/background">	
     
    <ImageView
-		        android:id="@+id/imageView1"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:src="@drawable/titre"
-		        android:contentDescription="@string/app_name" 
-		        android:layout_marginBottom="7dp"
-		        android:layout_marginTop="10dp"/>
+       android:id="@+id/imageView1"
+	   android:layout_width="fill_parent"
+	   android:layout_height="wrap_content"
+	   android:src="@drawable/titre"
+	   android:contentDescription="@string/app_name" 
+	   android:layout_marginBottom="7dp"
+	   android:layout_marginTop="10dp"/>
    
    <ImageView
-		        android:id="@+id/imgJoueur"		        
-		        android:src="@drawable/hockey_joueur"
-		        android:layout_below="@id/imageView1" 
-		        android:layout_width="100sp"
-		        android:layout_height="200sp"		        
-		        android:contentDescription="@string/sil" 		        
-		        android:layout_marginLeft="15dp"
-		        android:layout_marginTop="10dp"/>
+       android:id="@+id/imgJoueur"		        
+	   android:src="@drawable/hockey_joueur"
+	   android:layout_below="@id/imageView1" 
+	   android:layout_width="100sp"
+	   android:layout_height="200sp"		        
+       android:contentDescription="@string/sil" 		        
+	   android:layout_marginLeft="15dp"
+       android:layout_marginTop="10dp"/>
    
    <TextView 
-        android:id="@+id/nomJoueur"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"  
-            android:layout_below="@id/imageView1"          
-            android:layout_toRightOf="@id/imgJoueur"
-            android:text="@string/nomPart"
-            android:layout_marginBottom="7dp"
-		    android:layout_marginTop="35dp"
-		    android:layout_marginLeft="15dp"
-		    android:textSize="20sp" />
+       android:id="@+id/nomJoueur"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"  
+       android:layout_below="@id/imageView1"          
+       android:layout_toRightOf="@id/imgJoueur"
+       android:text="@string/nomPart"
+       android:layout_marginBottom="7dp"
+	   android:layout_marginTop="35dp"
+	   android:layout_marginLeft="15dp"
+	   android:textSize="20sp" />
    
    <TextView 
-        android:id="@+id/score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"            
-            android:layout_below="@id/nomJoueur" 
-            android:layout_toRightOf="@id/imgJoueur"          
-            android:text="@string/scorePart"
-            android:layout_marginBottom="7dp"
-		    android:layout_marginTop="10dp"
-		    android:layout_marginLeft="15dp"
-		    android:textSize="20sp" />
+       android:id="@+id/score"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"            
+       android:layout_below="@id/nomJoueur" 
+       android:layout_toRightOf="@id/imgJoueur"          
+       android:text="@string/scorePart"
+       android:layout_marginBottom="7dp"
+	   android:layout_marginTop="10dp"
+	   android:layout_marginLeft="15dp"
+	   android:textSize="20sp" />
    
    <TextView 
-        android:id="@+id/equipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/imgJoueur"
-            android:layout_below="@id/score"  
-            android:text="@string/equipe"
-            android:layout_marginBottom="7dp"
-		    android:layout_marginTop="10dp"
-		    android:layout_marginLeft="15dp"
-		    android:textSize="20sp" />
+       android:id="@+id/equipe"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_toRightOf="@id/imgJoueur"
+       android:layout_below="@id/score"  
+       android:text="@string/equipe"
+       android:layout_marginBottom="7dp"
+	   android:layout_marginTop="10dp"
+	   android:layout_marginLeft="15dp"
+	   android:textSize="20sp" />
    
    <Button
-            android:id="@+id/btnRetPart"
-            android:layout_width="100sp"              
-            android:layout_height="wrap_content"
-            android:text="@string/btnRetPart"
-            android:layout_marginRight="15sp"
-            android:layout_toRightOf="@id/score"
-            android:layout_marginTop="15sp"
-            android:layout_marginLeft="10sp"
-            android:layout_toLeftOf="@id/score"        
-            android:layout_alignParentRight="true" 
-            android:layout_centerVertical="true"     
-            android:textColor="#000000"
-			android:textSize="20sp"		
-			android:background="@drawable/button_shape"
-			android:shadowColor="#FFFFFF"
-			android:shadowDx="0"
-			android:shadowDy="0"
-			android:shadowRadius="25" />
-  
-
-	
+       android:id="@+id/btnRetPart"
+       android:layout_width="100sp"              
+       android:layout_height="wrap_content"
+       android:text="@string/btnRetPart"
+       android:layout_marginRight="15sp"
+       android:layout_toRightOf="@id/score"
+       android:layout_marginTop="15sp"
+       android:layout_marginLeft="10sp"
+       android:layout_toLeftOf="@id/score"        
+       android:layout_alignParentRight="true" 
+       android:layout_centerVertical="true"     
+       android:textColor="#000000"
+	   android:textSize="20sp"		
+	   android:background="@drawable/button_shape"
+	   android:shadowColor="#FFFFFF"
+	   android:shadowDx="0"
+	   android:shadowDy="0"
+	   android:shadowRadius="25" />	
 </RelativeLayout>

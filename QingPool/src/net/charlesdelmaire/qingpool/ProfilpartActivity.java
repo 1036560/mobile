@@ -71,7 +71,8 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 		textView = (TextView) findViewById(R.id.scorePart);
 		textView1 = (TextView) findViewById(R.id.nomPart);
 		textViewEmpty = (TextView) findViewById(R.id.empty);
-		// agePart = (TextView) findViewById(R.id.agePart);
+		View logoClick = findViewById(R.id.imageView1);
+		logoClick.setOnClickListener(this);
 		b = getIntent().getExtras();
 
 		textView1.setText(textView1.getText() + " " + b.getString("nomPart"));
@@ -186,7 +187,12 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg0) {
-
+		if (arg0.getId() == R.id.imageView1) {
+			Intent intent = null;
+			intent = new Intent(this, principaleActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
+		}
 	}
 
 	public String GET(String url) {

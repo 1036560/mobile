@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,6 +55,9 @@ public class listPartiActivity extends Activity implements OnClickListener {
 		initList();
 		textView = (TextView) findViewById(R.id.nomPart);
 		ListView lv = (ListView) findViewById(R.id.listParticipant);
+		
+		View logoClick = findViewById(R.id.imageView1);
+		logoClick.setOnClickListener(this);
 
 		simpleAdpt = new SimpleAdapter(this, partList,
 				android.R.layout.simple_list_item_1,
@@ -120,7 +124,7 @@ public class listPartiActivity extends Activity implements OnClickListener {
 
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.menu_aide));
-			alertDialog.setMessage(getString(R.string.aide_list_part));
+			alertDialog.setMessage(Html.fromHtml(getString(R.string.aide_list_part)));
 			alertDialog.setButton(getString(R.string.fermer),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
@@ -176,6 +180,13 @@ public class listPartiActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent(this, rsltFinalActivity.class);
 
 			// start the second Activity
+			this.startActivity(intent);
+		}
+		
+		if (arg0.getId() == R.id.imageView1) {
+			Intent intent = null;
+			intent = new Intent(this, principaleActivity.class);
+			intent.putExtras(b);
 			this.startActivity(intent);
 		}
 

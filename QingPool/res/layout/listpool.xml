@@ -1,12 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    android:background="@drawable/background">    
+    android:background="@drawable/background"> 
     
-    <ListView android:id="@+id/listPool"
-              android:layout_height="match_parent"
-              android:layout_width="match_parent"
-              android:textColor="#FF0000"/>    
+    <ImageView
+		android:id="@+id/imageView1"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:src="@drawable/titre"
+		android:contentDescription="@string/app_name" 
+		android:layout_marginBottom="7dp"
+		android:layout_marginTop="10dp"/>
+    
+    <ListView 
+        android:id="@+id/listPool"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:textColor="#FF0000"
+        android:layout_below="@id/imageView1"/>    
 
 </RelativeLayout>

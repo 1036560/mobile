@@ -105,7 +105,7 @@
     <string name="toast_pool_deja">You are already in this pool.</string>
     <string name="toast_courriel_inexistant">You do not have an email manager installed.</string>
     <string name="toast_joueur_ajoute">Players have successfully being added.</string>
-    <string name="toast_pool_minimum">Please put a minimum number of poolers.</string>
+    <string name="toast_pool_maximum">Please enter a maximum number of poolers.</string>
     <string name="toast_pool_meme_nom">This name is already taken. Please choose another one.</string>
     <string name="toast_pool_mdp">The password and confirmation do not match.</string>
     
@@ -118,23 +118,112 @@
     
     <!-- Texte des menus d'aide -->
     <string name="aide_conn_pool">
-        The pool connection page allows you to 
+        <![CDATA[
+        <p>The pool connection page allows you to 
         connect to an existing pool. To proceed,
         simply enter the name and password of the
         pool in the text fields. Once the 
         credentials have been entered, press the 
-        Connect button to connect.
+        <b><i>Connect</i></b> button to connect.</p>
         
-        The Reset button resets the fields to blank.</string>
+        <p>The <b><i>Reset</i></b> button resets the fields
+        to blank.</p>
+        
+        <p>Press the logo to go back to the main page.</p> 
+        ]]></string>   
     
+    <string name="aide_list_part">    	
+    	<![CDATA[
+    	<p>Here\'s the list of poolers that belong to
+    	the pool you just selected.</p>
+        
+        <p>You can select a pooler by pressing and 
+        holding down his name to visualise the poolers
+        players\' list as well as other usefull 
+        informations.</p>        
+                
+        <p>Press the logo to go back to the main page.</p>       
+        ]]></string>    	
     
+    <string name="aide_list_pool">
+        <![CDATA[
+        <p>Here\'s the existing pool list to which you 
+    	are connected.</p>
+        
+        <p>You can select a pool by to visualise the poolers
+        or to disconnect from that pool.</p>        
+        
+        <p><i>Note that if you disconnect from a pool,
+        you can reconnect from the <b>Pool connection</b>
+        page.</i></p>
+        
+        <p>Press the logo to go back to the main page.</p>        
+        ]]></string>
+        
+    <string name="aide_list_rand">
+        <![CDATA[
+        <p>This page shows you the players that were 
+        randomly assigned to you for this pool.</p>
+        
+        <p>You can always reroll your players with the 
+        <i><b>Reroll</i></b> button.</p>
+        
+        <p>Once you are satisfied with your players choice,
+        press the <b><i>Accept</i></b> button to confirm
+        your choice.<p>
+        
+        <p>Note that the scores are not displayed to keep
+        the \"random\" part significant.</p>
+        
+        <p>Press the logo to go back to the main page.</p>
+        ]]></string>
     
+    <string name="aide_nouv_pool">
+        <![CDATA[
+        <p>The new pool page will help you create your 
+        own pool! To do so, enter the required informations
+        in the fields.<p>
+        
+        <p>The fields are <b><i>Pool name, Password,
+        Password confirmation, Maximum number of poolers.
+        </i></b><p>
+        
+        <p>The <b><i>Create pool</i></b> button will
+        confirm the creation of the pool.</p>
+        
+        <p>Press the logo to go back to the main page.</p>
+        ]]></string>
     
-    <string name="aide_envoie_courriel"></string>
-    <string name="aide_list_part"></string>
-    <string name="aide_list_pool"></string>
-    <string name="aide_list_rand"></string>
-    <string name="aide_nouv_pool"></string>
-    <string name="aide_principale"></string>
-    <string name="aide_prof_part"></string>
+    <string name="aide_principale">
+        <![CDATA[
+        <p>Welcome on the main page! On this page there
+        are three buttons that will guide you through the
+        application.</p>
+        
+        <p>The first button, <b><i>Create a new pool</p></b> will bring you
+        to the creation page where you will be able to start
+        your own pool.</p>
+        
+        <p>The second button, <b><i>View all pools</i></b> 
+        will list all the pool currently running.</p>
+        
+        <p>The last button, <b><i>Connect to existing pool</i></b>
+        will give you access to existing pools with the
+        right credentials.</p>
+        ]]></string>
+        
+    <string name="aide_prof_part">
+        <![CDATA[
+        <p>This is the pooler\'s profile page which 
+        you selected.</p>
+        
+        <p>On this page, you can see usefull information 
+        on the pooler as well as his players list.</p>
+        
+        <p>You can see a player\'s profile page by holding 
+        down his name in the list.</p>
+        
+        <p>Press the logo to go back to the main page.</p>
+        ]]></string>
+   
 </resources>

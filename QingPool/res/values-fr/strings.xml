@@ -103,7 +103,7 @@
     <string name="toast_pool_deja">Vous faites déjà partie de ce pool.</string>
     <string name="toast_courriel_inexistant">Vous n\'avez pas de gestionnaire de courriel d\'installé.</string>
     <string name="toast_joueur_ajoute">Les joueurs ont été ajoutés avec succès!</string>
-    <string name="toast_pool_minimum">Entrer un nombre minimum de poolers.</string>
+    <string name="toast_pool_maximum">Entrer un nombre maximum de poolers.</string>
     <string name="toast_pool_meme_nom">Un pool avec ce nom existe déjà, veuillez en choisir un différent.</string>
     <string name="toast_pool_mdp">Le mot de passe et la confirmation ne concorde pas.</string>
     
@@ -113,29 +113,123 @@
     
     <string name="menu_aide">Aide</string>
     <string name="menu_deconnexion">Deconnexion</string>
+    
     <!-- Texte des menus d'aide -->
     <string name="aide_conn_pool">
-        La page de connexion à un pool vous permet de 
+        <![CDATA[
+        <p>La page de connexion à un pool vous permet de 
         vous connecter à un pool déjà existant. Pour ce 
         faire, il s\'agit simplement d\'inscrire le nom du 
         pool en question et d\'entrer le mot de passe 
         condordant. Une fois les informations saisies, 
-        appuyer sur le bouton Connexion pour lancer la 
-        connexion.
+        appuyer sur le bouton <b><i>Connexion</i></b> pour lancer la 
+        connexion.</p>
         
-        Le bouton Réinitialisaton efface les champs 
-        d\'entrée.</string>    
-    
-    <string name="aide_envoie_courriel">
+        <p>Le bouton <b><i>Réinitialisaton</i></b> efface les champs 
+        d\'entrée.</p>
         
-    </string>
-    
-    <string name="aide_list_part"></string>
-    <string name="aide_list_pool"></string>
-    <string name="aide_list_rand"></string>
-    <string name="aide_nouv_pool"></string>
-    <string name="aide_principale"></string>
-    <string name="aide_prof_part"></string>
+        <p>Appuyez sur le logo de l\'application pour retourner
+        à la page principale.</p>]]></string>    
     
     
+    <string name="aide_list_part">
+        <![CDATA[
+        <p>Voici la liste des participants du pool que
+        vous venez de sélectionner.</p>
+        
+        <p>Vous pouvez sélectionner un participant pour 
+        visualiser sa liste de joueurs ainsi que d\'autres
+        informations utiles. Pour ce faire, pressez et 
+        tenez enfoncer le participant duquel vous voulez
+        visionner le profil.</p>        
+        
+        <p>Appuyez sur le logo de l\'application pour retourner
+        à la page principale.</p> 
+        ]]></string>
+    
+    <string name="aide_list_pool">
+        <![CDATA[
+        <p>Voici la liste des pools existants auxquels
+        vous êtes actuellement connecté.</p>
+        
+        <p>Vous pouvez sélectionner un pool pour visualiser 
+        les participants du pool ou pour vous déconnecter
+        de celui-ci.</p>
+        
+        <p><i>Notez que si vous vous déconnecter, vous 
+        pouvez vous reconnecter à partir de la page 
+        <b>Connexion à un pool.</b></i></p>
+        
+        <p>Appuyez sur le logo de l\'application pour retourner
+        à la page principale.</p> 
+        ]]></string>
+    
+    
+    <string name="aide_list_rand">
+        <![CDATA[
+        <p>Cette page vous présente la liste des joueurs 
+        qui vous ont été assignés pour le pool.</p>
+        
+        <p>Vous pouvez toujours regénérer la liste de joueurs
+        à l\'aide du bouton <i><b>Regénérer.</i></b></p>
+        
+        <p>Une fois que vous êtes satisfait de vos joueurs,
+        appuyez sur <b><i>Accepter</i></b> pour confirmer 
+        votre choix.<p>
+        
+        <p>Notez que le score de chaque joueur est caché pour
+        conserver l\'esprit aléatoire du jeu.</p>
+        
+        <p>Appuyez sur le logo de l\'application pour retourner
+        à la page principale.</p>
+        ]]></string>
+        
+    <string name="aide_nouv_pool">
+        <![CDATA[
+        <p>La page de création de nouveau pool vous permet
+        de créé votre propre pool! Pour ce faire, entrer
+        les informations nécessaires dans les champs requis.</p>
+        
+        <p>Les champs sont <b><i>Nom du pool, Mot de passe,
+        Confirmation de mot de passe, Nombre maximum de 
+        participants.</b></i></p>
+        
+        <p>Une fois les informations entrées, le bouton
+        <b><i>Créer le pool</i></b> confirmera la 
+        création du pool.<p>
+        
+        <p>Appuyez sur le logo de l\'application pour retourner
+        à la page principale.</p>
+        ]]></string>
+    
+    <string name="aide_principale">
+        <![CDATA[
+        <p>Bienvenue sur la page principale de Qing Pool!
+        Vous y trouverez trois boutons qui vous dirigeront 
+        vers les différentes pages de l\'application.</p>
+        
+        <p>Le bouton <b><i>Créer un nouveau pool</i></b> vous 
+        emmènera vers la page de création d\'un nouveau pool</p>
+        
+        <p>Le bouton <b><i>Voir les pools existant</i></b> vous 
+        permettra de visionner les pools en cours.</p>
+        
+        <p>Finalement, le dernier bouton, <b><i>Se connecter 
+        à un pool existant</i></b> vous permettra de vous connecter
+        à un pool en cours à l\'aide d\'identifiants.</p>]]></string>
+    
+    <string name="aide_prof_part">
+        <![CDATA[
+        <p>Voici la page de profil du participant que vous
+        avez sélectionné.</p>
+        
+        <p>Vous pouvez y voir des informations utiles ainsi
+        que la liste de joueurs du participant.</p>
+        
+        <p>Vous pouvez consulter une fiche détaillée d\'un
+        joueur en tennant son nom enfoncé dans la liste.</p>
+        
+        <p>Appuyez sur le logo de l\'application pour retourner
+        à la page principale.</p>
+        ]]></string>    
 </resources>

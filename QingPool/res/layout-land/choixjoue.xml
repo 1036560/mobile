@@ -13,6 +13,7 @@
 		android:contentDescription="@string/app_name" 
 		android:layout_marginBottom="7dp"
 		android:layout_marginTop="10dp"/>
+    
     <Button
         android:id="@+id/btnPasserChoix"
         android:layout_width="300sp"
@@ -27,6 +28,4 @@
 		android:shadowDx="0"
 		android:shadowDy="0"
 		android:shadowRadius="25" />
-    
-
 </LinearLayout>

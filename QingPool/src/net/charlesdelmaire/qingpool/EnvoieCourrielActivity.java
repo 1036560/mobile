@@ -33,6 +33,9 @@ public class EnvoieCourrielActivity extends Activity implements OnClickListener 
 
 		View btnClick1 = findViewById(R.id.retourPagePrincipale);
 		btnClick1.setOnClickListener(this);
+		
+		View logoClick = findViewById(R.id.imageView1);
+		logoClick.setOnClickListener(this);
 
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
@@ -71,7 +74,7 @@ public class EnvoieCourrielActivity extends Activity implements OnClickListener 
 
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.menu_aide));
-			alertDialog.setMessage(getString(R.string.aide_envoie_courriel));
+			alertDialog.setMessage("Inutile");
 			alertDialog.setButton(getString(R.string.fermer),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
@@ -114,6 +117,13 @@ public class EnvoieCourrielActivity extends Activity implements OnClickListener 
 						getString(R.string.toast_courriel_inexistant),
 						Toast.LENGTH_SHORT).show();
 			}
+		}
+		
+		if (v.getId() == R.id.imageView1) {
+			Intent intent = null;
+			intent = new Intent(this, principaleActivity.class);
+			intent.putExtras(b);
+			this.startActivity(intent);
 		}
 	}
 

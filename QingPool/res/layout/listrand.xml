@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
@@ -12,17 +13,26 @@
 	    android:orientation="vertical" 
 	    android:layout_above="@+id/footerlayout">
 	    
+	    <ImageView
+		    android:id="@+id/imageView1"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/titre"
+		    android:contentDescription="@string/app_name" 
+		    android:layout_marginBottom="7dp"
+		    android:layout_marginTop="10dp"/>
+	    
 	    <ListView
 	        android:id="@android:id/list"
 	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"/>
+	        android:layout_height="match_parent"
+	        android:layout_below="@id/imageView1"/>
 	    
 	    <TextView
 	        android:id="@android:id/empty"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:text="@string/lbl_liste_vide"/>
-	
+	        android:text="@string/lbl_liste_vide"/>	
 	</LinearLayout>
 
 	<LinearLayout android:id="@+id/footerlayout"
