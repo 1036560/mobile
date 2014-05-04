@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Qing Pool</string>
+    <string name="retourAccueil">Retour à l\'accueil</string>
+    <string name="gestionCompte">Gestion du compte</string>
+    <string name="btnConnexion">Démarrer!</string>
+    <string name="redirectionPagePrincipale">Gestion des pools</string>
+    <string name="btnSignIn">Connexion</string>
+    <string name="btnAccepter">Accepter</string>
+    <string name="btnRege">Regénérer</string>
+    <string name="btnConnexionReset">Réinitialisation</string>
+    <string name="btnStartPool">Créer un nouveau pool</string>
+    <string name="btnConnPool">Se connecter à un pool existant</string>
+    <string name="btnViewPool">Voir les pools existants</string>
+    <string name="btnCreerPool">Créer le pool</string>
+    <string name="btnConnexionPool">Connexion</string>
+    <string name="btnPageAccueil">Retourner à la page accueil</string>
+    <string name="btnPasserChoix">Passer au choix des joueurs</string>
+    <string name="btnVoirJoueur">Voir les joueurs</string>
+    <string name="btnVoirProfilJoueur">Voir le profil</string>
+    <string name="lblNomPool">Nom du pool</string>
+    <string name="lblMdp">Mot de passe</string>
+    <string name="lblCourriel">Courriel</string>
+    <string name="lblConfMdp">Confirmation de mot de passe</string>
+    <string name="lblNbPartMax">Nombre de participants maximum</string>
+    <string name="lblNbPartMax1">Participants max</string>
+    <string name="hintEmail">abc@gmail.com</string>
+    <string name="hintMdp">Mot de passe</string>
+    <string name="listJoueur">Liste des joueurs</string>
+    <string name="btnEnvoieCou">Inviter d\'autres participants</string>
+    <string name="btnRetPart">Retourner au participant</string>
+    <string name="ok">OK</string>
+    <string name="btnRsltFinal">Résultats finaux</string>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <string name="default_status" />
+    <string name="sign_out_button_name">Déconnexion</string>
+    <string name="revoke_access_button_name">Révoquer les droits d\'accès</string>
+    <string name="signing_in_status">Connexion avec Google+</string>
+    <string name="signed_in_status">Connecté en tant que \"%s\".</string>
+    <string name="plus_generic_error">La connexion avec Google+ est impossible</string>
+    <string name="progress_message">Connexion à Google&#8230;</string>
+    <string name="revoke_access_status">Droits d\'accès révoqués</string>
+    <string name="revoke_access_error_status">Impossible de révoquer les droits d\'accès</string>
+    <string name="loading_status">Chargement&#8230;</string>
+    <string name="signed_out_status">Déconnecté</string>
+    <string name="unknown_person">Inconnu</string>
+    <string name="sil">Silhouette</string>
+    <string name="nomPart">Nom: </string>
+    <string name="agePart">Lang: </string>
+    <string name="scorePart">Score: </string>
+    <string name="hello_world">Hello World!</string>    
+    <string name="equipe">Équipe: </string>
+    <string name="fermer">Fermer</string>
+    <string name="selection">Sélectionner un joueur</string>
+    <string name="img_choix_description">Choix</string>
+    <string name="title_activity_profil_joue_activity1"></string>
+    <string name="lbl_liste_vide">Aucune personne à afficher</string>
+    <string name="pd_title">Récupération des joueurs</string>
+    <string name="pd_content">Veuillez patienter pendant la récupération de la liste</string>
+    <string name="comm_error">Erreur de communication</string>    
+    
+    <string name="titre_accueil">Accueil</string>
+    <string name="titre_choix">Choix des joueurs</string>
+    <string name="titre_connexion">Connexion</string>
+    <string name="titre_conn_pool">Connexion au pool</string>
+    <string name="titre_courriel">Envoie de courriel</string>
+    <string name="titre_liste_part">Liste des participants</string>
+    <string name="titre_liste_pool">Liste des pools</string>
+    <string name="titre_liste_joue">Liste des joueurs</string>
+    <string name="titre_liste_alea">Liste aléatoire</string>
+    <string name="titre_nouveau_pool">Nouveau pool</string>
+    <string name="titre_principale">Page principale</string>
+    <string name="titre_profil_joue">Profil du joueur</string>
+    <string name="titre_profil_part">Profil du participant</string>
+    <string name="titre_res_fin">Résultats finaux</string>
+    
+    <string name="courriel_contacts_invite">Contact@Invité.com</string>
+    <string name="courriel_rejoindre">Venez nous rejoindre sur Qing Pool!</string>
+    <string name="courriel_cree">Un pool est actif et nous voulons que vous nous rejoignez!</string>
+    <string name="courriel_envoie">Envoyer</string>
+    
+    <string name="screen_accueil">Accueil</string>
+    <string name="screen_choix_joue">Choix des joueurs</string>
+    <string name="screen_connexion">Connexion</string>
+    <string name="screen_conn_pool">Connexion au pool</string>
+    <string name="screen_courriel_envoie">Envoyer</string>
+    <string name="screen_liste_part">Liste des participants</string>
+    <string name="screen_liste_pool">Liste des pools</string>
+    <string name="screen_liste_alea">Liste aléatoire</string>
+    <string name="screen_nouveau_pool">Nouveau pool</string>
+    <string name="screen_principale">Page principale</string>
+    <string name="screen_profil_joue">Profil du joueur</string>
+    <string name="screen_profil_part">Profil du participant</string>
+    <string name="screen_rslt_pool">Résultats finaux</string>
+    
+    <string name="toast_mauvais_mdp">Mot de passe incorrect.</string>
+    <string name="toast_nbr_max_atteint">Nombre maximum de poolers atteint.</string>
+    <string name="toast_pool_non">Désolé, il n\'y a pas de pool à ce nom.</string>
+    <string name="toast_pool_deja">Vous faites déjà partie de ce pool.</string>
+    <string name="toast_courriel_inexistant">Vous n\'avez pas de gestionnaire de courriel d\'installé.</string>
+    <string name="toast_joueur_ajoute">Les joueurs ont été ajoutés avec succès!</string>
+    <string name="toast_pool_minimum">Entrer un nombre minimum de poolers.</string>
+    <string name="toast_pool_meme_nom">Un pool avec ce nom existe déjà, veuillez en choisir un différent.</string>
+    <string name="toast_pool_mdp">Le mot de passe et la confirmation ne concorde pas.</string>
+    
+    <string name="popup_nom">Les options pour le pool </string>
+    <string name="popup_liste">Liste des participants</string>
+    <string name="popup_quitter">Quitter le pool</string>
+    
+    <string name="menu_aide">Aide</string>
+    <string name="menu_deconnexion">Deconnexion</string>
+    <!-- Texte des menus d'aide -->
+    <string name="aide_conn_pool">
+        La page de connexion à un pool vous permet de 
+        vous connecter à un pool déjà existant. Pour ce 
+        faire, il s\'agit simplement d\'inscrire le nom du 
+        pool en question et d\'entrer le mot de passe 
+        condordant. Une fois les informations saisies, 
+        appuyer sur le bouton Connexion pour lancer la 
+        connexion.
+        
+        Le bouton Réinitialisaton efface les champs 
+        d\'entrée.</string>    
+    
+    <string name="aide_envoie_courriel">
+        
+    </string>
+    
+    <string name="aide_list_part"></string>
+    <string name="aide_list_pool"></string>
+    <string name="aide_list_rand"></string>
+    <string name="aide_nouv_pool"></string>
+    <string name="aide_principale"></string>
+    <string name="aide_prof_part"></string>
+    
+    
+</resources>
