@@ -15,7 +15,7 @@
 		    android:layout_height="wrap_content"
 		    android:src="@drawable/titre"
 		    android:contentDescription="@string/app_name" 
-		    android:layout_marginBottom="7dp"
+		    android:layout_marginBottom="30dip"
 		    android:layout_marginTop="10dp"/>        
 
         <Button
@@ -23,6 +23,7 @@
             android:layout_width="300sp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dip"
             android:layout_marginBottom="30dip"            
             android:text="@string/btnSignIn" 
             android:background="@drawable/button_shape"
@@ -31,38 +32,7 @@
 			android:shadowColor="#FFFFFF"
 			android:shadowDx="0"
 			android:shadowDy="0"
-			android:shadowRadius="25" />       	
-
-        <Button
-            android:id="@+id/retourPagePrincipale"
-            android:layout_width="300sp"
-            android:layout_height="wrap_content"
-            android:text="@string/redirectionPagePrincipale"
-            android:layout_marginBottom="30dip"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:textColor="#000000"
-			android:textSize="20sp"		
-			android:background="@drawable/button_shape"
-			android:shadowColor="#FFFFFF"
-			android:shadowDx="0"
-			android:shadowDy="0"
-			android:shadowRadius="25" />
-
-        <Button
-            android:id="@+id/btnPageAccueil"
-            android:layout_width="300sp"
-            android:layout_height="wrap_content"
-            android:text="@string/btnPageAccueil"
-            android:layout_marginBottom="30dip"
-            android:layout_gravity="center"
-            android:textColor="#000000"
-			android:textSize="20sp"		
-			android:background="@drawable/button_shape"
-			android:shadowColor="#FFFFFF"
-			android:shadowDx="0"
-			android:shadowDy="0"
-			android:shadowRadius="25" />
+			android:shadowRadius="25" />        
 
         <TextView
             android:id="@+id/sign_in_status"

@@ -55,9 +55,6 @@ public class listPartiActivity extends Activity implements OnClickListener {
 		initList();
 		textView = (TextView) findViewById(R.id.nomPart);
 		ListView lv = (ListView) findViewById(R.id.listParticipant);
-		
-		View logoClick = findViewById(R.id.imageView1);
-		logoClick.setOnClickListener(this);
 
 		simpleAdpt = new SimpleAdapter(this, partList,
 				android.R.layout.simple_list_item_1,
@@ -69,20 +66,21 @@ public class listPartiActivity extends Activity implements OnClickListener {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent intent = new Intent(listPartiActivity.this,
-						ProfilpartActivity.class);
-
-				String nomPart = partList.get((int) id).get("nomPart");
-				int idPart = -1;
-
-				for (int i = 0; i < lstPart.size(); i++) {
-					if (nomPart.equals(lstPart.get(i).getNomPart()))
-						idPart = lstPart.get(i).getIdPart();
-				}
-
-				intent.putExtra("nomPart", nomPart);
-				intent.putExtra("idPartSelect", idPart);
-				intent.putExtras(b);
-				startActivity(intent);
+  						ProfilpartActivity.class);
+ 				String message = partList.get((int) id).get("nomPart");
+ 				intent.putExtra("nom", message);
+ 
+ 				String nomPart = partList.get((int) id).get("nomPart");
+ 				int idPart = -1;
+ 
+ 				for (int i = 0; i < lstPart.size(); i++) {
+ 					if (nomPart.equals(lstPart.get(i).getNomPart()))
+ 						idPart = lstPart.get(i).getIdPart();
+ 				}
+ 
+ 				intent.putExtra("idPartSelect", idPart);
+ 				intent.putExtras(b);
+  				startActivity(intent);
 			}
 		});
 
@@ -91,8 +89,7 @@ public class listPartiActivity extends Activity implements OnClickListener {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME,
-				getString(R.string.screen_liste_part));
+		hitParameters.put(Fields.SCREEN_NAME, "Liste Participant");
 
 		tracker.send(hitParameters);
 

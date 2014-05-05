@@ -36,8 +36,7 @@ public class connexionActivity extends Activity implements OnClickListener,
 	private PlusClient mPlusClient;
 	private View mSignInButton;
 	private View mSignOutButton;
-	private View btnPageAccueil;
-	private View btnPagePrinc;
+	
 	private int idduPart;
 	Bundle b;
 	private ConnectionResult mConnectionResult;
@@ -56,10 +55,7 @@ public class connexionActivity extends Activity implements OnClickListener,
 		mSignInButton = findViewById(R.id.sign_in_button);
 		mSignInButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_shape));
 		mSignInButton.setOnClickListener(this);
-		btnPageAccueil = findViewById(R.id.btnPageAccueil);
-		btnPageAccueil.setOnClickListener(this);
-		btnPagePrinc = findViewById(R.id.retourPagePrincipale);
-		btnPagePrinc.setOnClickListener(this);
+		
 
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
@@ -95,11 +91,9 @@ public class connexionActivity extends Activity implements OnClickListener,
 	}
 
 	@Override
-	public void onClick(View view) {
-
-		Intent intent;
-		switch (view.getId()) {
-		case R.id.sign_in_button:
+	public void onClick(View view) {		
+		if(view.getId() == R.id.sign_in_button) {
+		
 			int available = GooglePlayServicesUtil
 					.isGooglePlayServicesAvailable(this);
 			if (available != ConnectionResult.SUCCESS) {
@@ -115,20 +109,8 @@ public class connexionActivity extends Activity implements OnClickListener,
 				// Fetch a new result to start.
 				mPlusClient.connect();
 			}
-			break;
-		case R.id.retourPagePrincipale:
-			intent = new Intent(this, principaleActivity.class);
-			Bundle b = new Bundle();
-			b.putInt("idPart", idduPart);
-			intent.putExtras(b);
-			this.startActivity(intent);
-			break;
-		case R.id.btnPageAccueil:
-
-			intent = new Intent(this, accueilActivity.class);
-
-			this.startActivity(intent);
-			break;
+			
+		
 		}
 	}
 
@@ -228,8 +210,7 @@ public class connexionActivity extends Activity implements OnClickListener,
 			}
 		} else if (isSignedIn) {
 			mSignInButton.setVisibility(View.INVISIBLE);
-			btnPagePrinc.setVisibility(View.INVISIBLE);
-			btnPageAccueil.setVisibility(View.INVISIBLE);
+			
 			mSignInStatus.setVisibility(View.INVISIBLE);
 			Intent intent;
 			intent = new Intent(this, principaleActivity.class);
@@ -244,13 +225,13 @@ public class connexionActivity extends Activity implements OnClickListener,
 				// Disable the sign-in button until onConnectionFailed is called
 				// with result.
 				mSignInButton.setVisibility(View.INVISIBLE);
-				btnPagePrinc.setVisibility(View.VISIBLE);
+				
 				mSignInStatus.setText(getString(R.string.loading_status));
 			} else {
 				// Enable the sign-in button since a connection result is
 				// available.
 				mSignInButton.setVisibility(View.VISIBLE);
-				btnPagePrinc.setVisibility(View.INVISIBLE);
+				
 				mSignInStatus.setText(getString(R.string.signed_out_status));
 			}
 		}
