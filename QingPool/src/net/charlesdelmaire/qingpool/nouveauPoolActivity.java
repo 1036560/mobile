@@ -42,9 +42,11 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 		motPasse1 = (EditText) findViewById(R.id.txtMotPasse);
 		motPasse2 = (EditText) findViewById(R.id.txtMotPasse2);
 		txtNbPart = (EditText) findViewById(R.id.txtNbPart);
+		View resetClick = findViewById(R.id.btnPoolReset);
 		View logoClick = findViewById(R.id.imageView1);
+		resetClick.setOnClickListener(this);
 		logoClick.setOnClickListener(this);
-		btnClick.setOnClickListener(this);
+		
 
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
