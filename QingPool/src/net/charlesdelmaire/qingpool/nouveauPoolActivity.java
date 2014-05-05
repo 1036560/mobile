@@ -164,6 +164,15 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 			intent.putExtras(b);
 			this.startActivity(intent);
 		}
+		
+		if (arg0.getId() == R.id.btnPoolReset){
+			nomPoolEdit.setText("");
+			motPasse1.setText("");
+			motPasse2.setText("");
+			txtNbPart.setText("");
+			nomPoolEdit.setFocusableInTouchMode(true);
+			nomPoolEdit.requestFocus();
+		}
 
 	}
 }
