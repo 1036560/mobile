@@ -112,7 +112,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
-		hitParameters.put(Fields.SCREEN_NAME, "Profil Participant");
+		hitParameters.put(Fields.SCREEN_NAME, getString(R.string.screen_profil_part));
 
 		tracker.send(hitParameters);
 
@@ -220,7 +220,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 				if (inputStream != null)
 					result2 = convertInputStreamToString(inputStream);
 				else
-					result2 = "Did not work!";
+					result2 = getString(R.string.erreur);
 
 				// result += result2;
 				liste = JsonParser.unePersonne(result2);

@@ -64,6 +64,7 @@
     <string name="pd_title">Players retreival</string>
     <string name="pd_content">Please wait while we upload the poolers list.</string>
     <string name="comm_error">Connection error</string>
+    <string name="erreur">Error</string>
     
     <string name="titre_accueil">Greetings!</string>
     <string name="titre_choix">Player\'s choice</string>
@@ -172,8 +173,8 @@
         press the <b><i>Accept</i></b> button to confirm
         your choice.<p>
         
-        <p>Note that the scores are not displayed to keep
-        the \"random\" part significant.</p>
+        <p><i>Note that the scores are not displayed to keep
+        the \"random\" part significant.</i></p>
         
         <p>Press the logo to go back to the main page.</p>
         ]]></string>

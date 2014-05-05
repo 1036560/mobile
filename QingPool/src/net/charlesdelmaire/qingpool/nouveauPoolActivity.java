@@ -94,8 +94,7 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 			alertDialog.show();
 			break;
 		}
-		intent.putExtras(b);
-		this.startActivity(intent);
+		
 		return super.onOptionsItemSelected(item);
 	}
 

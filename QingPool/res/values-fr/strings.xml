@@ -61,7 +61,8 @@
     <string name="lbl_liste_vide">Aucune personne à afficher</string>
     <string name="pd_title">Récupération des joueurs</string>
     <string name="pd_content">Veuillez patienter pendant la récupération de la liste</string>
-    <string name="comm_error">Erreur de communication</string>    
+    <string name="comm_error">Erreur de communication</string>  
+    <string name="erreur">Erreur</string>  
     
     <string name="titre_accueil">Accueil</string>
     <string name="titre_choix">Choix des joueurs</string>
@@ -177,8 +178,8 @@
         appuyez sur <b><i>Accepter</i></b> pour confirmer 
         votre choix.<p>
         
-        <p>Notez que le score de chaque joueur est caché pour
-        conserver l\'esprit aléatoire du jeu.</p>
+        <p><i>Notez que le score de chaque joueur est caché pour
+        conserver l\'esprit aléatoire du jeu.</i></p>
         
         <p>Appuyez sur le logo de l\'application pour retourner
         à la page principale.</p>
