@@ -32,6 +32,7 @@
     <string name="btnRetPart">Back to participant</string>
     <string name="ok">OK</string>
     <string name="btnRsltFinal">Final results</string>
+    <string name="podium">Podium</string>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>

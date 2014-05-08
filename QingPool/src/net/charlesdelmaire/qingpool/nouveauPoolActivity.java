@@ -46,6 +46,7 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 		View logoClick = findViewById(R.id.imageView1);
 		resetClick.setOnClickListener(this);
 		logoClick.setOnClickListener(this);
+		btnClick.setOnClickListener(this);
 		
 
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
