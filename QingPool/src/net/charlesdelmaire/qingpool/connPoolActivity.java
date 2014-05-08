@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
@@ -37,13 +38,12 @@ public class connPoolActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.connpool);
 		b = getIntent().getExtras();
 		View btnClick1 = findViewById(R.id.btnLaConn);
-		View btnClick2 = findViewById(R.id.btnConnReset);
-		View logoClick = findViewById(R.id.imageView1);
+		View btnClick2 = findViewById(R.id.btnConnReset);		
 		txtNomPool = (EditText) findViewById(R.id.editText1);
 		txtMotDePasse = (EditText) findViewById(R.id.txtMotDePasse);
 		btnClick1.setOnClickListener(this);
 		btnClick2.setOnClickListener(this);
-		logoClick.setOnClickListener(this);
+		getActionBar().setHomeButtonEnabled(true);
 
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
@@ -73,14 +73,15 @@ public class connPoolActivity extends Activity implements OnClickListener {
 			intent.putExtras(b);
 			this.startActivity(intent);
 			break;
+			
 		case R.id.deconnexion:
 			intent = new Intent(this, connexionActivity.class);
 			b.putInt("deconnexion", 1);
 			intent.putExtras(b);
 			this.startActivity(intent);
 			break;
+			
 		case R.id.aide:
-
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.menu_aide));
 			alertDialog.setMessage(Html.fromHtml(getString(R.string.aide_conn_pool)));
@@ -89,11 +90,16 @@ public class connPoolActivity extends Activity implements OnClickListener {
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
 						}
-					}); // Set the Icon for the Dialog
-			alertDialog.setIcon(R.drawable.aide);
+					});
+			alertDialog.setIcon(R.drawable.aide);			
 			alertDialog.show();
-
 			break;
+			
+		case android.R.id.home:            
+	         intent = new Intent(this, principaleActivity.class);   
+	         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+	         startActivity(intent); 
+	         break;
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -105,14 +111,7 @@ public class connPoolActivity extends Activity implements OnClickListener {
 			txtMotDePasse.setText("");
 			txtNomPool.setFocusableInTouchMode(true);
 			txtNomPool.requestFocus();
-		}
-		
-		if (arg0.getId() == R.id.imageView1) {
-			Intent intent = null;
-			intent = new Intent(this, principaleActivity.class);
-			intent.putExtras(b);
-			this.startActivity(intent);
-		}
+		}		
 
 		if (arg0.getId() == R.id.btnLaConn) {
 
