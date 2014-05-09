@@ -47,6 +47,7 @@ public class listPartiActivity extends Activity implements OnClickListener {
 		btnRsltFinal = (Button) findViewById(R.id.btnRsltFinal);
 		btnRsltFinal.setOnClickListener(this);
 		b = getIntent().getExtras();
+		getActionBar().setHomeButtonEnabled(true);
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
 
@@ -118,7 +119,6 @@ public class listPartiActivity extends Activity implements OnClickListener {
 			this.startActivity(intent);
 			break;
 		case R.id.aide:
-
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.menu_aide));
 			alertDialog.setMessage(Html.fromHtml(getString(R.string.aide_list_part)));
@@ -130,8 +130,12 @@ public class listPartiActivity extends Activity implements OnClickListener {
 					}); // Set the Icon for the Dialog
 			alertDialog.setIcon(R.drawable.aide);
 			alertDialog.show();
-
 			break;
+		case android.R.id.home:            
+	         intent = new Intent(this, principaleActivity.class);   
+	         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+	         startActivity(intent); 
+	         break;
 		}
 
 		return super.onOptionsItemSelected(item);

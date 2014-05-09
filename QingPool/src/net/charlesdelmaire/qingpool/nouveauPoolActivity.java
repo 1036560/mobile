@@ -33,7 +33,7 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nouveaupool);
 		b = getIntent().getExtras();
-
+		getActionBar().setHomeButtonEnabled(true);
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
 
@@ -96,6 +96,11 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 			alertDialog.setIcon(R.drawable.aide);
 			alertDialog.show();
 			break;
+		case android.R.id.home:            
+	         intent = new Intent(this, principaleActivity.class);   
+	         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+	         startActivity(intent); 
+	         break;
 		}
 		
 		return super.onOptionsItemSelected(item);

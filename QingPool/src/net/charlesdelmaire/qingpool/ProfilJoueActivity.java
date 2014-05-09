@@ -10,6 +10,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -26,7 +28,7 @@ public class ProfilJoueActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profiljoue);
-		
+		getActionBar().setHomeButtonEnabled(true);
 		View btnClick = findViewById(R.id.btnRetPart);
 		btnClick.setOnClickListener(this);
 		TextView textView = (TextView) findViewById(R.id.nomJoueur);
@@ -78,7 +80,22 @@ public class ProfilJoueActivity extends Activity implements OnClickListener {
 		super.onStop();
 		EasyTracker.getInstance(this).activityStop(this);
 	}
+	
+	
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent = null;
+		switch (item.getItemId()) {
+			case android.R.id.home:            
+		        intent = new Intent(this, principaleActivity.class);   
+		        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+		        startActivity(intent); 
+		        break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
 	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 		ImageView bmImage;
 

@@ -45,7 +45,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listrand);
-
+		getActionBar().setHomeButtonEnabled(true);
 		b = getIntent().getExtras();
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
@@ -76,6 +76,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 				getString(R.string.screen_liste_alea));
 
 		tracker.send(hitParameters);
+	
 	}
 
 	@Override
@@ -115,6 +116,11 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			alertDialog.show();
 
 			break;
+		case android.R.id.home:            
+	        intent = new Intent(this, principaleActivity.class);   
+	        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+	        startActivity(intent); 
+	        break;
 		}
 
 		return super.onOptionsItemSelected(item);

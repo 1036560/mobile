@@ -27,7 +27,7 @@ public class principaleActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pageprincipale);
-
+		getActionBar().setHomeButtonEnabled(true);
 		b = getIntent().getExtras();
 
 		View btnClick = findViewById(R.id.btnStartPool);
@@ -87,6 +87,11 @@ public class principaleActivity extends Activity implements OnClickListener {
 			intent.putExtras(b);
 			this.startActivity(intent);
 			break;
+		case android.R.id.home:            
+	         intent = new Intent(this, principaleActivity.class);   
+	         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+	         startActivity(intent); 
+	         break;
 		}
 
 		return super.onOptionsItemSelected(item);

@@ -1,40 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="@drawable/background" >
-    
-    <LinearLayout
+    android:background="@drawable/background"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/imageView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/infoJoueur" >
-        
-        <ImageView
-		    android:id="@+id/imageView1"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:src="@drawable/titre"
-		    android:contentDescription="@string/app_name" 
-		    android:layout_marginBottom="7dp"
-		    android:layout_marginTop="10dp"/>
-        
-        <ImageView
-		    android:id="@+id/imagePodium"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:src="@drawable/podium"
-		    android:contentDescription="@string/podium" 
-		    android:layout_marginBottom="7dp"
-		    android:layout_marginTop="10dp"/>
-        
-    	<ListView 
-    	    android:id="@+id/listParticipant"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:textColor="#FF0000"/>
-    </LinearLayout>    
-</LinearLayout>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/titre" />
 
+    <ImageView
+        android:id="@+id/imagePart2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imagePodium"
+        android:layout_alignLeft="@+id/nomPart2"
+        android:contentDescription="@string/podium" />
+
+    <TextView
+        android:id="@+id/nomPart3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nomPart1"
+        android:layout_marginRight="119dp"
+        android:layout_toLeftOf="@+id/imagePodium"
+        android:layout_weight="2"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/nomPart2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/nomPart3"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="21dp"
+        android:layout_marginLeft="52dp"
+        android:layout_weight="2"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/nomPart1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="14dp"
+        android:layout_toLeftOf="@+id/imagePart3"
+        android:layout_weight="2"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/imagePodium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/nomPart3"
+        android:layout_marginLeft="28dp"
+        android:contentDescription="@string/podium"
+        android:src="@drawable/podium" />
+
+    <ImageView
+        android:id="@+id/imagePart1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/nomPart1"
+        android:layout_marginLeft="45dp"
+        android:layout_toRightOf="@+id/imagePart2"
+        android:contentDescription="@string/podium" />
+
+    <ImageView
+        android:id="@+id/imagePart3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/imagePodium"
+        android:layout_alignTop="@+id/nomPart2"
+        android:layout_marginRight="22dp"
+        android:contentDescription="@string/podium" />
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/nomPart2"
+        android:background="#33000000"
+        android:orientation="vertical" >
+	</LinearLayout>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="286dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/nomPart1" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/imageView1"
+        android:text="@string/lbl_liste_vide" />
+
+</RelativeLayout>

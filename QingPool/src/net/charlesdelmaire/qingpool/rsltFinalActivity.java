@@ -1,12 +1,19 @@
 package net.charlesdelmaire.qingpool;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View.OnClickListener;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Fields;
@@ -15,22 +22,36 @@ import com.google.analytics.tracking.android.Tracker;
 
 public class rsltFinalActivity extends Activity implements OnClickListener {
 	private Bundle b;
+	private List<Participant> lstPart;
+	List<Map<String, String>> partList = new ArrayList<Map<String, String>>();
+	private QingPoolDatasource bd;
+	TextView textView;
+	SimpleAdapter simpleAdpt;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.rsltfinal);
 		b = getIntent().getExtras();
+		getActionBar().setHomeButtonEnabled(true);
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
+		this.bd = new QingPoolDatasource(this);
+		this.bd.open();
+		lstPart = bd.getTousPart(b.getInt("idPoolSelect"));
 		
-		View logoClick = findViewById(R.id.imageView1);
-		logoClick.setOnClickListener(this);
+		initList();
+		textView = (TextView) findViewById(R.id.nomPart);
+		ListView lv = (ListView) findViewById(R.id.list);
+
+		simpleAdpt = new SimpleAdapter(this, partList,
+				android.R.layout.simple_list_item_1,
+				new String[] { "nomPart" }, new int[] { android.R.id.text1 });
+		lv.setAdapter(simpleAdpt);
 
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
 		hitParameters.put(Fields.SCREEN_NAME,
 				getString(R.string.screen_rslt_pool));
-
 		tracker.send(hitParameters);
 	}
 	
@@ -44,6 +65,26 @@ public class rsltFinalActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent = null;
+		switch (item.getItemId()) {
+			case android.R.id.home:            
+		        intent = new Intent(this, principaleActivity.class);   
+		        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+		        startActivity(intent); 
+		        break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	private void initList() {
+
+		for (int i = 0; i < lstPart.size(); i++) {
+			partList.add(createPart("nomPart", lstPart.get(i).getNomPart()));
+		}
+	}
+	
 	@Override
 	public void onStart() {
 		super.onStart();

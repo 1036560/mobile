@@ -73,7 +73,7 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 		textViewEmpty = (TextView) findViewById(R.id.empty);
 		View logoClick = findViewById(R.id.imagePool);
 		logoClick.setOnClickListener(this);
-		// agePart = (TextView) findViewById(R.id.agePart);
+		getActionBar().setHomeButtonEnabled(true);
 		b = getIntent().getExtras();
 
 		textView1.setText(textView1.getText() + " " + b.getString("nom"));
@@ -156,6 +156,11 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 			alertDialog.show();
 
 			break;
+		case android.R.id.home:            
+	        intent = new Intent(this, principaleActivity.class);   
+	        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+	        startActivity(intent); 
+	        break;
 		}
 
 		return super.onOptionsItemSelected(item);

@@ -41,6 +41,7 @@ public class listPoolActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listpool);
+		getActionBar().setHomeButtonEnabled(true);
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
 		b = getIntent().getExtras();
@@ -107,6 +108,11 @@ public class listPoolActivity extends Activity implements OnClickListener{
 			alertDialog.setIcon(R.drawable.aide);
 			alertDialog.show();
 			break;
+		case android.R.id.home:            
+	         intent = new Intent(this, principaleActivity.class);   
+	         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+	         startActivity(intent); 
+	         break;
 		}
 
 		return super.onOptionsItemSelected(item);
