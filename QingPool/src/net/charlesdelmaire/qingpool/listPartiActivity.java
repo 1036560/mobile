@@ -179,17 +179,10 @@ public class listPartiActivity extends Activity implements OnClickListener {
 		if (arg0.getId() == R.id.btnRsltFinal) {
 			// define a new Intent for the second Activity
 			Intent intent = new Intent(this, rsltFinalActivity.class);
-
+			intent.putExtras(b);
 			// start the second Activity
 			this.startActivity(intent);
-		}
-		
-		if (arg0.getId() == R.id.imageView1) {
-			Intent intent = null;
-			intent = new Intent(this, principaleActivity.class);
-			intent.putExtras(b);
-			this.startActivity(intent);
-		}
+		}	
 
 	}
 

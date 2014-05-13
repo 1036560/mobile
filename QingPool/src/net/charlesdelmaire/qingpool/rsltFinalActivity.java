@@ -25,8 +25,12 @@ public class rsltFinalActivity extends Activity implements OnClickListener {
 	private List<Participant> lstPart;
 	List<Map<String, String>> partList = new ArrayList<Map<String, String>>();
 	private QingPoolDatasource bd;
-	TextView textView;
+	TextView nomPart1;
+	TextView nomPart2;
+	TextView nomPart3;
 	SimpleAdapter simpleAdpt;
+	private List<String> liste = new ArrayList<String>();
+	ListView lv = (ListView) findViewById(R.id.list);
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,10 +43,12 @@ public class rsltFinalActivity extends Activity implements OnClickListener {
 		this.bd.open();
 		lstPart = bd.getTousPart(b.getInt("idPoolSelect"));
 		
+		
+		nomPart1 = (TextView) findViewById(R.id.nomPart1);
+		nomPart1 = (TextView) findViewById(R.id.nomPart2);
+		nomPart1 = (TextView) findViewById(R.id.nomPart3);
+		
 		initList();
-		textView = (TextView) findViewById(R.id.nomPart);
-		ListView lv = (ListView) findViewById(R.id.list);
-
 		simpleAdpt = new SimpleAdapter(this, partList,
 				android.R.layout.simple_list_item_1,
 				new String[] { "nomPart" }, new int[] { android.R.id.text1 });
@@ -81,7 +87,8 @@ public class rsltFinalActivity extends Activity implements OnClickListener {
 	private void initList() {
 
 		for (int i = 0; i < lstPart.size(); i++) {
-			partList.add(createPart("nomPart", lstPart.get(i).getNomPart()));
+			liste.add(lstPart.get(i).getNomPart());
+			/*partList.add(createPart("nomPart", lstPart.get(i).getNomPart()));*/
 		}
 	}
 	
