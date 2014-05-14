@@ -76,7 +76,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 				getString(R.string.screen_liste_alea));
 
 		tracker.send(hitParameters);
-	
+
 	}
 
 	@Override
@@ -105,7 +105,8 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.menu_aide));
-			alertDialog.setMessage(Html.fromHtml(getString(R.string.aide_list_rand)));
+			alertDialog.setMessage(Html
+					.fromHtml(getString(R.string.aide_list_rand)));
 			alertDialog.setButton(getString(R.string.fermer),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
@@ -116,11 +117,11 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			alertDialog.show();
 
 			break;
-		case android.R.id.home:            
-	        intent = new Intent(this, principaleActivity.class);   
-	        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
-	        startActivity(intent); 
-	        break;
+		case android.R.id.home:
+			intent = new Intent(this, principaleActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			break;
 		}
 
 		return super.onOptionsItemSelected(item);
