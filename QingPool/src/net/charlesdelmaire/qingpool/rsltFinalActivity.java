@@ -20,17 +20,16 @@ import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.Tracker;
 
-public class rsltFinalActivity extends Activity implements OnClickListener {
+public class rsltFinalActivity extends Activity {
 	private Bundle b;
 	private List<Participant> lstPart;
 	List<Map<String, String>> partList = new ArrayList<Map<String, String>>();
 	private QingPoolDatasource bd;
-	TextView nomPart1;
-	TextView nomPart2;
-	TextView nomPart3;
+	
 	SimpleAdapter simpleAdpt;
-	private List<String> liste = new ArrayList<String>();
+	private List<String> liste = new ArrayList<String>();	
 	ListView lv = (ListView) findViewById(R.id.list);
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,12 +40,7 @@ public class rsltFinalActivity extends Activity implements OnClickListener {
 				"UA-50075921-1");
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
-		lstPart = bd.getTousPart(b.getInt("idPoolSelect"));
-		
-		
-		nomPart1 = (TextView) findViewById(R.id.nomPart1);
-		nomPart1 = (TextView) findViewById(R.id.nomPart2);
-		nomPart1 = (TextView) findViewById(R.id.nomPart3);
+		lstPart = bd.getTousPart(b.getInt("idPoolSelect"));	
 		
 		initList();
 		simpleAdpt = new SimpleAdapter(this, partList,
@@ -59,17 +53,8 @@ public class rsltFinalActivity extends Activity implements OnClickListener {
 		hitParameters.put(Fields.SCREEN_NAME,
 				getString(R.string.screen_rslt_pool));
 		tracker.send(hitParameters);
-	}
+	}	
 	
-	@Override
-	public void onClick(View v) {
-		if (v.getId() == R.id.imageView1) {
-			Intent intent = null;
-			intent = new Intent(this, principaleActivity.class);
-			intent.putExtras(b);
-			this.startActivity(intent);
-		}
-	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -86,10 +71,9 @@ public class rsltFinalActivity extends Activity implements OnClickListener {
 	
 	private void initList() {
 
-		for (int i = 0; i < lstPart.size(); i++) {
+		for (int i = 0; i < lstPart.size(); i++) {			
 			liste.add(lstPart.get(i).getNomPart());
-			/*partList.add(createPart("nomPart", lstPart.get(i).getNomPart()));*/
-		}
+		}		
 	}
 	
 	@Override
