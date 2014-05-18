@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Fields;
@@ -19,14 +18,13 @@ import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.plus.PlusClient;
 
 public class connexionActivity extends Activity implements OnClickListener,
 		PlusClient.ConnectionCallbacks, PlusClient.OnConnectionFailedListener,
 		PlusClient.OnAccessRevokedListener {
 
-	//Variables
+	// Variables
 	private QingPoolDatasource bd;
 	private static final int DIALOG_GET_GOOGLE_PLAY_SERVICES = 1;
 	private static final int REQUEST_CODE_SIGN_IN = 1;
@@ -35,31 +33,116 @@ public class connexionActivity extends Activity implements OnClickListener,
 	private TextView mSignInStatus;
 	private PlusClient mPlusClient;
 	private View mSignInButton;
-	private View mSignOutButton;	
-	private int idduPart;	
+	private View mSignOutButton;
+	private int idduPart;
 	private ConnectionResult mConnectionResult;
 	Bundle b;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		//Appel du layout
+
+		// Appel du layout
 		setContentView(R.layout.connexion);
 
-		//Connexion à la BD
+		// Connexion ï¿½ la BD
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
-		
-		//Bouton et OnClickListener
+
+		if (bd.verifPart("Demo QingPool") != 0) {
+
+			bd.createPart(new Participant(
+					0,
+					"Demo QingPool",
+					"https://lh6.googleusercontent.com/-JGkWvxm5Ku4/AAAAAAAAAAI/AAAAAAAAAnA/DLk299TROxc/photo.jpg?sz=50",
+					"fr"));
+			bd.createPart(new Participant(
+					1,
+					"Charles Delmaire",
+					"https://lh6.googleusercontent.com/-JGkWvxm5Ku4/AAAAAAAAAAI/AAAAAAAAAnA/DLk299TROxc/photo.jpg?sz=50",
+					"fr"));
+			bd.createPart(new Participant(
+					2,
+					"Olivier Plante",
+					"https://lh6.googleusercontent.com/-JGkWvxm5Ku4/AAAAAAAAAAI/AAAAAAAAAnA/DLk299TROxc/photo.jpg?sz=50",
+					"fr"));
+
+			bd.createPool(new Pool(0, "test", 0, "test", 10));
+			JoueurPool unjoueur = new JoueurPool();
+			unjoueur.setIdJoueur1("8471675");
+			unjoueur.setIdPart(0);
+			unjoueur.setIdPool(0);
+			unjoueur.setNomJoueur("Sidney Crosby");
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+
+			PartScore score = new PartScore();
+			score.setIdPart(0);
+			score.setIdPool(0);
+			score.setScore(1040);
+			bd.createPartScore(score);
+
+			unjoueur.setIdJoueur1("8470612");
+			unjoueur.setIdPart(1);
+			unjoueur.setIdPool(0);
+			unjoueur.setNomJoueur("Ryan Getzlaf");
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+
+			score = new PartScore();
+			score.setIdPart(1);
+			score.setIdPool(0);
+			score.setScore(870);
+			bd.createPartScore(score);
+
+			unjoueur.setIdJoueur1("8468598");
+			unjoueur.setIdPart(2);
+			unjoueur.setIdPool(0);
+			unjoueur.setNomJoueur("Lubomir Visnovsky");
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+			bd.createJoueur(unjoueur);
+
+			score = new PartScore();
+			score.setIdPart(2);
+			score.setIdPool(0);
+			score.setScore(110);
+			bd.createPartScore(score);
+		}
+
+		// Bouton et OnClickListener
 		mPlusClient = new PlusClient.Builder(this, this, this).setActions(
 				MomentUtil.ACTIONS).build();
 		mSignInStatus = (TextView) findViewById(R.id.sign_in_status);
 		mSignInButton = findViewById(R.id.sign_in_button);
-		mSignInButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_shape));
+		mSignInButton.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.button_shape));
 		mSignInButton.setOnClickListener(this);
-		
-		//Google analytics tracker
+
+		// Google analytics tracker
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
@@ -71,8 +154,8 @@ public class connexionActivity extends Activity implements OnClickListener,
 	}
 
 	@Override
-	public void onStart()  {
-		super.onStart();		
+	public void onStart() {
+		super.onStart();
 		bd.open();
 		mPlusClient.connect();
 		EasyTracker.getInstance(this).activityStart(this);
@@ -80,17 +163,17 @@ public class connexionActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onStop() {
-		super.onStop();	
+		super.onStop();
 		mPlusClient.disconnect();
 		bd.close();
 		EasyTracker.getInstance(this).activityStop(this);
 	}
 
 	@Override
-	public void onClick(View view) {		
-		if(view.getId() == R.id.sign_in_button) {
-		
-			//Connexion à Google
+	public void onClick(View view) {
+		if (view.getId() == R.id.sign_in_button) {
+
+			// Connexion ï¿½ Google
 			int available = GooglePlayServicesUtil
 					.isGooglePlayServicesAvailable(this);
 			if (available != ConnectionResult.SUCCESS) {
@@ -102,16 +185,16 @@ public class connexionActivity extends Activity implements OnClickListener,
 				mSignInStatus.setText(getString(R.string.signing_in_status));
 				mConnectionResult.startResolutionForResult(this,
 						REQUEST_CODE_SIGN_IN);
-			} catch (IntentSender.SendIntentException e) {				
+			} catch (IntentSender.SendIntentException e) {
 				mPlusClient.connect();
-			}		
+			}
 		}
 	}
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
-		
-		//Messages pour la connexion
+
+		// Messages pour la connexion
 		if (id != DIALOG_GET_GOOGLE_PLAY_SERVICES) {
 			return super.onCreateDialog(id);
 		}
@@ -132,12 +215,12 @@ public class connexionActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		
-		//Messages interactifs
+
+		// Messages interactifs
 		if (requestCode == REQUEST_CODE_SIGN_IN
 				|| requestCode == REQUEST_CODE_GET_GOOGLE_PLAY_SERVICES) {
 			if (resultCode == RESULT_OK && !mPlusClient.isConnected()
-					&& !mPlusClient.isConnecting()) {				
+					&& !mPlusClient.isConnecting()) {
 				mPlusClient.connect();
 			}
 		}
@@ -145,8 +228,8 @@ public class connexionActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onAccessRevoked(ConnectionResult status) {
-		
-		//Message sur les accès
+
+		// Message sur les accï¿½s
 		if (status.isSuccess()) {
 			mSignInStatus.setText(R.string.revoke_access_status);
 		} else {
@@ -158,8 +241,8 @@ public class connexionActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		
-		//Affichage du nom de compte du connecté
+
+		// Affichage du nom de compte du connectï¿½
 		String currentPersonName = mPlusClient.getCurrentPerson() != null ? mPlusClient
 				.getCurrentPerson().getDisplayName()
 				: getString(R.string.unknown_person);
@@ -169,9 +252,8 @@ public class connexionActivity extends Activity implements OnClickListener,
 		String currentPersonLang = mPlusClient.getCurrentPerson().getLanguage();
 		mSignInStatus.setText(getString(R.string.signed_in_status,
 				currentPersonName));
-		updateButtons(true);
 
-		//Création du participant s'il n'existe pas
+		// Crï¿½ation du participant s'il n'existe pas
 		if (bd.verifPart(currentPersonName) == -1) {
 			Participant unPart = new Participant();
 			int compte = bd.getPartCompte();
@@ -183,12 +265,14 @@ public class connexionActivity extends Activity implements OnClickListener,
 		} else {
 			idduPart = bd.verifPart(currentPersonName);
 		}
+		updateButtons(true);
+
 	}
 
 	@Override
 	public void onDisconnected() {
-		
-		//Message si déconnecté
+
+		// Message si dï¿½connectï¿½
 		mSignInStatus.setText(R.string.loading_status);
 		mPlusClient.connect();
 		updateButtons(false);
@@ -196,24 +280,25 @@ public class connexionActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onConnectionFailed(ConnectionResult result) {
-		
-		//Message si la connection échoue
+
+		// Message si la connection ï¿½choue
 		mConnectionResult = result;
 		updateButtons(false);
 	}
 
 	private void updateButtons(boolean isSignedIn) {
-		
-		//Mis-à-jour des boutons affichés selon le statut de connexion
+
+		// Mis-ï¿½-jour des boutons affichï¿½s selon le statut de connexion
 		if (b.getInt("deconnexion") == 1) {
 			if (mPlusClient.isConnected()) {
 				mPlusClient.clearDefaultAccount();
 				mPlusClient.disconnect();
 				mPlusClient.connect();
 				b.putInt("deconnexion", 0);
+				b.clear();
 			}
 		} else if (isSignedIn) {
-			mSignInButton.setVisibility(View.INVISIBLE);			
+			mSignInButton.setVisibility(View.INVISIBLE);
 			mSignInStatus.setVisibility(View.INVISIBLE);
 			Intent intent;
 			intent = new Intent(this, principaleActivity.class);
@@ -224,11 +309,11 @@ public class connexionActivity extends Activity implements OnClickListener,
 		}
 
 		if (!isSignedIn) {
-			if (mConnectionResult == null) {				
-				mSignInButton.setVisibility(View.INVISIBLE);				
+			if (mConnectionResult == null) {
+				mSignInButton.setVisibility(View.INVISIBLE);
 				mSignInStatus.setText(getString(R.string.loading_status));
-			} else {				
-				mSignInButton.setVisibility(View.VISIBLE);				
+			} else {
+				mSignInButton.setVisibility(View.VISIBLE);
 				mSignInStatus.setText(getString(R.string.signed_out_status));
 			}
 		}

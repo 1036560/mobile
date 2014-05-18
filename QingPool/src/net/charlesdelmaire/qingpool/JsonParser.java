@@ -9,8 +9,8 @@ import org.json.JSONObject;
 import android.util.Log;
 
 public class JsonParser {
-	
-	//Attributs
+
+	// Attributs
 	private static final String MSG_KEY = "key";
 	private static final String MSG_RESULT = "result";
 	private static final String MSG_SUCCESS = "success";
@@ -18,8 +18,8 @@ public class JsonParser {
 
 	public static ArrayList<String> parseListePersonne(String p_body)
 			throws JSONException {
-		
-		//Variables
+
+		// Variables
 		ArrayList<String> liste = null;
 		JSONObject jObj = new JSONObject(p_body);
 
@@ -29,7 +29,8 @@ public class JsonParser {
 			for (int i = 0; i < tab.length(); i++) {
 				JSONObject objPers = tab.getJSONObject(i);
 				liste.add(objPers.getString("nom") + " "
-						+ objPers.getString("team"));
+						+ objPers.getString("team") + " "
+						+ objPers.getString("p") + "Pts");
 			}
 		} else {
 			Log.w("parseListePersonne", "No success from web service : "

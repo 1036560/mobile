@@ -22,7 +22,7 @@ public class QingPoolDatasource {
 	public static final String TABLE_PART = "participant";
 	public static final String TABLE_POOL = "Pool";
 	public static final String TABLE_LISTE = "listeJoueurPool";
-
+	public static final String TABLE_PARTSCORE = "PartScore";
 	// PARTICIPANT
 	public static final String COL_ID_PART = "idPart";
 	public static final String COL_NOM_PART = "nomParticipant";
@@ -42,6 +42,11 @@ public class QingPoolDatasource {
 	public static final String COL_ID_POOL_JOUEUR = "idPool";
 	public static final String COL_ID_PART_JOUEUR = "idPart";
 
+	public static final String COL_ID_id_PARTSCORE = "id";
+	public static final String COL_ID_POOL_PARTSCORE = "idPool";
+	public static final String COL_ID_PART_PARTSCORE = "idPart";
+	public static final String COL_SCORE_PARTSCORE = "score";
+
 	// INDICES DES COLONNES TABLE PART
 	public static final int IDX_ID_PART = 0;
 	public static final int IDX_NOM_PART = 1;
@@ -60,8 +65,14 @@ public class QingPoolDatasource {
 	public static final int IDX_NOM_JOUEUR = 1;
 	public static final int IDX_ID_POOL_JOUEUR = 2;
 	public static final int IDX_ID_PART_JOUEUR = 3;
+
+	public static final int IDX_ID_PARTSCORE = 0;
+	public static final int IDX_ID_POOL_PARTSCORE = 1;
+	public static final int IDX_ID_PART_PARTSCORE = 2;
+	public static final int IDX_SCORE_PARTSCORE = 3;
+
 	private SQLiteDatabase db;
-	private QingPoolDbHelper utildb;	
+	private QingPoolDbHelper utildb;
 
 	public QingPoolDatasource(Context context) {
 		utildb = new QingPoolDbHelper(context);
@@ -75,14 +86,54 @@ public class QingPoolDatasource {
 		utildb.close();
 	}
 
-	//Méthodes de la table PARTICIPANT
-	
-	//Création d'un participant
+	public void createPartScore(PartScore part) {
+		ContentValues values = partScoreToContentValues(part);
+		db.insert(TABLE_PARTSCORE, null, values);
+
+	}
+
+	private ContentValues partScoreToContentValues(PartScore part) {
+		ContentValues values = new ContentValues();
+		values.put(COL_ID_POOL_PARTSCORE, part.getIdPool());
+		values.put(COL_ID_PART_PARTSCORE, part.getIdPart());
+		values.put(COL_SCORE_PARTSCORE, part.getScore());
+		return values;
+	}
+
+	// Get tous les participants
+	public List<PartScore> getTousPartScore(int idPool) {
+		List<PartScore> parts = new ArrayList<PartScore>();
+		String uneReq = "SELECT * FROM " + TABLE_PARTSCORE + " WHERE "
+				+ COL_ID_POOL_PARTSCORE + "=" + Integer.toString(idPool);
+
+		Cursor cursor = db.rawQuery(uneReq, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			PartScore unPart = cursorToPartScore(cursor);
+			parts.add(unPart);
+			cursor.moveToNext();
+		}
+		cursor.close();
+		return parts;
+	}
+
+	private PartScore cursorToPartScore(Cursor cursor) {
+		PartScore PartScore = new PartScore();
+		PartScore.setId(cursor.getInt(IDX_ID_PARTSCORE));
+		PartScore.setIdPart(cursor.getInt(IDX_ID_POOL_PARTSCORE));
+		PartScore.setIdPool(cursor.getInt(IDX_ID_PART_PARTSCORE));
+		PartScore.setScore(cursor.getInt(IDX_SCORE_PARTSCORE));
+		return PartScore;
+	}
+
+	// Mï¿½thodes de la table PARTICIPANT
+
+	// Crï¿½ation d'un participant
 	public int createPart(Participant part) {
 		ContentValues values = partToContentValues(part);
 		int newID = (int) db.insert(TABLE_PART, null, values);
 		part.setId(newID);
-		return newID;		
+		return newID;
 	}
 
 	private ContentValues partToContentValues(Participant part) {
@@ -94,7 +145,7 @@ public class QingPoolDatasource {
 		return values;
 	}
 
-	//Get un participant
+	// Get un participant
 	public Participant getParticipant(int part_id) {
 		Participant part = null;
 		Cursor cursor = db.query(TABLE_PART, null, COL_ID_PART + "=" + part_id,
@@ -106,7 +157,7 @@ public class QingPoolDatasource {
 		return part;
 	}
 
-	//Get tous les participants
+	// Get tous les participants
 	public List<Participant> getTousPart(int idPool) {
 		List<Participant> parts = new ArrayList<Participant>();
 		String uneReq = "SELECT * FROM " + TABLE_LISTE + " WHERE "
@@ -132,7 +183,7 @@ public class QingPoolDatasource {
 		return parts;
 	}
 
-	//Get le nombre de participant dans un pool
+	// Get le nombre de participant dans un pool
 	public int getPartCompte() {
 		String uneReq = "SELECT  * FROM " + TABLE_PART;
 		Cursor cursor = db.rawQuery(uneReq, null);
@@ -141,7 +192,7 @@ public class QingPoolDatasource {
 		return count;
 	}
 
-	//Get le nombre de joueurs
+	// Get le nombre de joueurs
 	public int getJoueurCompte(int idPool) {
 		String uneReq = "SELECT  * FROM " + TABLE_LISTE + " WHERE "
 				+ COL_ID_POOL + " = " + idPool + " GROUP BY "
@@ -152,13 +203,13 @@ public class QingPoolDatasource {
 		return count;
 	}
 
-	//Supprimer un participant d'un pool
+	// Supprimer un participant d'un pool
 	public void deletePartPool(int idPool, int idPart) {
 		db.delete(TABLE_LISTE, COL_ID_POOL_JOUEUR + " = " + idPool + " and "
 				+ COL_ID_PART_JOUEUR + " = " + idPart, null);
 	}
 
-	//Supprimer un participant de la BD
+	// Supprimer un participant de la BD
 	public void deletePart(Participant part) {
 		db.delete(TABLE_PART, COL_ID_POOL + "=" + part.getIdPart(), null);
 	}
@@ -172,14 +223,14 @@ public class QingPoolDatasource {
 		return newPart;
 	}
 
-	//Méthodes de la table POOL
+	// Mï¿½thodes de la table POOL
 
-	//Création d'un pool
+	// Crï¿½ation d'un pool
 	public int createPool(Pool pool) {
 		ContentValues values = poolToContentValues(pool);
 		int newID = (int) db.insert(TABLE_POOL, null, values);
 		pool.setIdPool(newID);
-		return newID;		
+		return newID;
 	}
 
 	private ContentValues poolToContentValues(Pool pool) {
@@ -192,7 +243,7 @@ public class QingPoolDatasource {
 		return values;
 	}
 
-	//Get tous les pools
+	// Get tous les pools
 	public List<Pool> getTousPool(int idPart) {
 		List<Pool> pools = new ArrayList<Pool>();
 
@@ -219,7 +270,7 @@ public class QingPoolDatasource {
 		return pools;
 	}
 
-	//Get un pool
+	// Get un pool
 	public Pool getPool(int pool_id) {
 		Pool pool = null;
 		Cursor cursor = db.query(TABLE_POOL, null, COL_ID_POOL + "=" + pool_id,
@@ -231,7 +282,7 @@ public class QingPoolDatasource {
 		return pool;
 	}
 
-	//Get tous les joueurs d'un pool
+	// Get tous les joueurs d'un pool
 	public List<JoueurPool> getTousJoueurs(int idPart, int idPool) {
 		List<JoueurPool> joueurs = new ArrayList<JoueurPool>();
 
@@ -250,7 +301,7 @@ public class QingPoolDatasource {
 		return joueurs;
 	}
 
-	//Get le nombre de pools
+	// Get le nombre de pools
 	public int getPoolCompte() {
 		String uneReq = "SELECT  * FROM " + TABLE_POOL;
 		Cursor cursor = db.rawQuery(uneReq, null);
@@ -259,14 +310,14 @@ public class QingPoolDatasource {
 		return count;
 	}
 
-	//Supprimer un pool
+	// Supprimer un pool
 	public void deletePool(Pool pool) {
 		int id = pool.getIdPool();
 		System.out.print("Pool supprimï¿½ avec l'identifiant : " + id);
 		db.delete(TABLE_POOL, COL_ID_POOL + " = " + id, null);
 	}
 
-	//Vérifier si un participant fait partie d'un pool
+	// Vï¿½rifier si un participant fait partie d'un pool
 	public int verifPart(String nomPart) {
 		String uneReq = "SELECT  * FROM " + TABLE_PART;
 		String unNom;
@@ -283,8 +334,8 @@ public class QingPoolDatasource {
 		return -1;
 	}
 
-	//Vérifier si un pool existe
-	public int verifPool(String nomPool) {		
+	// Vï¿½rifier si un pool existe
+	public int verifPool(String nomPool) {
 		String uneReq = "SELECT * FROM " + TABLE_POOL;
 		Cursor cursor = db.rawQuery(uneReq, null);
 		String nomUnPool;
@@ -313,16 +364,16 @@ public class QingPoolDatasource {
 		return newPool;
 	}
 
-	//Mise-à-jour d'un pool
+	// Mise-ï¿½-jour d'un pool
 	private void update(Pool pool) {
 		ContentValues values = poolToContentValues(pool);
 		db.update(TABLE_POOL, values, COL_ID_POOL + "=" + pool.getIdPool(),
 				null);
 	}
 
-	//Méthodes de la table JOUEUR
-	
-	//Création d'un joueur
+	// Mï¿½thodes de la table JOUEUR
+
+	// Crï¿½ation d'un joueur
 	public void createJoueur(JoueurPool unJou) {
 		ContentValues values = joueurToContentValues(unJou);
 		db.insert(TABLE_LISTE, null, values);
@@ -345,7 +396,7 @@ public class QingPoolDatasource {
 		return newJoueur;
 	}
 
-	//Fonctions du helper
+	// Fonctions du helper
 	private static class QingPoolDbHelper extends SQLiteOpenHelper {
 
 		public QingPoolDbHelper(Context context) {
@@ -353,7 +404,7 @@ public class QingPoolDatasource {
 
 		}
 
-		//Création des tables
+		// Crï¿½ation des tables
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL("CREATE TABLE " + TABLE_POOL + "(" + COL_ID_POOL
@@ -371,11 +422,18 @@ public class QingPoolDatasource {
 					+ "integer primary key," + COL_NOM_JOUEUR + " text, "
 					+ COL_ID_POOL_JOUEUR + " integer, " + COL_ID_PART_JOUEUR
 					+ " integer)");
+
+			db.execSQL("create table " + TABLE_PARTSCORE + "("
+					+ COL_ID_id_PARTSCORE
+					+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ COL_ID_POOL_PARTSCORE + " integer, "
+					+ COL_ID_PART_PARTSCORE + " integer, "
+					+ COL_SCORE_PARTSCORE + " integer)");
 		}
 
 		@Override
-		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {			
-			db.execSQL("DROP TABLE IF EXISTS " + TABLE_POOL);			
+		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_POOL);
 			onCreate(db);
 		}
 	}
