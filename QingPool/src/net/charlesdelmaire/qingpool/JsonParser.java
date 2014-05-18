@@ -9,6 +9,8 @@ import org.json.JSONObject;
 import android.util.Log;
 
 public class JsonParser {
+	
+	//Attributs
 	private static final String MSG_KEY = "key";
 	private static final String MSG_RESULT = "result";
 	private static final String MSG_SUCCESS = "success";
@@ -16,6 +18,8 @@ public class JsonParser {
 
 	public static ArrayList<String> parseListePersonne(String p_body)
 			throws JSONException {
+		
+		//Variables
 		ArrayList<String> liste = null;
 		JSONObject jObj = new JSONObject(p_body);
 

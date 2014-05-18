@@ -46,11 +46,11 @@ import com.google.analytics.tracking.android.Tracker;
 
 public class ProfilpartActivity extends Activity implements OnClickListener {
 
+	//Variables
 	private ProgressDialog m_ProgressDialog;
 	List<Map<String, String>> partList = new ArrayList<Map<String, String>>();
 	SimpleAdapter simpleAdpt;
-	String lesJoueurs;
-	// TextView agePart;
+	String lesJoueurs;	
 	TextView textView;
 	TextView textView1;
 	TextView textViewEmpty;
@@ -64,25 +64,34 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.profilpart);
-		ListView lv = (ListView) findViewById(R.id.list);
+		
+		//Appel du layout
+		setContentView(R.layout.profilpart);		
+		
+		//Connexion à la BD
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
+		
+		//Récupération des views
 		textView = (TextView) findViewById(R.id.scorePart);
 		textView1 = (TextView) findViewById(R.id.nomPart);
 		textViewEmpty = (TextView) findViewById(R.id.empty);
-		View logoClick = findViewById(R.id.imagePool);
-		logoClick.setOnClickListener(this);
+		ListView lv = (ListView) findViewById(R.id.list);
+		
 		getActionBar().setHomeButtonEnabled(true);
 		b = getIntent().getExtras();
 
 		textView1.setText(textView1.getText() + " " + b.getString("nom"));
+		
+		//Adaptateur
 		simpleAdpt = new SimpleAdapter(this, partList,
 				android.R.layout.simple_list_item_1,
 				new String[] { "nomJoueur" }, new int[] { android.R.id.text1 });
 		lv.setAdapter(simpleAdpt);
 
 		registerForContextMenu(lv);
+		
+		//Parser la liste des joueurs pour en obtenir le score total
 		if (savedInstanceState != null) {
 			lesJoueurs = savedInstanceState.getString("listJoueur");
 			String str[] = lesJoueurs.split(";");
@@ -101,31 +110,31 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 					.execute("http://charlesdelmaire1992.appspot.com/joueur?nom=");
 
 		}
+		
+		//Téléchargement de l'image du participant
 		new DownloadImageTask((ImageView) findViewById(R.id.imagePart))
 				.execute(participantSelect.getImgPart().substring(0,
 						participantSelect.getImgPart().length() - 2)
 						+ "300");
-
-		// agePart.setText(agePart.getText()
-		// + participantSelect.getLang().toUpperCase());
+		
+		//Google nalytics tracker
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
-
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
 		hitParameters.put(Fields.SCREEN_NAME, "Profil Participant");
-
 		tracker.send(hitParameters);
 
 	}
 
+	//Menu
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu) {		
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
+	//Sélections du menu
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = null;
@@ -142,7 +151,6 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 			this.startActivity(intent);
 			break;
 		case R.id.aide:
-
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.menu_aide));
 			alertDialog.setMessage(getString(R.string.aide_prof_part));
@@ -151,10 +159,9 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
 						}
-					}); // Set the Icon for the Dialog
+					});
 			alertDialog.setIcon(R.drawable.aide);
 			alertDialog.show();
-
 			break;
 		case android.R.id.home:            
 	        intent = new Intent(this, principaleActivity.class);   
@@ -162,10 +169,10 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 	        startActivity(intent); 
 	        break;
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 
+	//Passage de variables en sortie
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -201,45 +208,45 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	//Méthode GET pour liste des joueurs à partir du Web Service
 	public String GET(String url) {
 		InputStream inputStream = null;
 		String result = "";
 		String result2 = "";
 		try {
-
 			ArrayList<String> liste = null;
 
+			//Parcours de la liste
 			for (Iterator<String> i = listJoueur.iterator(); i.hasNext();) {
 				String item = i.next();
 
-				// create HttpClient
+				//Création du client HTTP
 				HttpClient httpclient = new DefaultHttpClient();
 
-				// make GET request to the given URL
+				//Envoie de la requête
 				HttpResponse httpResponse = httpclient.execute(new HttpGet(url
 						.concat(item)));
 
-				// receive response as inputStream
+				//Réception de la réponse
 				inputStream = httpResponse.getEntity().getContent();
 
-				// convert inputstream to string
+				//Conversion en chaîne de caractères
 				if (inputStream != null)
 					result2 = convertInputStreamToString(inputStream);
 				else
 					result2 = "Did not work!";
 
-				// result += result2;
+				//Addition des résultats
 				liste = JsonParser.unePersonne(result2);
 				result += liste.get(0) + ";";
 			}
-
 		} catch (Exception e) {
 			Log.d("InputStream", e.getLocalizedMessage());
 		}
-
 		return result;
 	}
 
+	//Méthode de conversion du InputStream
 	private static String convertInputStreamToString(InputStream inputStream)
 			throws IOException {
 		BufferedReader bufferedReader = new BufferedReader(
@@ -248,12 +255,12 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 		String result = "";
 		while ((line = bufferedReader.readLine()) != null)
 			result += line;
-
 		inputStream.close();
 		return result;
 
 	}
 
+	//Détermine si l'utilisateur est connecté
 	public boolean isConnected() {
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -268,12 +275,13 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		AdapterContextMenuInfo aInfo = (AdapterContextMenuInfo) menuInfo;
 
-		// We know that each row in the adapter is a Map
+		//Mappage de l'adaptateur
 		HashMap map = (HashMap) simpleAdpt.getItem(aInfo.position);
 		Bundle b = new Bundle();
 		Intent intent = new Intent(this, ProfilJoueActivity.class);
 		String str[] = lesJoueurs.split(";");
 
+		//Parsage des entrées 
 		for (int i = 0; i < str.length; i++) {
 			String str1[] = str[i].split("/");
 
@@ -285,24 +293,25 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 			}
 		}
 
-		intent.putExtras(b);
-		// start the second Activity
+		intent.putExtras(b);		
 		this.startActivity(intent);
 	}
 
+	//Définition du mappage
 	private HashMap<String, String> createJoueur(String key, String name) {
 		HashMap<String, String> Pool = new HashMap<String, String>();
 		Pool.put(key, name);
 		return Pool;
 	}
 
+	//Méthode asynchrone
 	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String... urls) {
 			return GET(urls[0]);
 		}
 
-		// onPostExecute displays the results of the AsyncTask.
+		//Affichage des résultats de la tâche asynchrone
 		@Override
 		protected void onPostExecute(String result) {
 			if (m_ProgressDialog != null) {
@@ -323,12 +332,14 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 
 		}
 
+		//Mappage pour la tâche asynchrone
 		private HashMap<String, String> createJoueur(String key, String name) {
 			HashMap<String, String> Pool = new HashMap<String, String>();
 			Pool.put(key, name);
 			return Pool;
 		}
 
+		//Enregistrement des entrées de la tâche asynchrone
 		@Override
 		protected void onPreExecute() {
 			if (m_ProgressDialog == null) {
@@ -349,15 +360,14 @@ public class ProfilpartActivity extends Activity implements OnClickListener {
 
 			m_ProgressDialog.show();
 		}
-
 	}
 
+	//Méthode de téléchargement d'image
 	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 		ImageView bmImage;
 
 		public DownloadImageTask(ImageView bmImage) {
 			this.bmImage = bmImage;
-
 		}
 
 		protected Bitmap doInBackground(String... urls) {

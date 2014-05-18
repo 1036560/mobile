@@ -19,11 +19,15 @@ public class accueilActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//Appel du layout
 		setContentView(R.layout.accueil);
-		// b = getIntent().getExtras();
+		
+		//Bouton et OnClickListener
 		View btnClick = findViewById(R.id.btnConnexion);
 		btnClick.setOnClickListener(this);
 
+		//Google analytics tracker
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
 
@@ -37,11 +41,10 @@ public class accueilActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg0) {
-		if (arg0.getId() == R.id.btnConnexion) {
-			// define a new Intent for the second Activity
+		if (arg0.getId() == R.id.btnConnexion) {	
+			
+			//Démarrage de la page
 			Intent intent = new Intent(this, connexionActivity.class);
-			// start the second Activity
-
 			Bundle b = new Bundle();
 			b.putInt("deconnexion", 0);
 			intent.putExtras(b);

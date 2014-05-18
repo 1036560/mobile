@@ -26,65 +26,61 @@ public class connexionActivity extends Activity implements OnClickListener,
 		PlusClient.ConnectionCallbacks, PlusClient.OnConnectionFailedListener,
 		PlusClient.OnAccessRevokedListener {
 
+	//Variables
 	private QingPoolDatasource bd;
 	private static final int DIALOG_GET_GOOGLE_PLAY_SERVICES = 1;
-
 	private static final int REQUEST_CODE_SIGN_IN = 1;
 	private static final int REQUEST_CODE_GET_GOOGLE_PLAY_SERVICES = 2;
 
 	private TextView mSignInStatus;
 	private PlusClient mPlusClient;
 	private View mSignInButton;
-	private View mSignOutButton;
-	
-	private int idduPart;
-	Bundle b;
+	private View mSignOutButton;	
+	private int idduPart;	
 	private ConnectionResult mConnectionResult;
+	Bundle b;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//Appel du layout
 		setContentView(R.layout.connexion);
 
+		//Connexion à la BD
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
+		
+		//Bouton et OnClickListener
 		mPlusClient = new PlusClient.Builder(this, this, this).setActions(
 				MomentUtil.ACTIONS).build();
-
 		mSignInStatus = (TextView) findViewById(R.id.sign_in_status);
 		mSignInButton = findViewById(R.id.sign_in_button);
 		mSignInButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_shape));
 		mSignInButton.setOnClickListener(this);
 		
-
+		//Google analytics tracker
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
-
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
 		hitParameters.put(Fields.SCREEN_NAME,
 				getString(R.string.screen_connexion));
-
 		tracker.send(hitParameters);
-
 		b = getIntent().getExtras();
-
-		
-
 	}
 
 	@Override
 	public void onStart()  {
-		super.onStart();
+		super.onStart();		
 		bd.open();
 		mPlusClient.connect();
-
 		EasyTracker.getInstance(this).activityStart(this);
 	}
 
 	@Override
 	public void onStop() {
-		super.onStop();
+		super.onStop();	
 		mPlusClient.disconnect();
 		bd.close();
 		EasyTracker.getInstance(this).activityStop(this);
@@ -94,6 +90,7 @@ public class connexionActivity extends Activity implements OnClickListener,
 	public void onClick(View view) {		
 		if(view.getId() == R.id.sign_in_button) {
 		
+			//Connexion à Google
 			int available = GooglePlayServicesUtil
 					.isGooglePlayServicesAvailable(this);
 			if (available != ConnectionResult.SUCCESS) {
@@ -105,17 +102,16 @@ public class connexionActivity extends Activity implements OnClickListener,
 				mSignInStatus.setText(getString(R.string.signing_in_status));
 				mConnectionResult.startResolutionForResult(this,
 						REQUEST_CODE_SIGN_IN);
-			} catch (IntentSender.SendIntentException e) {
-				// Fetch a new result to start.
+			} catch (IntentSender.SendIntentException e) {				
 				mPlusClient.connect();
-			}
-			
-		
+			}		
 		}
 	}
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
+		
+		//Messages pour la connexion
 		if (id != DIALOG_GET_GOOGLE_PLAY_SERVICES) {
 			return super.onCreateDialog(id);
 		}
@@ -136,11 +132,12 @@ public class connexionActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		//Messages interactifs
 		if (requestCode == REQUEST_CODE_SIGN_IN
 				|| requestCode == REQUEST_CODE_GET_GOOGLE_PLAY_SERVICES) {
 			if (resultCode == RESULT_OK && !mPlusClient.isConnected()
-					&& !mPlusClient.isConnecting()) {
-				// This time, connect should succeed.
+					&& !mPlusClient.isConnecting()) {				
 				mPlusClient.connect();
 			}
 		}
@@ -148,6 +145,8 @@ public class connexionActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onAccessRevoked(ConnectionResult status) {
+		
+		//Message sur les accès
 		if (status.isSuccess()) {
 			mSignInStatus.setText(R.string.revoke_access_status);
 		} else {
@@ -159,6 +158,8 @@ public class connexionActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
+		
+		//Affichage du nom de compte du connecté
 		String currentPersonName = mPlusClient.getCurrentPerson() != null ? mPlusClient
 				.getCurrentPerson().getDisplayName()
 				: getString(R.string.unknown_person);
@@ -168,9 +169,9 @@ public class connexionActivity extends Activity implements OnClickListener,
 		String currentPersonLang = mPlusClient.getCurrentPerson().getLanguage();
 		mSignInStatus.setText(getString(R.string.signed_in_status,
 				currentPersonName));
-		updateButtons(true /* isSignedIn */);
+		updateButtons(true);
 
-		/* ========================================================== */
+		//Création du participant s'il n'existe pas
 		if (bd.verifPart(currentPersonName) == -1) {
 			Participant unPart = new Participant();
 			int compte = bd.getPartCompte();
@@ -182,25 +183,28 @@ public class connexionActivity extends Activity implements OnClickListener,
 		} else {
 			idduPart = bd.verifPart(currentPersonName);
 		}
-
-		/* ========================================================== */
-
 	}
 
 	@Override
 	public void onDisconnected() {
+		
+		//Message si déconnecté
 		mSignInStatus.setText(R.string.loading_status);
 		mPlusClient.connect();
-		updateButtons(false /* isSignedIn */);
+		updateButtons(false);
 	}
 
 	@Override
 	public void onConnectionFailed(ConnectionResult result) {
+		
+		//Message si la connection échoue
 		mConnectionResult = result;
-		updateButtons(false /* isSignedIn */);
+		updateButtons(false);
 	}
 
 	private void updateButtons(boolean isSignedIn) {
+		
+		//Mis-à-jour des boutons affichés selon le statut de connexion
 		if (b.getInt("deconnexion") == 1) {
 			if (mPlusClient.isConnected()) {
 				mPlusClient.clearDefaultAccount();
@@ -209,8 +213,7 @@ public class connexionActivity extends Activity implements OnClickListener,
 				b.putInt("deconnexion", 0);
 			}
 		} else if (isSignedIn) {
-			mSignInButton.setVisibility(View.INVISIBLE);
-			
+			mSignInButton.setVisibility(View.INVISIBLE);			
 			mSignInStatus.setVisibility(View.INVISIBLE);
 			Intent intent;
 			intent = new Intent(this, principaleActivity.class);
@@ -221,17 +224,11 @@ public class connexionActivity extends Activity implements OnClickListener,
 		}
 
 		if (!isSignedIn) {
-			if (mConnectionResult == null) {
-				// Disable the sign-in button until onConnectionFailed is called
-				// with result.
-				mSignInButton.setVisibility(View.INVISIBLE);
-				
+			if (mConnectionResult == null) {				
+				mSignInButton.setVisibility(View.INVISIBLE);				
 				mSignInStatus.setText(getString(R.string.loading_status));
-			} else {
-				// Enable the sign-in button since a connection result is
-				// available.
-				mSignInButton.setVisibility(View.VISIBLE);
-				
+			} else {				
+				mSignInButton.setVisibility(View.VISIBLE);				
 				mSignInStatus.setText(getString(R.string.signed_out_status));
 			}
 		}

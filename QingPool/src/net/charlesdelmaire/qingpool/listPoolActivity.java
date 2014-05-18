@@ -28,7 +28,9 @@ import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.Tracker;
 
-public class listPoolActivity extends Activity implements OnClickListener{
+public class listPoolActivity extends Activity {
+	
+	//Variables
 	private QingPoolDatasource bd;
 	private List<Pool> lstPool;
 	private ArrayAdapter<Pool> adpt;
@@ -40,27 +42,33 @@ public class listPoolActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//Appel du layout
 		setContentView(R.layout.listpool);
+		
+		//Bouton
 		getActionBar().setHomeButtonEnabled(true);
+		
+		//Connexion à la BD
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
 		b = getIntent().getExtras();
-
+		
+		//Récupération de la liste des pools
 		lstPool = bd.getTousPool(b.getInt("idPart"));
 		initList();
 
 		lv = (ListView) findViewById(R.id.listPool);
-
+		
+		//Acaptateur
 		simpleAdpt = new SimpleAdapter(this, poolList,
 				android.R.layout.simple_list_item_1,
 				new String[] { "nomPool" }, new int[] { android.R.id.text1 });
 		lv.setAdapter(simpleAdpt);
 
-		registerForContextMenu(lv);
+		registerForContextMenu(lv);		
 		
-		View logoClick = findViewById(R.id.imageView1);
-		logoClick.setOnClickListener(this);
-
+		//Google analytics tracker
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
 
@@ -73,13 +81,14 @@ public class listPoolActivity extends Activity implements OnClickListener{
 
 	}
 
+	//Menu
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu) {		
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
+	//Sélections du menu
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = null;
@@ -118,6 +127,7 @@ public class listPoolActivity extends Activity implements OnClickListener{
 		return super.onOptionsItemSelected(item);
 	}
 
+	//Initialisation de la liste
 	private void initList() {
 
 		for (int i = 0; i < lstPool.size(); i++) {
@@ -134,14 +144,11 @@ public class listPoolActivity extends Activity implements OnClickListener{
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		AdapterContextMenuInfo aInfo = (AdapterContextMenuInfo) menuInfo;
-
-		// We know that each row in the adapter is a Map
+		AdapterContextMenuInfo aInfo = (AdapterContextMenuInfo) menuInfo;		
 		HashMap map = (HashMap) simpleAdpt.getItem(aInfo.position);
 		menu.setHeaderTitle(getString(R.string.popup_nom) + map.get("nomPool"));
 		menu.add(1, 1, 1, getString(R.string.popup_liste));
 		menu.add(1, 2, 2, getString(R.string.popup_quitter));
-
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
@@ -156,8 +163,7 @@ public class listPoolActivity extends Activity implements OnClickListener{
 		int idPoolSelect = bd.verifPool(nomPool);
 		b.putInt("idPoolSelect", idPoolSelect);
 		if (itemId == 1) {
-			Intent intent = new Intent(this, listPartiActivity.class);
-			// start the second Activity
+			Intent intent = new Intent(this, listPartiActivity.class);			
 			intent.putExtras(b);
 			this.startActivity(intent);
 
@@ -167,20 +173,10 @@ public class listPoolActivity extends Activity implements OnClickListener{
 			simpleAdpt.notifyDataSetChanged();
 			lstPool = bd.getTousPool(b.getInt("idPart"));
 			initList();
-
 		}
 		return true;
 	}
 	
-	@Override
-	public void onClick(View arg0) {
-		if (arg0.getId() == R.id.imageView1) {
-			Intent intent = null;
-			intent = new Intent(this, principaleActivity.class);
-			intent.putExtras(b);
-			this.startActivity(intent);
-		}
-	}
 
 	@Override
 	public void onStart() {

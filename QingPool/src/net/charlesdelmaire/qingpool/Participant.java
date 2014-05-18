@@ -1,14 +1,18 @@
 package net.charlesdelmaire.qingpool;
 
 public class Participant {
+	
+	//Attributs
 	private int idPart;
 	private String nomPart;
 	private String imgPart;
 	private String lang;
 
+	//Constructeur par défaut
 	public Participant() {
 	}
 
+	//Constructeur
 	public Participant(int idPart, String nomPart, String imgPart, String lang) {
 		this.idPart = idPart;
 		this.nomPart = nomPart;
@@ -16,6 +20,7 @@ public class Participant {
 		this.lang = lang;
 	}
 
+	//Get Set
 	public void setId(int idPart) {
 		this.idPart = idPart;
 	}

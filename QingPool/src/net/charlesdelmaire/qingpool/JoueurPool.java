@@ -1,15 +1,20 @@
 package net.charlesdelmaire.qingpool;
 
 public class JoueurPool {
+	
+	//Attributs
 	int idJoueur;
 	String nomJoueur;
 	int idPool;
 	int idPart;
 	String idJoueur1;
 
+	
+	//Constructeur par défaut
 	public JoueurPool() {
 	}
 
+	//Constructeur
 	public JoueurPool(String nomJoueur, String idJoueur1, int idPool,
 			int idPart, int idJoueur) {
 		this.idJoueur = idJoueur;
@@ -19,6 +24,7 @@ public class JoueurPool {
 		this.idPart = idPart;
 	}
 
+	//Get Set
 	public void setidJoueur(int unJoueur) {
 		this.idJoueur = unJoueur;
 	}
@@ -56,6 +62,6 @@ public class JoueurPool {
 	}
 
 	public String getIdJoueur1() {
-		return idJoueur1;
+		return this.idJoueur1;
 	}
 }

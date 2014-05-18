@@ -33,7 +33,7 @@ import com.google.analytics.tracking.android.Tracker;
 public class listRandActivity extends ListActivity implements OnClickListener {
 	private final String TAG = this.getClass().getSimpleName();
 
-	// Version hÃ©bergÃ©e :
+	//Version hébergée
 	private final static String WEB_SERVICE_URL = "charlesdelmaire1992.appspot.com";
 	private Bundle b;
 	private QingPoolDatasource bd;
@@ -44,12 +44,17 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//Appel du layout
 		setContentView(R.layout.listrand);
 		getActionBar().setHomeButtonEnabled(true);
 		b = getIntent().getExtras();
+		
+		//Connexion à la BD
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
 
+		//Boutons et OnClickListener
 		View btnClick = findViewById(R.id.btnRege);
 		btnClick.setOnClickListener(this);
 		View btnClick1 = findViewById(R.id.btnAccepter);
@@ -79,13 +84,14 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 
 	}
 
+	//Menu
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu) {		
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
+	//Sélections du menu
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = null;
@@ -102,7 +108,6 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			this.startActivity(intent);
 			break;
 		case R.id.aide:
-
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.menu_aide));
 			alertDialog.setMessage(Html
@@ -112,7 +117,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
 						}
-					}); // Set the Icon for the Dialog
+					});
 			alertDialog.setIcon(R.drawable.aide);
 			alertDialog.show();
 
@@ -123,10 +128,10 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			startActivity(intent);
 			break;
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 
+	//Passage de la liste en sortie
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -146,6 +151,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 		EasyTracker.getInstance(this).activityStart(this);
 	}
 
+	//Téléchargement de la liste aléatoire
 	private class DownloadPersonListTask extends
 			AsyncTask<Void, Void, ArrayList<String>> {
 		Exception m_Exp;
@@ -163,20 +169,17 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			m_ProgressDialog.show();
 		}
 
+		//Appel du Web Service
 		@Override
 		protected ArrayList<String> doInBackground(Void... unused) {
 			ArrayList<String> liste = null;
 
 			try {
-
-				URI uri = new URI("http", WEB_SERVICE_URL, "/aleatoire", null,
-						null);
+				URI uri = new URI("http", WEB_SERVICE_URL, "/aleatoire", null, null);
 				HttpGet getMethod = new HttpGet(uri);
-
 				String body = m_ClientHttp.execute(getMethod,
 						new BasicResponseHandler());
-				Log.i(TAG, "ReÃ§u : " + body);
-
+				Log.i(TAG, "Reçu : " + body);
 				liste = JsonParser.parseListePersonne(body);
 			} catch (Exception e) {
 				m_Exp = e;
@@ -184,6 +187,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			return liste;
 		}
 
+		//Affichage de la liste une fois téléchargée
 		@Override
 		protected void onPostExecute(ArrayList<String> p_Personnes) {
 			if (m_ProgressDialog != null) {
@@ -196,7 +200,6 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 				listRandActivity.this.setListAdapter(new ArrayAdapter<String>(
 						listRandActivity.this,
 						android.R.layout.simple_list_item_1, m_Personnes));
-
 			} else {
 				Log.e(TAG, "Error while fetching", m_Exp);
 				Toast.makeText(listRandActivity.this,
@@ -208,14 +211,15 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg0) {
-		Intent intent = null;
-		// TODO Auto-generated method stub
+		Intent intent = null;		
+		
+		//Regénération de la liste aléatoire
 		if (arg0.getId() == R.id.btnRege) {
 			new DownloadPersonListTask().execute((Void) null);
 		}
-		if (arg0.getId() == R.id.btnAccepter) {
-
-			/* ========================================================== */
+		
+		//Accpetation de la liste et insertion dans la BD
+		if (arg0.getId() == R.id.btnAccepter) {			
 			for (int i = 0; i < m_Personnes.size(); i++) {
 				JoueurPool unJou = new JoueurPool();
 				unJou.setNomJoueur(m_Personnes.get(i).split(" ")[0] + " "
@@ -227,6 +231,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 				bd.createJoueur(unJou);
 			}
 
+			//Message d'ajout des joueurs
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.toast_joueur_ajoute), Toast.LENGTH_SHORT)
 					.show();
@@ -235,14 +240,7 @@ public class listRandActivity extends ListActivity implements OnClickListener {
 			intent = new Intent(this, principaleActivity.class);
 			intent.putExtras(b);
 			this.startActivity(intent);
-			this.finish();
-			/* ========================================================== */
-		}
-		if (arg0.getId() == R.id.imageView1) {
-			intent = new Intent(this, principaleActivity.class);
-			intent.putExtras(b);
-			this.startActivity(intent);
-		}
+			this.finish();			
+		}		
 	}
-
 }

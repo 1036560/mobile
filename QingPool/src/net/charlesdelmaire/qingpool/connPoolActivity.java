@@ -24,6 +24,8 @@ import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.Tracker;
 
 public class connPoolActivity extends Activity implements OnClickListener {
+	
+	//Variables
 	private Bundle b;
 	private EditText txtNomPool;
 	private EditText txtMotDePasse;
@@ -33,6 +35,8 @@ public class connPoolActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		
+		//Boutons et OnClickListener
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
 		setContentView(R.layout.connpool);
@@ -45,25 +49,25 @@ public class connPoolActivity extends Activity implements OnClickListener {
 		btnClick2.setOnClickListener(this);
 		getActionBar().setHomeButtonEnabled(true);
 
+		//Google analytics tracker
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
-
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
 		hitParameters.put(Fields.SCREEN_NAME,
 				getString(R.string.screen_conn_pool));
-
 		tracker.send(hitParameters);
 
 	}
 
+	//Menu
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu) {		
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
+	//Sélections menu
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = null;
@@ -114,26 +118,28 @@ public class connPoolActivity extends Activity implements OnClickListener {
 		}		
 
 		if (arg0.getId() == R.id.btnLaConn) {
-
+			
+			//Variables de connexion à un pool existant
 			int idPoolSelect = bd.verifPool(txtNomPool.getText().toString());
-
 			int nbPart = bd.getJoueurCompte(idPoolSelect);
 
+			//Variables
 			List<JoueurPool> joueurs = new ArrayList<JoueurPool>();
 			joueurs = bd.getTousJoueurs(b.getInt("idPart"), idPoolSelect);
 
+			//Récupération du pool 
 			if (joueurs.size() == 0) {
 				if (idPoolSelect != -1) {
 					Pool unPool = bd.getPool(idPoolSelect);
 
+					//Récupération du mot de passe du pool
 					if (nbPart < unPool.getNbMaxPart()) {
 						String leMotDePasse = txtMotDePasse.getText()
 								.toString();
-						if (leMotDePasse.equals(unPool.getMotDePasse())) {
-							// define a new Intent for the second Activity
-							Intent intent = new Intent(this,
-									listRandActivity.class);
-							// start the second Activity
+						
+						//Comparaison du mot de passe
+						if (leMotDePasse.equals(unPool.getMotDePasse())) {							
+							Intent intent = new Intent(this, listRandActivity.class);							
 							b.putInt("idPoolselect", idPoolSelect);
 							intent.putExtras(b);
 							this.startActivity(intent);

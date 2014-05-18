@@ -18,27 +18,27 @@ import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.Tracker;
 
-public class principaleActivity extends Activity implements OnClickListener {
-
-	private int idPart;
+public class principaleActivity extends Activity implements OnClickListener {	
 	Bundle b;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//Appel du layout
 		setContentView(R.layout.pageprincipale);
 		getActionBar().setHomeButtonEnabled(true);
 		b = getIntent().getExtras();
 
+		//Boutons et OnClickListener
 		View btnClick = findViewById(R.id.btnStartPool);
 		btnClick.setOnClickListener(this);
-
 		View btnClick1 = findViewById(R.id.btnConnPool);
 		btnClick1.setOnClickListener(this);
-
 		View btnClick2 = findViewById(R.id.btnViewPool);
 		btnClick2.setOnClickListener(this);
 
+		//Google analytics tracker
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
 
@@ -50,13 +50,14 @@ public class principaleActivity extends Activity implements OnClickListener {
 		tracker.send(hitParameters);
 	}
 
+	//Menu
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu) {		
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
+	//Sélections du menu
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = null;
@@ -67,7 +68,6 @@ public class principaleActivity extends Activity implements OnClickListener {
 			this.startActivity(intent);
 			break;
 		case R.id.aide:
-
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.menu_aide));
 			alertDialog.setMessage(Html.fromHtml(getString(R.string.aide_principale)));
@@ -76,10 +76,9 @@ public class principaleActivity extends Activity implements OnClickListener {
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
 						}
-					}); // Set the Icon for the Dialog
+					});
 			alertDialog.setIcon(R.drawable.aide);
 			alertDialog.show();
-
 			break;
 		case R.id.deconnexion:
 			intent = new Intent(this, connexionActivity.class);
@@ -93,37 +92,30 @@ public class principaleActivity extends Activity implements OnClickListener {
 	         startActivity(intent); 
 	         break;
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 
+	//
 	@Override
 	public void onClick(View v) {
 
-		if (v.getId() == R.id.btnConnPool) {
-			// define a new Intent for the second Activity
-			Intent intent = new Intent(this, connPoolActivity.class);
-			// start the second Activity
+		//Gestion des boutons
+		if (v.getId() == R.id.btnConnPool) {			
+			Intent intent = new Intent(this, connPoolActivity.class);			
 			intent.putExtras(b);
 			this.startActivity(intent);
-		}
-		// TODO Auto-generated method stub
-		if (v.getId() == R.id.btnStartPool) {
-			// define a new Intent for the second Activity
-			Intent intent = new Intent(this, nouveauPoolActivity.class);
-			// start the second Activity
+		}		
+		if (v.getId() == R.id.btnStartPool) {			
+			Intent intent = new Intent(this, nouveauPoolActivity.class);			
 			intent.putExtras(b);
 			this.startActivity(intent);
 		}
 
-		if (v.getId() == R.id.btnViewPool) {
-			// define a new Intent for the second Activity
-			Intent intent = new Intent(this, listPoolActivity.class);
-			// start the second Activity
+		if (v.getId() == R.id.btnViewPool) {			
+			Intent intent = new Intent(this, listPoolActivity.class);			
 			intent.putExtras(b);
 			this.startActivity(intent);
 		}
-
 	}
 
 	@Override

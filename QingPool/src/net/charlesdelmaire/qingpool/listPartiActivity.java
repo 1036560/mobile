@@ -29,6 +29,8 @@ import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.Tracker;
 
 public class listPartiActivity extends Activity implements OnClickListener {
+	
+	//Variables
 	private QingPoolDatasource bd;
 	private List<Participant> lstPart;
 	List<Map<String, String>> partList = new ArrayList<Map<String, String>>();
@@ -41,31 +43,40 @@ public class listPartiActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//Appel du layout
 		setContentView(R.layout.listparti);
+		
+		//Bouton et OnClickListener
 		button1 = (Button) findViewById(R.id.btnInviter);
 		button1.setOnClickListener(this);
 		btnRsltFinal = (Button) findViewById(R.id.btnRsltFinal);
 		btnRsltFinal.setOnClickListener(this);
+		textView = (TextView) findViewById(R.id.nomPart);
+		ListView lv = (ListView) findViewById(R.id.listParticipant);
 		b = getIntent().getExtras();
 		getActionBar().setHomeButtonEnabled(true);
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
 
+		//Récupération de la liste des participants d'un pool
 		lstPart = bd.getTousPart(b.getInt("idPoolSelect"));
 
 		initList();
-		textView = (TextView) findViewById(R.id.nomPart);
-		ListView lv = (ListView) findViewById(R.id.listParticipant);
-
+		
+		//Adaptateur
 		simpleAdpt = new SimpleAdapter(this, partList,
 				android.R.layout.simple_list_item_1,
 				new String[] { "nomPart" }, new int[] { android.R.id.text1 });
 		lv.setAdapter(simpleAdpt);
 
+		//Ajout de l'attribut cliquable de la liste
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				
+				//Démarrage de la nouvelle activité avec les variables
 				Intent intent = new Intent(listPartiActivity.this,
   						ProfilpartActivity.class);
  				String message = partList.get((int) id).get("nomPart");
@@ -85,6 +96,7 @@ public class listPartiActivity extends Activity implements OnClickListener {
 			}
 		});
 
+		//Google analytics tracker
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
 
@@ -96,13 +108,14 @@ public class listPartiActivity extends Activity implements OnClickListener {
 
 	}
 
+	//Menu
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu) {		
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
+	//Sélection du menu
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = null;
@@ -127,7 +140,7 @@ public class listPartiActivity extends Activity implements OnClickListener {
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
 						}
-					}); // Set the Icon for the Dialog
+					});
 			alertDialog.setIcon(R.drawable.aide);
 			alertDialog.show();
 			break;
@@ -141,8 +154,8 @@ public class listPartiActivity extends Activity implements OnClickListener {
 		return super.onOptionsItemSelected(item);
 	}
 
+	//Initialisation de la liste
 	private void initList() {
-
 		for (int i = 0; i < lstPart.size(); i++) {
 			partList.add(createPart("nomPart", lstPart.get(i).getNomPart()));
 		}
@@ -154,6 +167,7 @@ public class listPartiActivity extends Activity implements OnClickListener {
 		return Pool;
 	}
 
+	//Appel des services de l'appareil pour envoyer un courriel
 	@Override
 	public void onClick(View arg0) {
 		if (arg0.getId() == R.id.btnInviter) {
@@ -176,11 +190,11 @@ public class listPartiActivity extends Activity implements OnClickListener {
 			}
 
 		}
-		if (arg0.getId() == R.id.btnRsltFinal) {
-			// define a new Intent for the second Activity
+		
+		//Appel de la nouvelle activité
+		if (arg0.getId() == R.id.btnRsltFinal) {			
 			Intent intent = new Intent(this, rsltFinalActivity.class);
-			intent.putExtras(b);
-			// start the second Activity
+			intent.putExtras(b);			
 			this.startActivity(intent);
 		}	
 

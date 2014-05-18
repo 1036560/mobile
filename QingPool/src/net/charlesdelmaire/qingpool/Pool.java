@@ -1,15 +1,19 @@
 package net.charlesdelmaire.qingpool;
 
 public class Pool {
+	
+	//Attributs
 	int idPool;
 	String nomPool;
 	int idPart;
 	String motDePasse;
 	int nbMaxPart;
 
+	//Constructeur par défaut
 	public Pool() {
 	}
 
+	//Constructeur
 	public Pool(int idPool, String nomPool, int idPart, String motDePasse,
 			int nbNaxPart) {
 		this.idPool = idPool;
@@ -19,6 +23,7 @@ public class Pool {
 		this.nbMaxPart = nbNaxPart;
 	}
 
+	//Get Set
 	public void setIdPool(int idPool) {
 		this.idPool = idPool;
 	}

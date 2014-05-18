@@ -21,6 +21,8 @@ import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.Tracker;
 
 public class nouveauPoolActivity extends Activity implements OnClickListener {
+	
+	//Variables
 	private QingPoolDatasource bd;
 	EditText nomPoolEdit;
 	EditText motPasse1;
@@ -31,43 +33,45 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//Appel du layout
 		setContentView(R.layout.nouveaupool);
 		b = getIntent().getExtras();
-		getActionBar().setHomeButtonEnabled(true);
+		
+		//Connexion à la BD
 		this.bd = new QingPoolDatasource(this);
 		this.bd.open();
 
+		//Boutons et OnClickListener
 		View btnClick = findViewById(R.id.btnCreerPool);
 		nomPoolEdit = (EditText) findViewById(R.id.editText1);
 		motPasse1 = (EditText) findViewById(R.id.txtMotPasse);
 		motPasse2 = (EditText) findViewById(R.id.txtMotPasse2);
 		txtNbPart = (EditText) findViewById(R.id.txtNbPart);
-		View resetClick = findViewById(R.id.btnPoolReset);
-		View logoClick = findViewById(R.id.imageView1);
-		resetClick.setOnClickListener(this);
-		logoClick.setOnClickListener(this);
+		getActionBar().setHomeButtonEnabled(true);
+		View resetClick = findViewById(R.id.btnPoolReset);		
+		resetClick.setOnClickListener(this);		
 		btnClick.setOnClickListener(this);
 		
-
+		//Google analytics tracker
 		Tracker tracker = GoogleAnalytics.getInstance(this).getTracker(
 				"UA-50075921-1");
-
 		HashMap<String, String> hitParameters = new HashMap<String, String>();
 		hitParameters.put(Fields.HIT_TYPE, "appview");
 		hitParameters.put(Fields.SCREEN_NAME,
 				getString(R.string.screen_nouveau_pool));
-
 		tracker.send(hitParameters);
 
 	}
 
+	//Menu
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu) {		
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
+	//Sélections du menu
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = null;
@@ -92,7 +96,7 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
 						}
-					}); // Set the Icon for the Dialog
+					});
 			alertDialog.setIcon(R.drawable.aide);
 			alertDialog.show();
 			break;
@@ -101,11 +105,9 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 	         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
 	         startActivity(intent); 
 	         break;
-		}
-		
+		}		
 		return super.onOptionsItemSelected(item);
 	}
-
 	
 	@Override
 	protected void onStart() {
@@ -121,35 +123,38 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 		EasyTracker.getInstance(this).activityStop(this);
 	}
 
+	//Création du pool
 	public void onClick(View arg0) {
 		if (arg0.getId() == R.id.btnCreerPool) {
+			
+			//Comparaison du mot de passe et de la confirmation
 			if (motPasse1.getText().toString()
 					.equals(motPasse2.getText().toString())
 					&& !motPasse1.getText().toString().isEmpty()) {
 				Pool unPool = new Pool();
 				int pool_id = bd.getPoolCompte();
 				String nomPool = nomPoolEdit.getText().toString();
-
 				int idPool = bd.verifPool(nomPool);
 
 				if (idPool == -1) {
-
 					String mdp = motPasse1.getText().toString();
 
+					//Création du pool
 					if (!txtNbPart.getText().toString().isEmpty()) {
-						int nbPart = Integer.parseInt(txtNbPart.getText()
-								.toString());
+						int nbPart = Integer.parseInt(txtNbPart.getText().toString());
 						unPool.setIdPool(pool_id);
 						unPool.setNomPool(nomPool);
 						unPool.setMotDePasse(mdp);
 						unPool.setNbMaxPart(nbPart);
 						b.putInt("idPoolselect", bd.createPool(unPool));
-						// define a new Intent for the second Activity
+						
 						Intent intent = new Intent(this, listRandActivity.class);
-						// start the second Activity
+						
 						intent.putExtras(b);
 						this.startActivity(intent);
 						this.finish();
+						
+					//Messages d'erreur significatifs
 					} else {
 						Toast.makeText(getApplicationContext(),
 								getString(R.string.toast_pool_maximum),
@@ -173,6 +178,7 @@ public class nouveauPoolActivity extends Activity implements OnClickListener {
 			this.startActivity(intent);
 		}
 		
+		//Bouton réinitialiser
 		if (arg0.getId() == R.id.btnPoolReset){
 			nomPoolEdit.setText("");
 			motPasse1.setText("");
